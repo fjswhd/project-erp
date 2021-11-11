@@ -48,6 +48,9 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.icon:hover {
+		cursor: pointer;
+	}
 	.icon > img {
 		width: 9rem;
 	}
@@ -66,6 +69,9 @@
 		font-size: 2rem;
 		font-weight: bold;
 		box-shadow: 0 0.15rem 0.15rem black;
+	}
+	.dept_name > button:hover {
+		cursor: pointer;
 	}
 	.dept_name > button:active {
 		margin-left: 0.08rem;

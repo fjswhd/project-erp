@@ -8,12 +8,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class EmpDao {
-	private static SqlSession session;
+	private static SqlSessionFactory sessionFactory;
 	static {
 		try {
 			Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
-			SqlSessionFactory ssf = new SqlSessionFactoryBuilder().build(reader);
-			session = ssf.openSession(true);
+			sessionFactory = new SqlSessionFactoryBuilder().build(reader);
 		} catch (Exception e) {
 			System.out.println("연결에러 : " + e.getMessage());
 		}
@@ -28,6 +27,12 @@ public class EmpDao {
 	}
 	
 	public Emp select(String empno) {
-		return (Emp)session.selectOne("empNS.select", empno);
+		SqlSession session = sessionFactory.openSession(true);
+		
+		Emp emp = (Emp)session.selectOne("empNS.select", empno);
+		
+		session.close();
+		
+		return emp;
 	}
 }

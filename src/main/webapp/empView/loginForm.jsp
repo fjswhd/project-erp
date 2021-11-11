@@ -7,7 +7,7 @@
 <title>로그인</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <style type="text/css">
-	@import url('/project/css/loginForm.css?39')
+	@import url('../css/loginForm.css?2')
 </style>
 </head>
 <body>

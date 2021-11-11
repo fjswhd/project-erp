@@ -1,4 +1,4 @@
-package emp.controller;
+package control;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import emp.service.Command;
+import com.Command;
 
 
 /**
  * Servlet implementation class UserController
  */
-@WebServlet(urlPatterns = "*.do", initParams = {@WebInitParam(name = "configFile", value = "/WEB-INF/prop/empCommand.properties")})
-public class EmpController extends HttpServlet {
+@WebServlet(urlPatterns = "*.do", initParams = {@WebInitParam(name = "configFile", value = "/WEB-INF/prop/command.properties")})
+public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, Command> commandMap = new HashMap<>();
 	

@@ -5,12 +5,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-public class JoinFormCommand implements Command {
+import emp.model.EmpDao;
+
+public class HrListCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-	
-		return "/empView/joinForm.jsp";
+		EmpDao ed = EmpDao.getInstance();
+		
+		return null;
 	}
 
 }
