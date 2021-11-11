@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <style type="text/css">
-	@import url('/project/css/hr.css?21')
+	@import url('/project/css/hr.css?22')
 </style>
 
 <script type="text/javascript">
