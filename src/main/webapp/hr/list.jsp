@@ -9,7 +9,7 @@
 <title>사원 목록</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <style type="text/css">
-	@import url('/project/css/hr.css?22')
+	@import url('/project/css/hrList.css?20')
 </style>
 
 <script type="text/javascript">
@@ -75,7 +75,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/project/script/label.js"></script>
+	<script type="text/javascript" src="/project/script/hrLabel.js"></script>
 	<script type="text/javascript" src="/project/script/toolbar.js"></script>
 </body>
 </html>

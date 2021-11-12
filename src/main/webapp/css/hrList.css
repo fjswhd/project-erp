@@ -22,7 +22,7 @@
 	#header {
 		background: #fafffa;
 		height: 10rem;
-		border-bottom: 0.1rem solid #000;
+		/* border-bottom: 0.1rem solid #000; */
 	}
 	#header .logo {
 		background-image: url('/project/images/logo2.jpg');
@@ -71,10 +71,12 @@
 /*========side_bar==========================================================================================================  */
 	#body_container .side_bar {
 		background: rgba(194, 218, 188, 0.7);
-		border-right: 0.1rem solid #000;
+		border-top-right-radius: 0.5rem;
+		box-shadow: 0.08rem -0.08rem 0.16rem #505050; 
 		flex-direction: column;
 		align-items: center;
 		flex: 1.5;
+		z-index: 3;
 	}
 	.side_bar > div {
 		background: rgb(163, 184, 139);
@@ -86,10 +88,18 @@
 		margin: 0.5rem 0;
 		font-size: 1.8rem;
 		color: #fff;
+		box-shadow: 0 0.1rem 0.1rem #505050;
 	}
 	.side_bar > div:hover {
 		background: #768B5E;
 		cursor: pointer;
+		box-shadow: 0 0.1rem 0.1rem #505050;
+	}
+	.side_bar > div:active {
+		background: #768B5E;
+		cursor: pointer;
+		margin: 0.6rem 0 0.4rem 0;
+		box-shadow: 0 0rem 0rem #505050;
 	}
 	.side_bar > div:first-of-type {
 		background: rgba(194, 218, 188, 0);
@@ -98,6 +108,7 @@
 		font-weight: bold;
 		color: #000;
 		cursor: auto;
+		box-shadow: 0 0 0 #000;
 	}
 	
 /*========body==========================================================================================================  */
@@ -112,23 +123,44 @@
 	.body > .toolbar > div {
 		background: #768B5E;
 		flex: 1;
-		border-right: 0.1rem solid #fafffa;
-		border-bottom-right-radius: 0.6rem;
-		border-bottom-left-radius: 0.6rem;
+		border-top-right-radius: 0.6rem;
+		border-top-left-radius: 0.6rem;
 		justify-content: center;
 		align-items: center;
 		font-size: 2rem;
 		color: #fff;
+		box-shadow: 0 -0.08rem 0.2rem #000;
 	}
 	.body > .toolbar > div:hover {
 		background: rgb(163, 184, 139);
 		cursor: pointer;
+		box-shadow: 0 -0.08rem 0.2rem #000;
+		z-index: 2;
+	}
+	.body > .toolbar > div:nth-of-type(5) {
+		background: #fafffa;
+		color: #000;
+		box-shadow: 0 -0.15rem 0.15rem #505050;
+		z-index: 1;
+	}
+	.body > .toolbar > div:nth-of-type(5):hover {
+		background: #fafffa;
+		color: #000;
+		box-shadow: 0 -0.15rem 0.15rem #505050;
+		z-index: 1;
 	}
 	.body > .toolbar > div:last-of-type {
 		border-right: none;
 		background: #768B5E;
 		cursor: auto;
 		flex: 5;
+	}
+	.body > .toolbar > div:last-of-type:hover {
+		border-right: none;
+		background: #768B5E;
+		cursor: auto;
+		flex: 5;
+		z-index: 0;
 	}
 /*========content==========================================================================================================  */
 	.body > .content {
@@ -184,7 +216,16 @@
 		align-items: center;
 		height: 3rem;
 	}
+	.content_body > table td:hover {
+		background: rgba(192, 192, 192, 0.3);
+	}
+	.content_body > table tr:nth-of-type(2) td {
+		border-top-left-radius: 0.5rem;
+		border-top-right-radius: 0.5rem;
+	}
 	.content_body > table tr:last-of-type td {
+		border-bottom-left-radius: 0.5rem;
+		border-bottom-right-radius: 0.5rem;
 		border-bottom: none;
 	}
 	.content_body > table td > div {
@@ -194,6 +235,9 @@
 		border-right: 0.2rem solid silver;
 		height: 2.6rem;
 		font-size: 1.6rem;
+	}
+	.content_body > table td > div:hover {
+		font-weight: bold;
 	}
 	.content_body th > div:nth-of-type(1) {
 		flex: 0.5;

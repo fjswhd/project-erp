@@ -44,5 +44,12 @@ public class HrDao {
 		
 		return empList;
 	}
-	
+	public int selectEmpCount() {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int empCount = (int) session.selectOne("hrNs.selectEmpCount");
+		
+		session.close();
+		
+		return empCount;
+	}
 }

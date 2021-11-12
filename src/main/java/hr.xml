@@ -58,4 +58,7 @@
 	<select id="selectDept" parameterType="string" resultMap="deptResultMap">
 		select * from dept where dept_no = #{deptNo}
 	</select>
+	<select id="selectEmpCount" resultType="_int">
+		select count(emp_no) from emp
+	</select>
 </mapper>
