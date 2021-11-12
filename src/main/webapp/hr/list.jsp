@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>사원 목록</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <style type="text/css">
 	@import url('/project/css/hr.css?22')
@@ -20,7 +22,7 @@
 	<div id="header"> 
 		<!--========================= 추후 수정(여기부터) =========================-->
 		<div class="logo"></div>
-		<div class="user_info">${emp.d_no}팀 ${emp.e_name}님</div>
+		<div class="user_info">${sessionScope.currentEmp.dept.deptName}팀 ${sessionScope.currentEmp.empName}님</div>
 		<div class="logout_container">
 			<button>로그아웃</button>
 		</div>
@@ -57,33 +59,17 @@
 								<div>이메일</div>								
 							</th>
 						</tr>
+						<c:forEach var="emp" items="${empList}" >
 						<tr>
 							<td>
-								<div>21-00001</div>
-								<div>이종민</div>
-								<div>인사</div>
-								<div>010-9052-1980</div>
-								<div>fjswhd93@gmail.com</div>
+								<div>${emp.empNo}</div>
+								<div>${emp.empName}</div>
+								<div>${emp.dept.deptName}</div>
+								<div>${emp.empTel }</div>
+								<div>${emp.empEmail }</div>
 							</td>
-						</tr>
-						<tr>
-							<td>
-								<div>21-00001</div>
-								<div>이종민</div>
-								<div>인사</div>
-								<div>010-9052-1980</div>
-								<div>fjswhd93@gmail.com</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div>21-00001</div>
-								<div>이종민</div>
-								<div>인사</div>
-								<div>010-9052-1980</div>
-								<div>fjswhd93@gmail.com</div>
-							</td>
-						</tr>
+						</tr>						
+						</c:forEach>
 					</table>
 				</div>
 			</div>

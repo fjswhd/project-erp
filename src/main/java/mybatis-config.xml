@@ -7,7 +7,8 @@
   <properties resource="db.properties" />
   <!-- ch17.bean.User의 별칭을 user라는 형태로 쓰겠다 -->
   <typeAliases>
-  	<typeAlias alias="emp" type="emp.model.Emp"/>
+  	<typeAlias alias="Emp" type="hr.model.Emp"/>
+  	<typeAlias alias="Dept" type="hr.model.Dept"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -21,6 +22,6 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="emp.xml"/>
+    <mapper resource="hr.xml"/>
   </mappers>
 </configuration>

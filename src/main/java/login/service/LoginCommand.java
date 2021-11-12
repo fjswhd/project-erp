@@ -1,18 +1,18 @@
-package emp.service;
+package login.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import emp.model.Emp;
-import emp.model.EmpDao;
+import hr.model.Emp;
+import hr.model.HrDao;
 
 public class LoginCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		String empno 	= request.getParameter("empno");
+		String empNo 	= request.getParameter("empNo");
 		String password = request.getParameter("password");
 		
 		//로그인 결과표
@@ -22,13 +22,13 @@ public class LoginCommand implements Command {
 		
 		int result = 0;
 		
-		EmpDao ed = EmpDao.getInstance();
-		Emp emp = ed.select(empno);
+		HrDao hd = HrDao.getInstance();
+		Emp emp = hd.selectEmp(empNo);
 		
 		if (emp == null) {
 			result = 0;
 		} else if (password.equals(emp.getPassword())) {
-			result = 1;			
+			result = 1;
 			request.getSession().setAttribute("currentEmp", emp);
 		} else {
 			result = -1;
@@ -36,7 +36,7 @@ public class LoginCommand implements Command {
 		
 		request.setAttribute("result", result);
 		
-		return "/empView/loginResult.jsp";
+		return "/login/loginResult.jsp";
 	}
 
 }

@@ -66,7 +66,7 @@ public class Controller extends HttpServlet {
 		if (command != null) 
 			viewPage = command.execute(request, response);
 		else if (command == null) 
-			viewPage = "/empView/loginForm.jsp";
+			viewPage = "/login/loginForm.jsp";
 		
 		if (viewPage != null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

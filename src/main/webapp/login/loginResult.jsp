@@ -9,8 +9,7 @@
 <body>
 	<script type="text/javascript">
 		var result = '${result}';
-		var name = '${sessionScope.currentEmp.name}';
-		
+		var name = '${sessionScope.currentEmp.empName}';
 		if (result == 0) {
 			alert('존재하지 않는 사번입니다.');
 			history.go(-1);

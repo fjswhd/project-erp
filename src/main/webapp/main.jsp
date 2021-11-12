@@ -31,19 +31,19 @@
 		</div>
 		<div class="dept_icon_container">
 			<div class="icon_box">
-				<div class="icon" title="selling/list.do"> 
-					<img alt="" src="images/sell.jpg"> 
-				</div>
-				<div class="dept_name">
-					<button>판 매</button>
-				</div>
-			</div>
-			<div class="icon_box">
 				<div class="icon" title="buying/list.do">
 					<img alt="" src="images/buy.jpg"> 
 				</div>
 				<div class="dept_name">
 					<button>구 매</button>
+				</div>
+			</div>
+			<div class="icon_box">
+				<div class="icon" title="selling/list.do"> 
+					<img alt="" src="images/sell.jpg"> 
+				</div>
+				<div class="dept_name">
+					<button>판 매</button>
 				</div>
 			</div>
 			<div class="icon_box">

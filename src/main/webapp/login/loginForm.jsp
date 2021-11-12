@@ -7,7 +7,7 @@
 <title>로그인</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <style type="text/css">
-	@import url('../css/loginForm.css?2')
+	@import url('./css/loginForm.css?2')
 </style>
 </head>
 <body>
@@ -16,7 +16,7 @@
 			<form action="/project/login.do" method="post">
 				<div class="input">
 					<div>
-						<input type="text" name="empno" required="required" autofocus="autofocus" placeholder="사번">
+						<input type="text" name="empNo" required="required" autofocus="autofocus" placeholder="사번">
 					</div>
 					<div>
 						<input type="password" name="password" required="required" placeholder="비밀번호">

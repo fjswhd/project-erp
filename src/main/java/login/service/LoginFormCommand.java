@@ -1,19 +1,16 @@
-package emp.service;
+package login.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import emp.model.EmpDao;
-
-public class HrListCommand implements Command {
+public class LoginFormCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		EmpDao ed = EmpDao.getInstance();
 		
-		return null;
+		return "/login/loginForm.jsp";
 	}
 
 }

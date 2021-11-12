@@ -3,10 +3,10 @@
  */
 	var icon = document.getElementsByClassName('icon');
 	icon[0].onclick = function() {
-		location.href = '/project/selling/list.do';
+		location.href = '/project/buying/list.do';
 	};
 	icon[1].onclick = function() {
-		location.href = '/project/buying/list.do';
+		location.href = '/project/selling/list.do';
 	};
 	icon[2].onclick = function() {
 		location.href = '/project/product/list.do';
@@ -20,10 +20,10 @@
 	
 	var button = document.getElementsByTagName('button');
 	button[0].onclick = function() {
-		location.href = '/project/selling/list.do';
+		location.href = '/project/buying/list.do';
 	};
 	button[1].onclick = function() {
-		location.href = '/project/buying/list.do';
+		location.href = '/project/selling/list.do';
 	};
 	button[2].onclick = function() {
 		location.href = '/project/product/list.do';
