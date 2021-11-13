@@ -20,12 +20,12 @@
 	}
 /*===== header ==========================================================================================  */
 	#header {
-		background: #fafffa;
+		background: #f8f7f2;
 		height: 10rem;
 		/* border-bottom: 0.1rem solid #000; */
 	}
 	#header .logo {
-		background-image: url('/project/images/logo2.jpg');
+		background-image: url('/project/images/logo4.jpg');
 		background-position: center;
 		background-size: 20rem 10rem;
 		background-repeat: no-repeat;
@@ -38,7 +38,7 @@
 		justify-content: flex-end;
 		padding: 0 0rem 2rem 0;
 		flex: 7.2;
-		font-size: 3.2rem;
+		font-size: 2.8rem;
 	}
 	#header .logout_container {
 		align-items: flex-end;
@@ -65,12 +65,12 @@
 	}
 /*===== body_container ==========================================================================================  */
 	#body_container {
-		background: #fafffa;
+		background: #f8f7f2;
 		flex: 1;
 	}
 /*========side_bar==========================================================================================================  */
 	#body_container .side_bar {
-		background: rgba(194, 218, 188, 0.7);
+		background: #abd1b5;
 		border-top-right-radius: 0.5rem;
 		box-shadow: 0.08rem -0.08rem 0.16rem #505050; 
 		flex-direction: column;
@@ -79,30 +79,30 @@
 		z-index: 3;
 	}
 	.side_bar > div {
-		background: rgb(163, 184, 139);
+		background: #588157;
 		justify-content: center;
 		align-items: center;
 		border-radius: 1.5rem;
 		width: 17rem;
 		height: 3rem;
-		margin: 0.5rem 0;
+		margin: 0.6rem 0;
 		font-size: 1.8rem;
 		color: #fff;
-		box-shadow: 0 0.1rem 0.1rem #505050;
+		box-shadow: 0 0.15rem 0.15rem #505050;
 	}
 	.side_bar > div:hover {
-		background: #768B5E;
+		background: #186343;
 		cursor: pointer;
-		box-shadow: 0 0.1rem 0.1rem #505050;
+		box-shadow: 0 0.15rem 0.15rem #505050;
 	}
 	.side_bar > div:active {
-		background: #768B5E;
+		background: #186343;
 		cursor: pointer;
-		margin: 0.6rem 0 0.4rem 0;
+		margin: 0.75rem 0 0.45rem 0;
 		box-shadow: 0 0rem 0rem #505050;
 	}
 	.side_bar > div:first-of-type {
-		background: rgba(194, 218, 188, 0);
+		background: #abd1b5;
 		height: 6rem;
 		font-size: 2.4rem;
 		font-weight: bold;
@@ -110,9 +110,13 @@
 		cursor: auto;
 		box-shadow: 0 0 0 #000;
 	}
+	.side_bar > div:first-of-type:active {
+		margin: 0.6rem 0;
+	}
 	
 /*========body==========================================================================================================  */
 	#body_container .body {	
+		background: #f8f7f2;
 		flex-direction: column;
 		flex: 8.5;
 	}
@@ -121,43 +125,43 @@
 		flex: 0.5;
 	}
 	.body > .toolbar > div {
-		background: #768B5E;
+		background: #186343;
 		flex: 1;
 		border-top-right-radius: 0.6rem;
 		border-top-left-radius: 0.6rem;
+		box-shadow: 0 -0.08rem 0.2rem #000;
 		justify-content: center;
 		align-items: center;
 		font-size: 2rem;
+		font-family: 'paybooc-Bold';
 		color: #fff;
-		box-shadow: 0 -0.08rem 0.2rem #000;
 	}
 	.body > .toolbar > div:hover {
-		background: rgb(163, 184, 139);
-		cursor: pointer;
+		background: #588157;
 		box-shadow: 0 -0.08rem 0.2rem #000;
+		cursor: pointer;
+		color: #fff;
 		z-index: 2;
 	}
 	.body > .toolbar > div:nth-of-type(5) {
-		background: #fafffa;
-		color: #000;
+		background: #f8f7f2;
 		box-shadow: 0 -0.15rem 0.15rem #505050;
+		color: #000;
 		z-index: 1;
 	}
 	.body > .toolbar > div:nth-of-type(5):hover {
-		background: #fafffa;
-		color: #000;
+		background: #f8f7f2;
 		box-shadow: 0 -0.15rem 0.15rem #505050;
+		color: #000;
 		z-index: 1;
 	}
 	.body > .toolbar > div:last-of-type {
-		border-right: none;
-		background: #768B5E;
+		background: #186343;
 		cursor: auto;
 		flex: 5;
 	}
 	.body > .toolbar > div:last-of-type:hover {
-		border-right: none;
-		background: #768B5E;
+		background: #186343;
 		cursor: auto;
 		flex: 5;
 		z-index: 0;
@@ -202,7 +206,7 @@
 		flex: 1;
 		justify-content: center;
 		align-items: center;
-		border-right: 0.2rem solid #fafffa;
+		border-right: 0.2rem solid #f8f7f2;
 		height: 2.6rem;
 		font-size: 1.6rem;
 	}
@@ -211,7 +215,7 @@
 	}
 	.content_body > table td {
 		display: flex;
-		background: #fafffa;
+		background: #f8f7f2;
 		border-bottom: 0.1rem solid silver;
 		align-items: center;
 		height: 3rem;

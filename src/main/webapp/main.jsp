@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <style type="text/css">
-	@import url('css/main.css?22')
+	@import url('css/main.css?24')
 </style>
 <script type="text/javascript">
 	var isLoggedin = '${sessionScope.currentEmp}';
@@ -27,7 +27,7 @@
 <body>
 	<div class="container">
 		<div class="logo">
-			<img alt="" src="images/logo.jpg" width="300">
+			<img alt="" src="images/logo4.jpg" width="500">
 		</div>
 		<div class="dept_icon_container">
 			<div class="icon_box">

@@ -6,7 +6,7 @@
 		font-family: 'Nanum Gothic', sans-serif;
 	}
 	body {
-		background: #FAFFFA;
+		background: #f8f7f2;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -17,17 +17,20 @@
 		display: flex;
 	}
 	.loginBox {
-		background: #A3CCA2;
+		background: #abd1b5;
 		width: 50rem;
 		border-radius: 4rem;
-		margin: 20rem 0 28rem 0;
+		margin: 17rem 0 24rem 0;
 		flex-direction: column;
 		align-items: center;
 	}
 	.boxTitle {
 		margin: 5rem;
-		font-size: 4rem;
+		font-family: 'CookieRunOTF-Bold';
+		font-size: 8rem;
 		font-weight: bold;
+		color: #FFD966;
+		text-shadow: 0.1rem 0.1rem 0.1rem #505050;
 	}
 	.input {
 		flex-flow: column wrap;

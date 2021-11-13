@@ -9,12 +9,25 @@
 <title>사원 목록</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <style type="text/css">
-	@import url('/project/css/hrList.css?20')
+	@import url('/project/css/hrList.css?23')
 </style>
-
+<style type="text/css">
+	@font-face {
+		font-family: 'paybooc-Medium';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Medium.woff') format('woff');
+    	font-weight: normal;
+    	font-style: normal;
+	}
+	@font-face {
+    	font-family: 'paybooc-Bold';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Bold.woff') format('woff');
+    	font-weight: normal;
+    	font-style: normal;
+	}
+</style>
 <script type="text/javascript">
 	window.onload = function() {
-		document.getElementById('currLabel').setAttribute('style', 'background: #768B5E');
+		document.getElementById('currLabel').setAttribute('style', 'background: #186343');
 	}
 </script>
 </head>
@@ -37,11 +50,11 @@
 		</div>
 		<div class="body">
 			<div class="toolbar">
-				<div class="tool">구 매</div>
-				<div class="tool">판 매</div>
-				<div class="tool">재 고</div>
-				<div class="tool">회 계</div>
-				<div class="tool">인 사</div>
+				<div class="tool">구매</div>
+				<div class="tool">판매</div>
+				<div class="tool">재고</div>
+				<div class="tool">회계</div>
+				<div class="tool">인사</div>
 				<div></div>
 			</div>
 			<div class="content">
