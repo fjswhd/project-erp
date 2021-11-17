@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ include file="/sessionChk.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>사원 목록</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<style type="text/css">
-	@import url('/project/css/hrList.css?23')
-</style>
+<link href="/project/css/outline.css?6" rel="stylesheet" type="text/css">
+<link href="/project/css/hrList.css?4" rel="stylesheet"  type="text/css">
 <style type="text/css">
 	@font-face {
 		font-family: 'paybooc-Medium';
@@ -27,24 +27,26 @@
 </style>
 <script type="text/javascript">
 	window.onload = function() {
-		document.getElementById('currLabel').setAttribute('style', 'background: #186343');
+		var label = document.getElementsByClassName('label');
+		label[0].setAttribute('style', 'background: #186343');
+	
+		var tool = document.getElementsByClassName('tool');
+		tool[4].setAttribute('style', 'background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #505050; z-index: 1;');
 	}
 </script>
 </head>
 <body>
 	<div id="header"> 
-		<!--========================= 추후 수정(여기부터) =========================-->
 		<div class="logo"></div>
-		<div class="user_info">${sessionScope.currentEmp.dept.deptName}팀 ${sessionScope.currentEmp.empName}님</div>
+		<div class="user_info">${sessionScope.Hr.dept_name}팀 ${sessionScope.Hr.emp_name}님</div>
 		<div class="logout_container">
 			<button>로그아웃</button>
 		</div>
-		<!--========================= 추후 수정(여기까지) =========================-->
 	</div>
 	<div id="body_container">
 		<div class="side_bar">
 			<div>인 사</div>
-			<div id="currLabel" class="label">사원 목록</div>
+			<div class="label">사원 목록</div>
 			<div class="label">정보 수정</div>
 			<div class="label">사원 등록</div>
 		</div>
@@ -64,23 +66,19 @@
 				<div class="content_body">
 					<table>
 						<tr>
-							<th>
-								<div>사번</div>
-								<div>사원명</div>								
-								<div>부서명</div>								
-								<div>전화번호</div>								
-								<div>이메일</div>								
-							</th>
+							<th>사번</th>
+							<th>사원명</th>
+							<th>부서명</th>
+							<th>전화번호</th>
+							<th>이메일</th>
 						</tr>
-						<c:forEach var="emp" items="${empList}" >
+						<c:forEach var="hr" items="${hrList}" >
 						<tr>
-							<td>
-								<div>${emp.empNo}</div>
-								<div>${emp.empName}</div>
-								<div>${emp.dept.deptName}</div>
-								<div>${emp.empTel }</div>
-								<div>${emp.empEmail }</div>
-							</td>
+							<td>${hr.emp_no}</td>
+							<td>${hr.emp_name}</td>
+							<td>${hr.dept_name}</td>
+							<td>${hr.emp_tel}</td>
+							<td>${hr.emp_email}</td>
 						</tr>						
 						</c:forEach>
 					</table>
@@ -88,6 +86,7 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="/project/script/header.js"></script>
 	<script type="text/javascript" src="/project/script/hrLabel.js"></script>
 	<script type="text/javascript" src="/project/script/toolbar.js"></script>
 </body>

@@ -19,9 +19,21 @@
     	font-weight: normal;
     	font-style: normal;
 	}
+	@font-face {
+    font-family: 'GoyangDeogyang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangDeogyang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+	@font-face {
+    font-family: 'SDSamliphopangche_Outline';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 </style>
 <style type="text/css">
-	@import url('/project/css/outline.css?23')
+	@import url('/project/css/outline.css?24')
 </style>
 <script type="text/javascript">
 	window.onload = function() {

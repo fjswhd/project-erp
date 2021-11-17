@@ -14,15 +14,22 @@ create table emp (
 	dept_no 		references dept(dept_no),
 	password		varchar2(15)		not null,
 	emp_name		varchar2(15)		not null,
-	emp_email		varchar2(30)		not null,
-	emp_address		varchar2(50)		not null,
+	emp_email		varchar2(50)		not null,
+	emp_addr_no		varchar2(7)			not null,
+	emp_addr		varchar2(50)		not null,
+	emp_addr_detail	varchar2(50)		not null,
 	emp_tel			varchar2(15)		not null,
 	hiredate		date				default sysdate,
 	resign			char(1)				default 'n'
 );
+drop table emp;
 
-insert into emp values ('21-00001', 50, '1234', '이종민', 'fjswhd93@gmail.com', '고양시', '01090521980', to_date('210502', 'YYMMDD'), 'n');
-insert into emp values ('21-00002', 40, '1234', '배문지', 'moonji418@naver.com', '서울특별시', '01000001980', to_date('210418', 'YYMMDD'), 'n');
-insert into emp values ('21-00003', 30, '1234', '홍길동', 'rlfehd12@gmail.com', '서울특별시', '01011111980', to_date('210421', 'YYMMDD'), 'n');
-insert into emp values ('21-00004', 20, '1234', '김철수', 'cjftn92@hanmail.net', '의정부시', '01022221980', to_date('211225', 'YYMMDD'), 'n');
-insert into emp values ('21-00005', 10, '1234', '김영희', 'young123@gmail.com', '고양시', '01033331980', to_date('210920', 'YYMMDD'), 'n');
+create or replace view v_hr
+as
+	select e1.rn, e1.emp_no, e1.emp_name, d.dept_name, e1.emp_tel, e1.emp_email 
+	from (select rownum rn, e.* from emp e) e1 
+	join dept d
+	on e1.dept_no = d.dept_no 
+	order by emp_no
+with read only;
+insert into emp values ('21-00001', 50, '1234', '이종민', 'fjswhd93@gmail.com', '10358','고양시', '덕양구', '010-9052-1980', to_date('210502', 'YYMMDD'), 'n');

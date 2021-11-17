@@ -8,11 +8,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사원 목록</title>
+<title>정보 수정</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/outline.css?1" rel="stylesheet">
-<link href="/project/css/hrInsert.css?34" rel="stylesheet">
+<link href="/project/css/hrCheck.css?7" rel="stylesheet">
 
 <style type="text/css">
 	@font-face {
@@ -31,7 +31,7 @@
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
-		label[2].setAttribute('style', 'background: #186343');
+		label[1].setAttribute('style', 'background: #186343');
 	
 		var tool = document.getElementsByClassName('tool');
 		tool[4].setAttribute('style', 'background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #505050; z-index: 1;');
@@ -41,14 +41,37 @@
 		tool[4].style['z-index'] = '1'; */
 	}
 	
-	function lastChk() {
-		if (frm['dept_no'].value == 0) {
-			alert('부서코드를 설정하세요.');
-			frm['dept_no'].focus();
-			return false;
-		}
+	function chk() {
+		var xhr = new XMLHttpRequest();
+		var msg = document.getElementsByClassName('msg');
+		var password = frm.password.value;
+		
+		var cnt = parseInt(frm.cnt.value);
+		frm.cnt.value = cnt + 1;
+		
+		alert(frm.cnt.value);
+		xhr.open('POST', '/project/hr/check.do');
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status == 200) {
+				var result = xhr.responseText;
+				if (result > 0) {
+					msg[0].innerHTML = '비밀번호가 일치하지 않습니다.(' + result + '회 틀림)';
+				} else {
+					frm.submit();
+				} 
+			}
+		};
+		
+		xhr.send('password=' + password); 
 	}
+	
+	
 </script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/project/script/postAddress.js"></script>
+
 </head>
 <body>
 	<div id="header"> 
@@ -76,71 +99,36 @@
 			</div>
 			<div class="content">
 				<div class="content_head">
-					<div class="label_name">사원 등록</div>
+					<div class="label_name">정보 수정</div>
 				</div>
 				<div class="content_body">
-					<form action="/project/hr/insert.do" name="frm" method="post">
-					<table>
-						<tr>
-							<th>사번</th>
-							<td>
-								${emp_no}
-								<input type="hidden" name="emp_no" value="${emp_no}" required="required" />
-							</td>
-						</tr>
-						<tr>
-							<th>이름</th>
-							<td><input type="text" name="emp_name" required="required" maxlength="5" /></td>
-						</tr>
-						<tr>
-							<th>부서</th>
-							<td>
-								<select name="dept_no">
-									<option value="0">부서명(부서코드)</option>
-									<c:forEach var="dept" items="${deptList}">
-										<option value="${dept.dept_no}">${dept.dept_name}팀(${dept.dept_no})</option>
-									</c:forEach>
-								</select> 
-							</td>
-						</tr>
-						<tr class="addrRow">
-							<th>주소</th>
-							<td>
-								<div>
-									<input type="text" name="emp_addr_no" id="postcode" required="required" placeholder="우편번호" />
-									<input type="button" value="우편번호 입력" onclick="DaumPostcode()">
-								</div>
-								<div><input type="text" name="emp_addr" id="address" required="required" placeholder="도로명주소"/></div>
-								<div><input type="text" name="emp_addr_detail" id="detailAddress" required="required" placeholder="상세주소"/></div>
-							</td>
-						</tr>
-						<tr>
-							<th>전화번호</th>
-							<td><input type="tel" name="emp_tel" required="required" /></td>
-						</tr>
-						<tr>
-							<th>이메일</th>
-							<td><input type="text" name="emp_email" required="required" /></td>
-						</tr>
-						<tr>
-							<th>입사일</th>
-							<td><input type="date" name="hiredate" required="required" /></td>
-						</tr>
-						<tr>
-							<td>
-								<div><input type="submit" value="사원 등록" onclick="return lastChk()"></div>
-							</td>
-						</tr>
-					</table>
+					<div class="message">
+						본인 확인을 위해 한 번 더 비밀번호를 입력해주세요. <br>
+						5회 이상 비밀번호를 틀릴 시 계정의 비밀번호가 초기화 되고 <br>
+						초기화된 비밀번호가 계정에 입력된 이메일로 발송됩니다. <br>
+					</div>
+					<form action="/project/hr/updateForm.do" name="frm" method="post">
+					<input type="hidden" name="cnt" value="0">
+						<table>
+							<tr>
+								<th>비밀번호</th>
+								<td><input type="password" name="password" required="required" /></td>
+							</tr>
+							<tr>
+								<td>
+									<div class="msg"></div>
+									<input type="button" value="확인" onclick="chk()">
+								</td>
+							</tr>
+						</table>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+<!-- 	<script type="text/javascript" src="/project/script/postAddress.js"></script> -->
 	<script type="text/javascript" src="/project/script/header.js"></script>
 	<script type="text/javascript" src="/project/script/hrLabel.js"></script>
 	<script type="text/javascript" src="/project/script/toolbar.js"></script>
-	<script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script type="text/javascript" src="/project/script/postAddress.js"></script>
 </body>
 </html>

@@ -15,7 +15,7 @@
 	}
 </style>
 <style type="text/css">
-	@import url('./css/loginForm.css?6')
+	@import url('./css/loginForm.css?11')
 </style>
 </head>
 <body>
@@ -24,7 +24,7 @@
 			<form action="/project/login.do" method="post">
 				<div class="input">
 					<div>
-						<input type="text" name="empNo" required="required" autofocus="autofocus" placeholder="사번">
+						<input type="text" name="emp_no" required="required" autofocus="autofocus" placeholder="사번">
 					</div>
 					<div>
 						<input type="password" name="password" required="required" placeholder="비밀번호">

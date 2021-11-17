@@ -1,4 +1,4 @@
-package hr.service;
+package service.hr;
 
 import java.util.List;
 
@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import hr.model.Emp;
-import hr.model.HrDao;
+import model.hr.Emp;
+import model.hr.Hr;
+import model.hr.HrDao;
 
 public class HrListCommand implements Command {
 
@@ -16,9 +17,9 @@ public class HrListCommand implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		HrDao ed = HrDao.getInstance();
 		
-		List<Emp> empList = ed.selectEmpList();
+		List<Hr> hrList = ed.selectHrList();
 		
-		request.setAttribute("empList", empList);
+		request.setAttribute("hrList", hrList);
 		
 		return "/hr/list.jsp";
 	}

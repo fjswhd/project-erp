@@ -1,16 +1,16 @@
-package login.service;
+package service.login;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-public class LoginFormCommand implements Command {
+public class LogoutCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		
-		return "/login/loginForm.jsp";
+		request.getSession().invalidate();
+		return "/loginForm.do";
 	}
 
 }

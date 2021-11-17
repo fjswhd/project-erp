@@ -1,4 +1,4 @@
-package hr.model;
+package model.hr;
 
 import java.io.Reader;
 import java.util.List;
@@ -27,10 +27,25 @@ public class HrDao {
 		}
 		return instance;
 	}
-	
-	public Emp selectEmp(String empNo) {
+	public Hr selectHr(String emp_no) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		Emp emp = (Emp)session.selectOne("hrNS.selectEmp", empNo);
+		Hr hr = (Hr)session.selectOne("hrNS.selectHr", emp_no);
+		
+		session.close();
+		
+		return hr;
+	}
+	public List<Hr> selectHrList() {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		List<Hr> hrList = session.selectList("hrNS.selectHrList");
+		
+		session.close();
+		
+		return hrList;
+	}
+	public Emp selectEmp(String emp_no) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		Emp emp = (Emp)session.selectOne("hrNS.selectEmp", emp_no);
 		
 		session.close();
 		
@@ -44,12 +59,28 @@ public class HrDao {
 		
 		return empList;
 	}
-	public int selectEmpCount() {
+	public int selectEmpCountWithYear(String year) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		int empCount = (int) session.selectOne("hrNs.selectEmpCount");
+		int empCount = (int) session.selectOne("hrNS.selectEmpCountWithYear", year);
 		
 		session.close();
 		
 		return empCount;
 	}
+	public List<Dept> selectDeptList() {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		List<Dept> deptList = session.selectList("hrNS.selectDeptList");
+		
+		session.close();
+		
+		return deptList;
+	}
+	public int insertEmp(Emp emp) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int result = session.insert("hrNS.insertEmp", emp);
+		
+		session.close();
+		return result;
+	}
+	
 }

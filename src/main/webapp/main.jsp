@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/sessionChk.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,20 +10,6 @@
 <style type="text/css">
 	@import url('css/main.css?24')
 </style>
-<script type="text/javascript">
-	var isLoggedin = '${sessionScope.currentEmp}';
-	
-	if (isLoggedin == null || isLoggedin == '') {
-		alert('로그인하지 않은 상태입니다. \n먼저 로그인 해 주세요.');
-		location.replace('/project/loginForm.do');
-	}
-	
-	window.onload = function() {
-		var icon = document.getElementsByClassName('icon');
-		icon[0].onclick
-		
-	};
-</script>
 </head>
 <body>
 	<div class="container">
