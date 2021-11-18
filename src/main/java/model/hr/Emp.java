@@ -3,13 +3,15 @@ package model.hr;
 import java.sql.Date;
 
 public class Emp {
-	//사번, 부서번호, 비밀번호, 이름, 이메일, 주소, 전화번호, 입사일, 퇴사여부
+	//사번, 부서번호, 비밀번호, 이름, 이메일, 우편번호, 주소, 상세주소, 전화번호, 입사일, 퇴사여부
 	private String 	emp_no;
 	private String	dept_no;
 	private String	password;
 	private String 	emp_name;
 	private String 	emp_email;
-	private String 	emp_address;
+	private String 	emp_addr_no;
+	private String 	emp_addr;
+	private String 	emp_addr_detail;
 	private String 	emp_tel;
 	private Date 	hiredate;
 	private String 	resign;
@@ -29,8 +31,14 @@ public class Emp {
 	public String getEmp_email() {
 		return emp_email;
 	}
-	public String getEmp_address() {
-		return emp_address;
+	public String getEmp_addr_no() {
+		return emp_addr_no;
+	}
+	public String getEmp_addr() {
+		return emp_addr;
+	}
+	public String getEmp_addr_detail() {
+		return emp_addr_detail;
 	}
 	public String getEmp_tel() {
 		return emp_tel;
@@ -56,8 +64,14 @@ public class Emp {
 	public void setEmp_email(String emp_email) {
 		this.emp_email = emp_email;
 	}
-	public void setEmp_address(String emp_address) {
-		this.emp_address = emp_address;
+	public void setEmp_addr_no(String emp_addr_no) {
+		this.emp_addr_no = emp_addr_no;
+	}
+	public void setEmp_addr(String emp_addr) {
+		this.emp_addr = emp_addr;
+	}
+	public void setEmp_addr_detail(String emp_addr_detail) {
+		this.emp_addr_detail = emp_addr_detail;
 	}
 	public void setEmp_tel(String emp_tel) {
 		this.emp_tel = emp_tel;
@@ -68,6 +82,8 @@ public class Emp {
 	public void setResign(String resign) {
 		this.resign = resign;
 	}
+	
+	
 	
 	
 }

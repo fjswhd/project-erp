@@ -16,13 +16,16 @@ create table emp (
 	emp_name		varchar2(15)		not null,
 	emp_email		varchar2(50)		not null,
 	emp_addr_no		varchar2(7)			not null,
-	emp_addr		varchar2(50)		not null,
+	emp_addr		varchar2(200)		not null,
 	emp_addr_detail	varchar2(50)		not null,
 	emp_tel			varchar2(15)		not null,
 	hiredate		date				default sysdate,
 	resign			char(1)				default 'n'
 );
-drop table emp;
+alter table emp modify (emp_addr varchar2(200));
+
+select * from v_hr_2 where emp_no = '21-00001';
+select * from emp;
 
 create or replace view v_hr
 as

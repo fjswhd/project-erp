@@ -9,22 +9,9 @@
 <meta charset="UTF-8">
 <title>사원 목록</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link href="/project/css/outline.css?6" rel="stylesheet" type="text/css">
-<link href="/project/css/hrList.css?4" rel="stylesheet"  type="text/css">
-<style type="text/css">
-	@font-face {
-		font-family: 'paybooc-Medium';
-    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Medium.woff') format('woff');
-    	font-weight: normal;
-    	font-style: normal;
-	}
-	@font-face {
-    	font-family: 'paybooc-Bold';
-    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Bold.woff') format('woff');
-    	font-weight: normal;
-    	font-style: normal;
-	}
-</style>
+<link href="/project/css/outline.css?10" rel="stylesheet" type="text/css">
+<link href="/project/css/hrList.css?24" rel="stylesheet"  type="text/css">
+
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
@@ -79,9 +66,21 @@
 							<td>${hr.dept_name}</td>
 							<td>${hr.emp_tel}</td>
 							<td>${hr.emp_email}</td>
-						</tr>						
+						</tr>							
 						</c:forEach>
 					</table>
+					<div class="page">
+						<a href="/project/hr/list.do?p=${p-5}">&lt;</a>
+						<c:forEach begin="${firstPage}" end="${lastPage}" varStatus="vs">
+							<c:if test="${p == vs.index}">
+								<b><a href="/project/hr/list.do?p=${vs.index}">${vs.index}</a></b>
+							</c:if>
+							<c:if test="${p != vs.index}">							
+								<a href="/project/hr/list.do?p=${vs.index}">${vs.index}</a>
+							</c:if>
+						</c:forEach>
+						<a href="/project/hr/list.do?p=${p+5}">&gt;</a>
+					</div>
 				</div>
 			</div>
 		</div>

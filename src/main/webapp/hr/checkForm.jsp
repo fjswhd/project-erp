@@ -12,7 +12,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/outline.css?1" rel="stylesheet">
-<link href="/project/css/hrCheck.css?7" rel="stylesheet">
+<link href="/project/css/hrCheck.css?8" rel="stylesheet">
 
 <style type="text/css">
 	@font-face {
@@ -46,10 +46,16 @@
 		var msg = document.getElementsByClassName('msg');
 		var password = frm.password.value;
 		
+		if (password == null || password === '') {
+			msg[0].style.color = '#000';
+			msg[0].innerHTML = '비밀번호를 입력하세요.';
+			frm.password.focus();
+			return false;
+		}
+		
 		var cnt = parseInt(frm.cnt.value);
 		frm.cnt.value = cnt + 1;
 		
-		alert(frm.cnt.value);
 		xhr.open('POST', '/project/hr/check.do');
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
@@ -57,10 +63,16 @@
 			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status == 200) {
 				var result = xhr.responseText;
 				if (result > 0) {
-					msg[0].innerHTML = '비밀번호가 일치하지 않습니다.(' + result + '회 틀림)';
-				} else {
-					frm.submit();
+					if (result == 6) {
+						location.href = '/project/hr/init.do';						
+					} else {
+						msg[0].style.color = '#ff0000';
+						msg[0].innerHTML = '비밀번호가 일치하지 않습니다.(' + frm.cnt.value + '회 틀림)';						
+					}
+				} else if (result == 0) {
+					location.href = '/project/hr/updateForm.do';
 				} 
+				
 			}
 		};
 		

@@ -82,3 +82,9 @@
 	input[type=button]:focus {
 		outline: none;
 	}
+	.msg {
+		flex: 1;
+		justify-content: center;
+		align-items: center;
+		font-size: 1.4rem;
+	}

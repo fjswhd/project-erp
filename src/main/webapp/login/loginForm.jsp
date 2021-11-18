@@ -15,7 +15,7 @@
 	}
 </style>
 <style type="text/css">
-	@import url('./css/loginForm.css?11')
+	@import url('/project/css/loginForm.css?11')
 </style>
 </head>
 <body>

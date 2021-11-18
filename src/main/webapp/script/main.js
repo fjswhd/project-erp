@@ -15,7 +15,7 @@
 		location.href = '/project/accounting/list.do';
 	};
 	icon[4].onclick = function() {
-		location.href = '/project/hr/list.do';
+		location.href = '/project/hr/list.do?p=1';
 	};
 	
 	var button = document.getElementsByTagName('button');
@@ -32,5 +32,5 @@
 		location.href = '/project/accounting/list.do';
 	};
 	button[4].onclick = function() {
-		location.href = '/project/hr/list.do';
+		location.href = '/project/hr/list.do?p=1';
 	};

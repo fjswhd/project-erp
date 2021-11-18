@@ -2,6 +2,7 @@ package model.hr;
 
 import java.io.Reader;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -35,9 +36,11 @@ public class HrDao {
 		
 		return hr;
 	}
-	public List<Hr> selectHrList() {
+	
+	//인사정보 리스트 받아오기
+	public List<Hr> selectHrList(Map<String, Integer> paraMap) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		List<Hr> hrList = session.selectList("hrNS.selectHrList");
+		List<Hr> hrList = session.selectList("hrNS.selectHrList", paraMap);
 		
 		session.close();
 		
@@ -59,6 +62,18 @@ public class HrDao {
 		
 		return empList;
 	}
+	
+	//총 사원 수 구하기
+	public int selectEmpCount() {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int empCount = (int) session.selectOne("hrNS.selectEmpCount");
+
+		session.close();
+
+		return empCount;
+	}
+	
+	//특정 연도에 입사한 사원 수 구하기
 	public int selectEmpCountWithYear(String year) {
 		SqlSession session = sqlSessionFactory.openSession(true);
 		int empCount = (int) session.selectOne("hrNS.selectEmpCountWithYear", year);
@@ -82,5 +97,15 @@ public class HrDao {
 		session.close();
 		return result;
 	}
+	public int updateEmp(Emp emp) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int result = session.update("hrNS.updateEmp", emp);
+		
+		session.close();
+		return result;
+		
+	}
+	
+	
 	
 }

@@ -2,7 +2,7 @@
 	.content_body > table {
 		border: 0.2rem solid silver;
 		border-radius: 0.8rem;
-		flex-basis: 100%;
+		width: 100%;
 	}
 	.content_body > table tr {
 		display: flex;
@@ -51,5 +51,30 @@
 		border-right: none;
 	}
 	.content_body table tr > td:hover {
+		font-weight: bold;
+	}
+	.content_body .page {
+		justify-content: center;
+		align-items: center;
+		height: 5rem;
+	}
+	.content_body .page a {
+		display: flex;
+		margin: 0 1rem;
+		width: 1.5rem;
+		justify-content: center;
+		align-items: center;
+		font-family: sans-serif;
+		font-size: 1.8rem;
+	}
+	.content_body .page a:link {
+		color: #000;
+		text-decoration: none;
+	}
+	.content_body .page a:visited {
+		color: #000;
+		text-decoration: none;
+	}
+	.content_body .page a:hover {
 		font-weight: bold;
 	}

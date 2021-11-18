@@ -43,14 +43,16 @@
 		flex: 3;
 		border-right: none;
 		padding: 0 1.2rem;
-		flex-direction: column;
-		justify-content: center;
-		align-items: flex-start;
+		justify-content: flex-start;
+		align-items: center;
 	}
 	.content_body table tr.addrRow th {
 		height: 10.1rem;
 	}
 	.content_body table tr.addrRow td {
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
 		height: 10.1rem;
 	}
 	.content_body table tr.addrRow td > div {
@@ -58,7 +60,7 @@
 		align-items: center;
 	}
 	.content_body table tr:last-of-type td {
-		align-items: center;
+		justify-content: center;
 	}
 	input {
 		width: 35rem;
@@ -69,6 +71,14 @@
 	}
 	input[name=emp_name] {
 		width: 15rem;
+	}
+	input[type=password] {
+		width: 15rem;
+		font-family: sans-serif;
+	}
+	td div.msg {
+		margin: 0 1rem;
+		font-size: 1.2rem;
 	}
 	input[name=emp_addr_no] {
 		width: 15rem;

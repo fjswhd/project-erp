@@ -8,26 +8,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사원 목록</title>
+<title>사원 등록</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link href="/project/css/outline.css?1" rel="stylesheet">
-<link href="/project/css/hrInsert.css?34" rel="stylesheet">
+<link href="/project/css/outline.css" rel="stylesheet">
+<link href="/project/css/hrInsert.css" rel="stylesheet">
 
-<style type="text/css">
-	@font-face {
-		font-family: 'paybooc-Medium';
-    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Medium.woff') format('woff');
-    	font-weight: normal;
-    	font-style: normal;
-	}
-	@font-face {
-    	font-family: 'paybooc-Bold';
-    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Bold.woff') format('woff');
-    	font-weight: normal;
-    	font-style: normal;
-	}
-</style>
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
@@ -35,10 +21,7 @@
 	
 		var tool = document.getElementsByClassName('tool');
 		tool[4].setAttribute('style', 'background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #505050; z-index: 1;');
-		/* tool[4].style.background = '#f8f7f2';
-		tool[4].style.color = '#000';
-		tool[4].style['box-shadow'] = '0 -0.15rem 0.15rem #505050';
-		tool[4].style['z-index'] = '1'; */
+		
 	}
 	
 	function lastChk() {
