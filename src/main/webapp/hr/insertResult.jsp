@@ -11,10 +11,10 @@
 		var result = '${result}'
 		if (result == 0) {
 			alert('사원 등록 실패');
-			location.href = '/project/hr/list.do';
+			location.href = '/project/hr/list.do?p=1';
 		} else {
 			alert('사원 등록 성공');
-			location.href = '/project/hr/list.do';
+			location.href = '/project/hr/list.do?p=1';
 		}
 	</script>
 </body>

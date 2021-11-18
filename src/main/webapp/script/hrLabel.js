@@ -3,7 +3,7 @@
 	
 
 	label[0].onclick = function() {
-		location.href = '/project/hr/list.do';
+		location.href = '/project/hr/list.do?p=1';
 	};
 	label[1].onclick = function() {
 		location.href = '/project/hr/checkForm.do';
