@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ include file="/sessionChk.jsp" %>
+<%@ include file="/common/sessionChk.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@
 <title>정보 수정</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link href="/project/css/outline.css" rel="stylesheet">
+<link href="/project/css/outline.css?1" rel="stylesheet">
 <link href="/project/css/hrUpdate.css" rel="stylesheet">
 
 <script type="text/javascript">
@@ -73,16 +73,20 @@
 			frm.submit();			
 		}
 		
+		//최종 확인
+		if (frm.password.value == null || frm.password.value === '') {
+			if(confirm('개인정보를 수정하시겠습니까?')) {
+				frm.submit();
+			} else {
+				return false;
+			}
+		}
 	}
 </script>
 </head>
 <body>
 	<div id="header"> 
-		<div class="logo"></div>
-		<div class="user_info">${sessionScope.Hr.dept_name}팀 ${sessionScope.Hr.emp_name}님</div>
-		<div class="logout_container">
-			<button>로그아웃</button>
-		</div>
+		<jsp:include page="/common/header.jsp" />
 	</div>
 	<div id="body_container">
 		<div class="side_bar">

@@ -9,7 +9,7 @@ public class MainCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		return "/main.jsp";
+		return "/common/main.jsp";
 	}
 
 }

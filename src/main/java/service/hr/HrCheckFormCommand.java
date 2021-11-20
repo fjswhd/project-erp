@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
+import model.hr.Hr;
+
 public class HrCheckFormCommand implements Command {
 
 	@Override

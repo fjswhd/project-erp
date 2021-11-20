@@ -22,7 +22,6 @@ public class HrCheckCommand implements Command {
 			result = (int)request.getSession().getAttribute("checkResult");
 		
 		//현재 세션에 등록된 사원의 비밀번호와 일치하는지 확인
-		
 		Emp emp = hd.selectEmp(((Hr)request.getSession().getAttribute("Hr")).getEmp_no());
 		
 		if(request.getParameter("password").equals(emp.getPassword())) {
@@ -37,13 +36,12 @@ public class HrCheckCommand implements Command {
 			request.getSession().invalidate();
 		}
 		
-		
-		response.setContentType("text/html;charset=utf-8");
 		try {
 			response.getWriter().println(result);
 		} catch (IOException e) {
 			
 		}
+		
 		return null;
 	}
 

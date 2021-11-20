@@ -1,34 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ include file="/sessionChk.jsp" %>
+<%@ include file="/common/sessionChk.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>사원 목록</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link href="/project/css/outline.css?10" rel="stylesheet" type="text/css">
-<link href="/project/css/hrList.css?24" rel="stylesheet"  type="text/css">
+<link href="/project/css/outline.css?1" rel="stylesheet" type="text/css">
+<link href="/project/css/hrList.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[0].setAttribute('style', 'background: #186343');
-	
+
 		var tool = document.getElementsByClassName('tool');
-		tool[4].setAttribute('style', 'background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #505050; z-index: 1;');
+		tool[4].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #505050; z-index: 1;');
 	}
 </script>
 </head>
 <body>
-	<div id="header"> 
-		<div class="logo"></div>
-		<div class="user_info">${sessionScope.Hr.dept_name}팀 ${sessionScope.Hr.emp_name}님</div>
-		<div class="logout_container">
-			<button>로그아웃</button>
-		</div>
+	<div id="header">
+		<jsp:include page="/common/header.jsp" />
 	</div>
 	<div id="body_container">
 		<div class="side_bar">
@@ -59,14 +57,14 @@
 							<th>전화번호</th>
 							<th>이메일</th>
 						</tr>
-						<c:forEach var="hr" items="${hrList}" >
-						<tr>
-							<td>${hr.emp_no}</td>
-							<td>${hr.emp_name}</td>
-							<td>${hr.dept_name}</td>
-							<td>${hr.emp_tel}</td>
-							<td>${hr.emp_email}</td>
-						</tr>							
+						<c:forEach var="hr" items="${hrList}">
+							<tr>
+								<td>${hr.emp_no}</td>
+								<td>${hr.emp_name}</td>
+								<td>${hr.dept_name}</td>
+								<td>${hr.emp_tel}</td>
+								<td>${hr.emp_email}</td>
+							</tr>
 						</c:forEach>
 					</table>
 					<div class="page">
@@ -75,7 +73,7 @@
 							<c:if test="${p == vs.index}">
 								<b><a href="/project/hr/list.do?p=${vs.index}">${vs.index}</a></b>
 							</c:if>
-							<c:if test="${p != vs.index}">							
+							<c:if test="${p != vs.index}">
 								<a href="/project/hr/list.do?p=${vs.index}">${vs.index}</a>
 							</c:if>
 						</c:forEach>

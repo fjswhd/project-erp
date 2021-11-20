@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/sessionChk.jsp" %>
+<%@ include file="/common/sessionChk.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>main</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<style type="text/css">
-	@import url('css/main.css?24')
-</style>
+<link href="/project/css/main.css" rel="stylesheet"> 
+
 </head>
 <body>
 	<div class="container">

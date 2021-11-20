@@ -26,7 +26,7 @@ alter table emp modify (emp_addr varchar2(200));
 
 select * from v_hr_2 where emp_no = '21-00001';
 select * from emp;
-
+update emp set password = '1234' where emp_no = '21-00001';
 create or replace view v_hr
 as
 	select e1.rn, e1.emp_no, e1.emp_name, d.dept_name, e1.emp_tel, e1.emp_email 

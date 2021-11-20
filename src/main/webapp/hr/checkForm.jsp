@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ include file="/sessionChk.jsp" %>
+<%@ include file="/common/sessionChk.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,22 +12,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/outline.css?1" rel="stylesheet">
-<link href="/project/css/hrCheck.css?8" rel="stylesheet">
+<link href="/project/css/hrCheck.css?" rel="stylesheet">
 
-<style type="text/css">
-	@font-face {
-		font-family: 'paybooc-Medium';
-    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Medium.woff') format('woff');
-    	font-weight: normal;
-    	font-style: normal;
-	}
-	@font-face {
-    	font-family: 'paybooc-Bold';
-    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Bold.woff') format('woff');
-    	font-weight: normal;
-    	font-style: normal;
-	}
-</style>
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
@@ -35,63 +21,46 @@
 	
 		var tool = document.getElementsByClassName('tool');
 		tool[4].setAttribute('style', 'background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #505050; z-index: 1;');
-		/* tool[4].style.background = '#f8f7f2';
-		tool[4].style.color = '#000';
-		tool[4].style['box-shadow'] = '0 -0.15rem 0.15rem #505050';
-		tool[4].style['z-index'] = '1'; */
 	}
 	
 	function chk() {
 		var xhr = new XMLHttpRequest();
-		var msg = document.getElementsByClassName('msg');
-		var password = frm.password.value;
+		var msg = document.getElementsByClassName('msg')[0];
 		
-		if (password == null || password === '') {
-			msg[0].style.color = '#000';
-			msg[0].innerHTML = '비밀번호를 입력하세요.';
+		if (frm.password.value == null || frm.password.value === '') {
+			msg.style.color = '#000';
+			msg.innerHTML = '비밀번호를 입력하세요.';
 			frm.password.focus();
 			return false;
 		}
 		
-		var cnt = parseInt(frm.cnt.value);
-		frm.cnt.value = cnt + 1;
-		
 		xhr.open('POST', '/project/hr/check.do');
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
+	
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status == 200) {
 				var result = xhr.responseText;
 				if (result > 0) {
-					if (result == 6) {
-						location.href = '/project/hr/init.do';						
+					if (result >= 6) {
+						location.href = '/project/hr/init.do?emp_no=${sessionScope.Hr.emp_no}';
 					} else {
-						msg[0].style.color = '#ff0000';
-						msg[0].innerHTML = '비밀번호가 일치하지 않습니다.(' + frm.cnt.value + '회 틀림)';						
+						msg.style.color = 'red';
+						msg.innerHTML = '비밀번호가 일치하지 않습니다.('+(result-1)+'회 틀림)';
 					}
 				} else if (result == 0) {
 					location.href = '/project/hr/updateForm.do';
-				} 
-				
+				}
 			}
 		};
 		
-		xhr.send('password=' + password); 
-	}
-	
-	
-</script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="/project/script/postAddress.js"></script>
+		xhr.send('password=' + frm.password.value); 
 
+	}
+</script>
 </head>
 <body>
 	<div id="header"> 
-		<div class="logo"></div>
-		<div class="user_info">${sessionScope.Hr.dept_name}팀 ${sessionScope.Hr.emp_name}님</div>
-		<div class="logout_container">
-			<button>로그아웃</button>
-		</div>
+		<jsp:include page="/common/header.jsp" />
 	</div>
 	<div id="body_container">
 		<div class="side_bar">
@@ -119,7 +88,7 @@
 						5회 이상 비밀번호를 틀릴 시 계정의 비밀번호가 초기화 되고 <br>
 						초기화된 비밀번호가 계정에 입력된 이메일로 발송됩니다. <br>
 					</div>
-					<form action="/project/hr/updateForm.do" name="frm" method="post">
+					<form action="" name="frm" method="post">
 					<input type="hidden" name="cnt" value="0">
 						<table>
 							<tr>
@@ -138,7 +107,7 @@
 			</div>
 		</div>
 	</div>
-<!-- 	<script type="text/javascript" src="/project/script/postAddress.js"></script> -->
+	<!-- 헤더 동작 -->
 	<script type="text/javascript" src="/project/script/header.js"></script>
 	<script type="text/javascript" src="/project/script/hrLabel.js"></script>
 	<script type="text/javascript" src="/project/script/toolbar.js"></script>
