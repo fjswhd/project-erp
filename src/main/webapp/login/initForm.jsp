@@ -6,11 +6,15 @@
 <meta charset="UTF-8">
 <title>비밀번호 초기화</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link href="/project/css/common/initForm.css?17" rel="stylesheet">
+<link href="/project/css/common/initForm.css?18" rel="stylesheet">
 <script type="text/javascript">
 	window.history.forward();
 	
 	window.onload = function() {
+		document.getElementsByClassName('boxTitle')[0].onclick = function() {
+			location.href = '/project/loginForm.do';
+		}
+		
 		frm.emp_no.onchange = function() {
 			var xhr = new XMLHttpRequest();
 			var msg = document.getElementsByClassName('msg');
@@ -60,6 +64,7 @@
 		
 		return false;
 	}
+	
 </script>
 </head>
 <body>
