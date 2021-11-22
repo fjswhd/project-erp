@@ -24,7 +24,7 @@ public class HrListCommand implements Command {
 		final int PAGE_PER_BLOCK = 5;
 		
 		//마지막 페이지 구하기
-		int endPage = hd.selectEmpCount()/ROW_PER_PAGE + 1;
+		int endPage = (hd.selectEmpCount()-1)/ROW_PER_PAGE + 1;
 		
 		//현재 페이지(기본값은 1페이지)
 		int p = 1;

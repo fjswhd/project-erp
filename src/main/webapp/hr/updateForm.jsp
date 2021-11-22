@@ -11,10 +11,12 @@
 <title>정보 수정</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link href="/project/css/outline.css?1" rel="stylesheet">
-<link href="/project/css/hrUpdate.css" rel="stylesheet">
+<link href="/project/css/common/outline.css" rel="stylesheet">
+<link href="/project/css/hr/hrUpdate.css" rel="stylesheet">
 
 <script type="text/javascript">
+	window.history.forward();
+
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[1].setAttribute('style', 'background: #186343');
@@ -74,13 +76,12 @@
 		}
 		
 		//최종 확인
-		if (frm.password.value == null || frm.password.value === '') {
-			if(confirm('개인정보를 수정하시겠습니까?')) {
-				frm.submit();
-			} else {
-				return false;
-			}
+		if(confirm('개인정보를 수정하시겠습니까?')) {
+			frm.submit();
+		} else {
+			return false;
 		}
+		
 	}
 </script>
 </head>

@@ -12,21 +12,22 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/outline.css?1" rel="stylesheet">
-<link href="/project/css/hrCheck.css?" rel="stylesheet">
+<link href="/project/css/hrCheck.css?1" rel="stylesheet">
 
 <script type="text/javascript">
+	window.history.forward();
+
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[1].setAttribute('style', 'background: #186343');
 	
 		var tool = document.getElementsByClassName('tool');
 		tool[4].setAttribute('style', 'background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #505050; z-index: 1;');
+
 	}
 	
-	function chk() {
-		var xhr = new XMLHttpRequest();
+	function submitChk() {
 		var msg = document.getElementsByClassName('msg')[0];
-		
 		if (frm.password.value == null || frm.password.value === '') {
 			msg.style.color = '#000';
 			msg.innerHTML = '비밀번호를 입력하세요.';
@@ -34,15 +35,23 @@
 			return false;
 		}
 		
+		chk();	
+		return false;
+	}
+	
+	function chk() {
+		var xhr = new XMLHttpRequest();
+		var msg = document.getElementsByClassName('msg')[0];
 		xhr.open('POST', '/project/hr/check.do');
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhr.send('password=' + frm.password.value); 
 	
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status == 200) {
 				var result = xhr.responseText;
 				if (result > 0) {
 					if (result >= 6) {
-						location.href = '/project/hr/init.do?emp_no=${sessionScope.Hr.emp_no}';
+						location.replace('/project/hr/init.do?emp_no=${sessionScope.Hr.emp_no}');
 					} else {
 						msg.style.color = 'red';
 						msg.innerHTML = '비밀번호가 일치하지 않습니다.('+(result-1)+'회 틀림)';
@@ -51,10 +60,7 @@
 					location.href = '/project/hr/updateForm.do';
 				}
 			}
-		};
-		
-		xhr.send('password=' + frm.password.value); 
-
+		};		
 	}
 </script>
 </head>
@@ -88,7 +94,7 @@
 						5회 이상 비밀번호를 틀릴 시 계정의 비밀번호가 초기화 되고 <br>
 						초기화된 비밀번호가 계정에 입력된 이메일로 발송됩니다. <br>
 					</div>
-					<form action="" name="frm" method="post">
+					<form action="/project/hr/updateForm.do" name="frm" method="post">
 					<input type="hidden" name="cnt" value="0">
 						<table>
 							<tr>
@@ -98,7 +104,7 @@
 							<tr>
 								<td>
 									<div class="msg"></div>
-									<input type="button" value="확인" onclick="chk()">
+									<input type="submit" value="확인" onclick="return submitChk()">
 								</td>
 							</tr>
 						</table>

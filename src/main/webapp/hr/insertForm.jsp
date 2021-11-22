@@ -11,18 +11,20 @@
 <title>사원 등록</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link href="/project/css/outline.css?1" rel="stylesheet">
-<link href="/project/css/hrInsert.css" rel="stylesheet">
+<link href="/project/css/common/outline.css" rel="stylesheet">
+<link href="/project/css/hr/hrInsert.css" rel="stylesheet">
 
 <script type="text/javascript">
+	window.history.forward();
+	
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[2].setAttribute('style', 'background: #186343');
-	
+
 		var tool = document.getElementsByClassName('tool');
-		tool[4].setAttribute('style', 'background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #505050; z-index: 1;');	
+		tool[4].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #505050; z-index: 1;');
 	}
-	
+
 	function lastChk() {
 		if (frm['dept_no'].value == 0) {
 			alert('부서코드를 설정하세요.');

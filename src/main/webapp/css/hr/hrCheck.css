@@ -55,7 +55,7 @@
 	.content_body table tr:last-of-type td {
 		justify-content: flex-end;
 	}
-	input:not([type=button]) {
+	input:not([type=submit]) {
 		flex: 1;
 		height: 2rem;
 		box-shadow: 0 0 0.1rem #505050;
@@ -63,7 +63,7 @@
 		font-size: 1.6rem;
 		font-family: sans-serif;
 	}
-	input[type=button] {
+	input[type=submit] {
 		background: #59645C;
 		border: none;
 		border-radius: 0.8rem;		
@@ -75,11 +75,11 @@
 		font-weight: bold;
 		box-shadow: 0 0.2rem 0.2rem #505050;
 	}
-	input[type=button]:active {
+	input[type=submit]:active {
 		margin: 0.15rem 0 -0.15rem 0;
 		box-shadow: 0 0 0.1rem black;
 	}
-	input[type=button]:focus {
+	input[type=submit]:focus {
 		outline: none;
 	}
 	.msg {

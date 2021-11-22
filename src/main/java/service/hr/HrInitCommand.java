@@ -24,11 +24,10 @@ public class HrInitCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		//유효한 접근인지 확인
-		if (request.getHeader("referer") == null || !(request.getHeader("referer").contains("checkForm.do"))) {
+		if (request.getHeader("referer") == null || !(request.getHeader("referer").contains("checkForm.do") || request.getHeader("referer").contains("initForm.do"))) {
 			request.setAttribute("result", -1);
 			return "/loginForm.do";
 		}
-		
 		
 		//비밀번호 초기화
 		String emp_no = request.getParameter("emp_no");
@@ -39,12 +38,10 @@ public class HrInitCommand implements Command {
 		Emp emp = HrDao.getInstance().selectEmp(emp_no);
 		emp.setPassword(newPassword);
 		
-		
 		//비밀번호 초기화 성공 시 사용자를 보낼 주소
 		String nextURL = emp.getEmp_email().substring(emp.getEmp_email().indexOf('@') + 1);
 		
 		//변경된 패스워드를 사원의 메일주소로 보내기
-		
 		Properties p = new Properties(); // 정보를 담을 객체 
 		p.put("mail.smtp.host","smtp.naver.com"); 
 		p.put("mail.smtp.port", "587"); 
@@ -72,8 +69,7 @@ public class HrInitCommand implements Command {
 			message.setRecipient(Message.RecipientType.TO, toAddr);
 			
 			String msg = 
-					"\r\n"
-					+ "<!DOCTYPE html>\r\n"
+					  "<!DOCTYPE html>\r\n"
 					+ "<html style=\"margin: 0; padding: 0; font-size: 10px;\">\r\n"
 					+ "<head>\r\n"
 					+ "<meta charset=\"UTF-8\">\r\n"

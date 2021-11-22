@@ -5,6 +5,12 @@
 		font-size: 10px;
 		font-family: 'Nanum Gothic', sans-serif;
 	}
+	@font-face {
+    	font-family: 'GmarketSansMedium';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    	font-weight: normal;
+    	font-style: normal;
+	}
 	body {
 		background: #f8f7f2;
 		display: flex;
@@ -20,23 +26,22 @@
 		background: #abd1b5;
 		width: 50rem;
 		border-radius: 4rem;
-		margin: 17rem 0 24rem 0;
+		margin: 17rem 0 0 0;
 		flex-direction: column;
 		align-items: center;
 		box-shadow: 0 0.05rem 0.4rem #505050;
 	}
 	.boxTitle {
-		margin: 5rem;
-		font-family: 'CookieRunOTF-Bold';
-		font-size: 8rem;
-		font-weight: bold;
-		color: #FFD966;
-		text-shadow: 0.1rem 0.1rem 0.1rem #505050;
+		background-image: url('/project/images/logo_rect2.jpg');
+		background-size: cover;
+		margin: 5rem 0 1.5rem 0;
+		width: 30rem;
+		height: 15rem;
 	}
 	.input {
 		flex-flow: column wrap;
 		align-content: center;
-		height: 9rem;
+		height: 8.6rem;
 	}
 	.input > div {
 		align-items: center;
@@ -100,7 +105,8 @@
 		justify-content: flex-start;
 	}
 	a {
-		font-size : 1.3rem;
+		font-size : 1.4rem;
+		font-family: 'GmarketSansMedium';
 	}
 	a:link {
 		color: black;
@@ -118,7 +124,8 @@
 	.footer {
 		border-top: 0.14rem solid #000;
 		width: 50rem;
+		margin-top: auto;
 		justify-content: center;
-		padding: 1rem 0;
+		padding: 1rem 0 1.5rem 0;
 		font-size: 1.4rem;
 	}

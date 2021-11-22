@@ -8,7 +8,7 @@
 <title>main</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link href="/project/css/main.css" rel="stylesheet"> 
+<link href="/project/css/common/main.css" rel="stylesheet"> 
 
 </head>
 <body>

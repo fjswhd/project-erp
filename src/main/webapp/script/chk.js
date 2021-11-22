@@ -19,5 +19,3 @@ xhr.onreadystatechange = function() {
 
 xhr.send('password=' + password);
 
-
-
