@@ -7,22 +7,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import model.hr.Emp;
-import model.hr.Hr;
-import model.hr.HrDao;
+import model.Emp;
+import model.Hr;
+import dao.HrDao;
 
 public class HrCheckCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		HrDao hd = HrDao.getInstance();
 		int result = 1;
 		
 		if(request.getSession().getAttribute("checkResult") != null)
 			result = (int)request.getSession().getAttribute("checkResult");
 		
 		//현재 세션에 등록된 사원의 비밀번호와 일치하는지 확인
-		Emp emp = hd.selectEmp(((Hr)request.getSession().getAttribute("Hr")).getEmp_no());
+		Emp emp = HrDao.getInstance().selectEmp((((Hr)request.getSession().getAttribute("Hr")).getEmp_no()));
 		
 		if(request.getParameter("password").equals(emp.getPassword())) {
 			result = 0;

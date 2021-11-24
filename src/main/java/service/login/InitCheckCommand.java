@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import model.hr.Emp;
-import model.hr.HrDao;
+import model.Emp;
+import dao.HrDao;
 
 public class InitCheckCommand implements Command {
 

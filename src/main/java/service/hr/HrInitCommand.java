@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import model.hr.Emp;
-import model.hr.HrDao;
+import model.Emp;
+import dao.HrDao;
 
 public class HrInitCommand implements Command {
 
@@ -26,7 +26,7 @@ public class HrInitCommand implements Command {
 		//유효한 접근인지 확인
 		if (request.getHeader("referer") == null || !(request.getHeader("referer").contains("checkForm.do") || request.getHeader("referer").contains("initForm.do"))) {
 			request.setAttribute("result", -1);
-			return "/loginForm.do";
+			return "/view/hr/initPasswordResult.jsp";
 		}
 		
 		//비밀번호 초기화

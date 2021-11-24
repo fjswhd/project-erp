@@ -58,6 +58,7 @@
 		padding: 0.3rem 0.5rem;
 		box-shadow: 0 0.15rem 0.15rem #505050;
 		font-size: 1.8rem;
+		z-index: 10;
 	}
 	input:focus {
 		outline: 0.15rem; 

@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import model.hr.Dept;
-import model.hr.Emp;
-import model.hr.Hr;
-import model.hr.HrDao;
+import model.Dept;
+import model.Emp;
+import model.Hr;
+import dao.HrDao;
 
 public class HrUpdateFormCommand implements Command {
 
@@ -27,7 +27,7 @@ public class HrUpdateFormCommand implements Command {
 		request.setAttribute("emp", emp);
 		request.setAttribute("deptList", deptList);
 		
-		return "/hr/updateForm.jsp";
+		return "/view/hr/updateForm.jsp";
 	}
 
 }

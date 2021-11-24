@@ -5,69 +5,78 @@
 	.content_body table {
 		border: 0.2rem solid silver;
 		border-radius: 0.8rem;
-		flex-basis: 50%;
-		padding: 0;
+		flex-basis: 51%;
 	}
 	.content_body table tr {
 		display: flex;
 		background: #f8f7f2;
 		border-bottom: 0.1rem solid silver;
 		align-items: center;
-		height: 3rem;
-		padding: 0;
+		height: 3.4rem;
 	}
 	.content_body table tr.addrRow {
 		height: 10rem;
 	}
+	.content_body table tr.last {
+		height: 5.4rem;
+	}
 	.content_body table tr:last-of-type {
 		border-bottom: none;
 	}
-	.content_body table tr td,th {
+	.content_body table tr th,td {
 		display: flex;
+		height: 3.5rem;
+		font-size: 1.6rem;
+	}
+	.content_body table tr th {
+		background: rgba(192,192,192,0.5);
 		flex: 1.5;
 		justify-content: center;
 		align-items: center;
 		border-right: 0.2rem solid silver;
-		height: 3.1rem;
-		margin: 0;
-		font-size: 1.6rem;
-	}
-	.content_body table tr:first-of-type > th{
-		border-top-left-radius: 0.5rem;
-		height: 3rem;
-	}
-	.content_body table tr th {
-		background: rgba(192,192,192,0.5);
 	}
 	.content_body table tr td {
 		flex: 3;
-		border-right: none;
-		padding: 0 1.2rem;
+		padding-left: 1.2rem;
+		padding-right: 1.2rem;
 		justify-content: flex-start;
 		align-items: center;
 	}
-	.content_body table tr.addrRow th {
+	.content_body table tr:first-of-type > th{
+		border-top-left-radius: 0.5rem;
+		height: 3.4rem;
+	}
+	.content_body table tr.addrRow > th,td {
 		height: 10.1rem;
 	}
-	.content_body table tr.addrRow td {
+	.content_body table tr.addrRow > td {
 		flex-direction: column;
 		justify-content: center;
 		align-items: flex-start;
-		height: 10.1rem;
 	}
 	.content_body table tr.addrRow td > div {
-		margin: 0.2rem 0;
-		align-items: center;
+		margin: 0.3rem 0;
 	}
-	.content_body table tr:last-of-type td {
+	.content_body table tr:last-of-type td{
 		justify-content: center;
 	}
 	input {
-		width: 35rem;
+		width: 100%;
 		height: 2rem;
 		box-shadow: 0 0 0.1rem #505050;
 		padding: 0.2rem 0.3rem;
 		font-size: 1.6rem;
+		z-index: 10;
+	}
+	td > div {
+		width: 100%;
+		align-items: center;
+	}
+	td > div.msg {
+		width: auto;
+		margin: 0 1rem;
+		font-size: 1.2rem;
+		color: red;
 	}
 	input[name=emp_name] {
 		width: 15rem;
@@ -76,9 +85,8 @@
 		width: 15rem;
 		font-family: sans-serif;
 	}
-	td div.msg {
-		margin: 0 1rem;
-		font-size: 1.2rem;
+	input[name=emp_tel],[name=emp_email] {
+		width: 20rem;
 	}
 	input[name=emp_addr_no] {
 		width: 15rem;

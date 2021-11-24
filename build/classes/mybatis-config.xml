@@ -7,9 +7,9 @@
   <properties resource="db.properties" />
   <!-- ch17.bean.User의 별칭을 user라는 형태로 쓰겠다 -->
   <typeAliases>
-  	<typeAlias alias="Emp" type="model.hr.Emp"/>
-  	<typeAlias alias="Dept" type="model.hr.Dept"/>
-  	<typeAlias alias="Hr" type="model.hr.Hr"/>
+  	<typeAlias alias="Emp" type="model.Emp"/>
+  	<typeAlias alias="Dept" type="model.Dept"/>
+  	<typeAlias alias="Hr" type="model.Hr"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">

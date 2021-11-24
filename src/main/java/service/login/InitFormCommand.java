@@ -10,7 +10,7 @@ public class InitFormCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		return "/login/initForm.jsp";
+		return "/view/login/initForm.jsp";
 	}
 
 }

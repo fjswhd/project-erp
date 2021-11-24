@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import model.hr.Emp;
-import model.hr.HrDao;
+import model.Emp;
+import dao.HrDao;
 
 public class HrInsertCommand implements Command {
 
@@ -29,7 +29,7 @@ public class HrInsertCommand implements Command {
 		
 		request.setAttribute("result", result);
 		
-		return "/hr/insertResult.jsp";
+		return "/view/hr/insertResult.jsp";
 	}
 
 }

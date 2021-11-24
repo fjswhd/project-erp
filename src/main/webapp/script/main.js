@@ -1,12 +1,14 @@
 /**
  * 
  */
+
+	document.getElementsByClassName('icon')
 	var icon = document.getElementsByClassName('icon');
 	icon[0].onclick = function() {
-		location.href = '/project/buying/list.do';
+		location.href = '/project/purchase/sellerList.do?p=1';
 	};
 	icon[1].onclick = function() {
-		location.href = '/project/selling/list.do';
+		location.href = '/project/sales/customerList.do?p=1';
 	};
 	icon[2].onclick = function() {
 		location.href = '/project/product/list.do';
@@ -20,10 +22,10 @@
 	
 	var button = document.getElementsByTagName('button');
 	button[0].onclick = function() {
-		location.href = '/project/buying/list.do';
+		location.href = '/project/purchase/sellerlist.do?p=1';
 	};
 	button[1].onclick = function() {
-		location.href = '/project/selling/list.do';
+		location.href = '/project/sales/customerList.do?p=1';
 	};
 	button[2].onclick = function() {
 		location.href = '/project/product/list.do';

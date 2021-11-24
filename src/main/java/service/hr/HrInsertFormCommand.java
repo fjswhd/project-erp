@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import model.hr.Dept;
-import model.hr.HrDao;
+import model.Dept;
+import dao.HrDao;
 
 public class HrInsertFormCommand implements Command {
 
@@ -32,7 +32,7 @@ public class HrInsertFormCommand implements Command {
 		List<Dept> deptList = hd.selectDeptList();
 		request.setAttribute("deptList", deptList);
 		
-		return "/hr/insertForm.jsp";
+		return "/view/hr/insertForm.jsp";
 	}
 
 }

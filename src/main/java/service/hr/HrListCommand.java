@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import model.hr.Hr;
-import model.hr.HrDao;
+import model.Hr;
+import dao.HrDao;
 
 public class HrListCommand implements Command {
 
@@ -65,7 +65,7 @@ public class HrListCommand implements Command {
 		request.setAttribute("firstPage", firstPage);
 		request.setAttribute("lastPage", lastPage);
 		
-		return "/hr/list.jsp";
+		return "/view/hr/list.jsp";
 	}
 
 }

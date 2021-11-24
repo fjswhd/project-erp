@@ -55,6 +55,9 @@
 	.content_body table tr:last-of-type td {
 		justify-content: flex-end;
 	}
+	input {
+		z-index: 10;
+	}
 	input:not([type=submit]) {
 		flex: 1;
 		height: 2rem;

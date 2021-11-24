@@ -5,17 +5,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import model.hr.Emp;
-import model.hr.HrDao;
+import model.Emp;
+import dao.HrDao;
 
 public class HrUpdateCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		//updateForm.do가 아닌 곳에서 접근하는 경우에 세션을 초기화 하고 로그인 화면으로 보냄
-		if(request.getHeader("referer") == null || !request.getHeader("referer").equals("http://localhost:8080/project/hr/updateForm.do")) {
+		if(request.getHeader("referer") == null || !request.getHeader("referer").contains("hr/updateForm.do")) {
 			request.getSession().invalidate();
-			return "/loginForm.do";
+			request.setAttribute("result", -1);
+			return "/view/hr/updateResult.jsp";
 		}
 		
 		HrDao hd = HrDao.getInstance();
@@ -46,8 +47,11 @@ public class HrUpdateCommand implements Command {
 		
 		request.setAttribute("result", result);
 		
+		if (request.getSession().getAttribute("newbee") != null && !empAfter.getPassword().equals("0000")) {
+			request.getSession().removeAttribute("newbee");
+		}
 		
-		return "/hr/updateResult.jsp";
+		return "/view/hr/updateResult.jsp";
 	}
 
 }

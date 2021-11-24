@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import model.hr.Emp;
-import model.hr.HrDao;
+import model.Emp;
+import dao.HrDao;
 
 public class LoginCommand implements Command {
 
@@ -30,13 +30,16 @@ public class LoginCommand implements Command {
 		} else if (password.equals(emp.getPassword())) {
 			result = 1;
 			request.getSession().setAttribute("Hr", hd.selectHr(emp_no));
+			if (password.equals("0000")) {
+				request.getSession().setAttribute("newbee", "newbee");
+			}
 		} else {
 			result = -1;
 		}
 		
 		request.setAttribute("result", result);
 		
-		return "/login/loginResult.jsp";
+		return "/view/login/loginResult.jsp";
 	}
 
 }
