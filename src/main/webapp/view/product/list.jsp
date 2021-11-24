@@ -8,16 +8,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>구매처 목록</title>
+<title>상품 목록</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/purchase/sellerList.css" rel="stylesheet" type="text/css">
+<link href="/project/css/product/list.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
-		label[0].setAttribute('style', 'background: #186343');
+		label[2].setAttribute('style', 'background: #186343');
 
 		var tool = document.getElementsByClassName('tool');
 		tool[0].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
@@ -49,54 +49,52 @@
 			</div>
 			<div class="content">
 				<div class="content_head">
-					<div class="label_name">구매처 목록</div>
+					<div class="label_name">상품 목록</div>
 				</div>
 				<div class="content_body">
 					<table>
 						<tr>
-							<th>업체코드</th>
-							<th>업체명</th>
-							<th>전화</th>
-							<th>이메일</th>
-							<th>담당자</th>
+							<th>상품코드</th>
+							<th>상품명</th>
+							<th>구매단가</th>
+							<th>판매단가</th>
+							<th>참고사항</th>
 						</tr>
-						<c:if test="${empty sellerList}">
+						<c:if test="${empty productList}">
 							<tr>
-								<th colspan="8">등록된 구매처가 없습니다</th>
+								<th colspan="5">등록된 상품이 없습니다</th>
 							</tr>
 						</c:if>
 
-						<c:if test="${not empty sellerList }">
-							<c:forEach var="seller" items="${sellerList }">
+						<c:if test="${not empty productList }">
+							<c:forEach var="product" items="${productList }">
 								<tr>
 									<!-- 		 기존에 있는 정보를 가지고 등록 페이지로 이동 			--> 
-									<td>
-										<a href="/project/purchase/sellerUpdateForm.do?seller_no=${seller.seller_no}"> ${seller.seller_no}</a>
-									</td>
-									<td>${seller.seller_name }</td>
-									<td>${seller.seller_tel }</td>
-									<td>${seller.seller_email}</td>
-									<td>${seller.emp_no}</td>
+									<td>${product.product_no}</td>
+									<td>${product.product_name}</td>
+									<td>${product.cost}</td>
+									<td>${product.price}</td>
+									<td>${product.product_memo}</td>
 								</tr>
 							</c:forEach>
 						</c:if>
 					</table>
 					<div class="page">
 						<c:if test="${startPage > PAGE_PER_BLOCK }">
-							<button onclick="location.href='/project/purchase/sellerList.do?pageNum=${startPage - 1}'">이전</button>
+							<button onclick="location.href='/project/purchase/productList.do?pageNum=${startPage - 1}'">이전</button>
 						</c:if>
 						<c:forEach var="i" begin="${startPage}" end="${endPage}">
 							<c:if test="${param.p == i}">
-								<b><a href="/project/purchase/sellerList.do?p=${i}">${i}</a></b>
+								<b><a href="/project/prodcuct/list.do?p=${i}">${i}</a></b>
 							</c:if>
 							<c:if test="${param.p != i}">
-								<a href="/project/purchase/sellerList.do?p=${i}">${i}</a>
+								<a href="/project/product/list.do?p=${i}">${i}</a>
 							</c:if>
 						</c:forEach>
 						<!-- 	보여줄 것이 아직 남아있다 -->
 						<c:if test="${endPage < totalPage}">
 							<button
-								onclick="location.href='/project/purchase/sellerList.do?pageNum=${endPage + 1}'">다음</button>
+								onclick="location.href='/project/purchase/productList.do?pageNum=${endPage + 1}'">다음</button>
 						</c:if>
 						<!-- 해야됨!!!!!!!!!!!! 데이터에 저장된 담당자가 아니라, 현재 로그인한 세션의 아이디(emp_no)가 들어가야함.  -->
 						<!-- 각 구매처 옆에 같은 구매처, 상품만 다른 버튼 하나 추가하면 좋을듯 -->

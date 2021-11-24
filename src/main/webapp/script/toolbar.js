@@ -1,6 +1,3 @@
-/**
- * 
- */
 	var toolbar = document.getElementsByClassName('toolbar');
 	var tool = document.getElementsByClassName('tool');
 	tool[0].onclick = function() {

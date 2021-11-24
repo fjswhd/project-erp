@@ -8,11 +8,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매처 목록</title>
+<title>구매처 등록</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/sales/customerInsertForm.css?10" rel="stylesheet" type="text/css">
+<link href="/project/css/purchase/sellerInsertForm.css?1" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.history.forward();
@@ -22,15 +22,15 @@
 		label[1].setAttribute('style', 'background: #186343');
 
 		var tool = document.getElementsByClassName('tool');
-		tool[1].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
+		tool[0].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
 		
-		frm.customer_reg_num.onchange = function() {
+		frm.seller_reg_num.onchange = function() {
 			var msg = document.getElementsByClassName('msg')[0];
 			
 			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '/project/sales/customerCheck.do');
+			xhr.open('POST', '/project/purchase/sellerCheck.do');
 			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-			xhr.send('customer_reg_num=' + frm.customer_reg_num.value); 
+			xhr.send('seller_reg_num=' + frm.seller_reg_num.value); 
 			
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status == 200) {
@@ -45,10 +45,7 @@
 				}
 			};
 		};
-	
 	}
-	
-	
 </script>
 </head>
 <body>
@@ -57,11 +54,13 @@
 	</div>
 	<div id="body_container">
 		<div class="side_bar">
-			<div>판 매</div>
-			<div class="label">판매처 목록</div>
-			<div class="label">판매처 등록</div>
-			<div class="label">판매 내역</div>
-			<div class="label">판매 등록</div>
+			<div>구 매</div>
+			<div class="label">구매처 목록</div>
+			<div class="label">구매처 등록</div>
+			<div class="label">상품 목록</div>
+			<div class="label">상품 등록</div>			
+			<div class="label">구매 내역</div>
+			<div class="label">구매 등록</div>
 		</div>
 		<div class="body">
 			<div class="toolbar">
@@ -74,60 +73,62 @@
 			</div>
 			<div class="content">
 				<div class="content_head">
-					<div class="label_name">판매처 수정</div>
+					<div class="label_name">구매처 등록</div>
 				</div>
 				<div class="content_body">
-					<form action="/project/sales/customerUpdate.do" method="post" name="frm" onsubmit="return submitChk()">
+					<form action="/project/purchase/sellerInsert.do" method="post" name="frm" onsubmit="return submitChk()">
 					<table>
 						<tr>
 							<th>업체번호</th>
-							<td>${customer.customer_no}<input type="hidden" name="customer_no" required="required" value="${customer.customer_no}" /></td>
+							<td>${seller_no}<input type="hidden" name="seller_no" required="required" value="${seller_no}" /></td>
 						</tr>
 						<tr>
 							<th>업체명</th>
-							<td><input type="text" name="customer_name" required="required" value="${customer.customer_name}" /></td>
+							<td><input type="text" name="seller_name" required="required" /></td>
 						</tr>
 						<tr>
 							<th>사업자 번호</th>
 							<td>
-								<input type="text" name="customer_reg_num" required="required" value="${customer.customer_reg_num}" />
+								<input type="text" name="seller_reg_num" required="required" />
 								<div class="msg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>전화번호</th>
-							<td><input type="tel" name="customer_tel" required="required" value="${customer.customer_tel}" /></td>
+							<td><input type="tel" name="seller_tel" required="required" /></td>
 						</tr>
 						<tr>
 							<th>이메일</th>
-							<td><input type="email" name="customer_email" required="required" value="${customer.customer_email}" /></td>
+							<td><input type="email" name="seller_email" required="required" /></td>
 						</tr>
 						<tr class="addrRow">
 							<th>주소</th>
 							<td>
 								<div>
-									<input type="text" name="customer_addr_no" id="postcode" required="required" placeholder="우편번호" value="${customer.customer_addr_no}" />
+									<input type="text" name="seller_addr_no" id="postcode" required="required" placeholder="우편번호" />
 									<input type="button" value="우편번호 입력" onclick="DaumPostcode()">
 								</div>
-								<div><input type="text" name="customer_addr" id="address" required="required" placeholder="주소" value="${customer.customer_addr}" /></div>
-								<div><input type="text" name="customer_addr_detail" id="detailAddress" required="required" placeholder="상세주소" value="${customer.customer_addr_detail}" /></div>
+								<div><input type="text" name="seller_addr" id="address" required="required" placeholder="주소"/></div>
+								<div><input type="text" name="seller_addr_detail" id="detailAddress" required="required" placeholder="상세주소"/></div>
 							</td>
 						</tr>
 						<tr>
 							<th>담당자</th>
 							<td>
-								${Hr.emp_no} / ${Hr.dept_name}팀 ${Hr.emp_name}
-								<input type="hidden" name="emp_no" required="required" value="${Hr.emp_no}" /> 
+								${sessionScope.Hr.emp_no} / ${sessionScope.Hr.dept_name}팀 ${sessionScope.Hr.emp_name}
+								<input type="hidden" name="emp_no" required="required" value="${sessionScope.Hr.emp_no}" /> 
 							</td>
 						</tr>
 						<tr class="last">
 							<th>참고사항</th>
 							<td>
-								<textarea name="customer_memo" rows="2" cols="40">${customer.customer_memo}</textarea>
+								<textarea name="seller_memo" rows="2" cols="40"></textarea>
 							</td>
 						</tr>
 						<tr>
-							<td><input type="submit" value="등록"></td>
+							<td>
+								<input type="submit" value="등록">
+							</td>
 						</tr>
 						</table>
 					</form>

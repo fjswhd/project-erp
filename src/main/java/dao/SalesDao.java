@@ -96,7 +96,6 @@ public class SalesDao {
 	public int insertCustomer(Customer customer) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		Connection conn = getConnection();
 		//업체코드 업체명 사업자번호 전화번호 이메일 우편번호 주소 상세주소, 담당자 사번, 참고, 삭제  
 		String sql="insert into customer values(?,?,?,?,?,?,?,?,?,?,'n')";
@@ -118,7 +117,6 @@ public class SalesDao {
 			System.out.println(e.getMessage());
 		}finally {
 			try {
-				if (rs != null) rs.close();
 				if (pstmt != null) pstmt.close();
 				if (conn != null)  conn.close();
 			}catch (Exception e) {		}
@@ -200,8 +198,10 @@ public class SalesDao {
 
 	public int updateCustomer(Customer customer) {
 		int result = 0;
+		
 		PreparedStatement pstmt = null;
 		Connection conn = getConnection();
+		
 		//업체코드, 업체명, 사업자번호, 전화번호, 이메일, 우편번호, 주소, 상세주소, 담당자 사번, 참고, 삭제  
 		String sql="update customer "
 				+ "set "

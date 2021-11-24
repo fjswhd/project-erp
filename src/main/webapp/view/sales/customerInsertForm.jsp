@@ -120,7 +120,7 @@
 						<tr class="last">
 							<th>참고사항</th>
 							<td>
-								<textarea rows="2" cols="40"></textarea>
+								<textarea name="customer_memo" rows="2" cols="40"></textarea>
 							</td>
 						</tr>
 						<tr>

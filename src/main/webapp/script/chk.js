@@ -9,6 +9,8 @@ xhr.open('POST', '/project/hr/check.do');
 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
 xhr.onreadystatechange = function() {
+	
+	
 	if (xhr.readyState === XMLHttpRequest.DONE && xhr.status == 200) {
 		var result = xhr.responseText;
 		if (result > 0) {

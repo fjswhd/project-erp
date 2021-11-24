@@ -1,4 +1,4 @@
-package service.purchase;
+package service.seller;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class SellerList implements Command {
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("totalPage", totalPage);
 		
-		return "/view/purchase/sellerList.jsp";
+		return "/view/seller/list.jsp";
 	}
 
 }

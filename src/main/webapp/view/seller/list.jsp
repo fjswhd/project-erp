@@ -12,7 +12,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/purchase/sellerList.css" rel="stylesheet" type="text/css">
+<link href="/project/css/seller/list.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
@@ -87,10 +87,10 @@
 						</c:if>
 						<c:forEach var="i" begin="${startPage}" end="${endPage}">
 							<c:if test="${param.p == i}">
-								<b><a href="/project/purchase/sellerList.do?p=${i}">${i}</a></b>
+								<b><a href="/project/seller/list.do?p=${i}">${i}</a></b>
 							</c:if>
 							<c:if test="${param.p != i}">
-								<a href="/project/purchase/sellerList.do?p=${i}">${i}</a>
+								<a href="/project/seller/list.do?p=${i}">${i}</a>
 							</c:if>
 						</c:forEach>
 						<!-- 	보여줄 것이 아직 남아있다 -->

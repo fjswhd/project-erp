@@ -1,4 +1,4 @@
-package service.purchase;
+package service.product;
 
 import java.util.List;
 
@@ -7,30 +7,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import dao.SellerDao;
-import model.Seller;
+import dao.ProductBoardDao;
+import model.Product;
 
-public class SellerList implements Command {
+public class ProductList implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		final int ROW_PER_PAGE = 10;     // 한페이지에 10개씩
 		final int PAGE_PER_BLOCK = 10;   // 한블럭에 10페이지
-		
-		String pageNum = request.getParameter("pageNum");
-		
-		if (pageNum == null || pageNum.equals("")) 
-			pageNum = "1";
-		
-		int currentPage = Integer.parseInt(pageNum);
-		
-		SellerDao bd = SellerDao.getInstance();
-		int total = bd.getTotalSeller(); 
-		
+		String p = request.getParameter("p");
+		if (p == null || p.equals("")) p = "1";
+		int currentPage = Integer.parseInt(p);
+		ProductBoardDao bd = ProductBoardDao.getInstance();
+		int total = bd.getTotal(); 
 		int startRow = (currentPage - 1) * ROW_PER_PAGE + 1; // 시작번호	(페이지번호 - 1) * 페이지당 갯수+ 1
 		int endRow = startRow + ROW_PER_PAGE - 1; // 끝번호 	시작번호 + 페이지당개수 - 1
-		List<Seller> sellerList = bd.sellerList(startRow, endRow);
-
+		List<Product> productList = bd.productList(startRow, endRow);
+		int number = total - startRow + 1;   // 번호를 보기 좋기 정열
 		int totalPage = (int)Math.ceil((double)total/ROW_PER_PAGE);   // 총 페이지 수
 		// 시작페이지	현재페이지 - (현재페이지 - 1)%10			
 		int startPage = currentPage - (currentPage - 1)%PAGE_PER_BLOCK;
@@ -42,12 +36,11 @@ public class SellerList implements Command {
 		// JSP에서 jstl로 사용하는 변수와 값을 전달
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("PAGE_PER_BLOCK", PAGE_PER_BLOCK);	
-		request.setAttribute("sellerList", sellerList);
+		request.setAttribute("productList", productList);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("totalPage", totalPage);
-		
-		return "/view/purchase/sellerList.jsp";
+		return "/view/product/list.jsp";
 	}
 
 }
