@@ -1,0 +1,196 @@
+@charset "UTF-8";
+/*=====기본설정==========================================================================================  */	
+	*  {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 10px;
+		vertical-align: baseline;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	body {
+		display: flex;
+		width: 100vw;
+		height: 100vh;
+		flex-direction: column;
+		overflow: hidden;
+	}
+	div {
+		display: flex;
+	}
+/*===== header ==========================================================================================  */
+	#header {
+		background: #fafffa;
+		height: 10rem;
+		/* border-bottom: 0.1rem solid #000; */
+	}
+	#header .logo {
+		background-image: url('/project/images/logo2.jpg');
+		background-position: center;
+		background-size: 20rem 10rem;
+		background-repeat: no-repeat;
+		align-items: center;
+		justify-content: center;
+		flex: 1.8;
+	}
+	#header .user_info {
+		align-items: flex-end;
+		justify-content: flex-end;
+		padding: 0 0rem 2rem 0;
+		flex: 7.2;
+		font-size: 3.2rem;
+	}
+	#header .logout_container {
+		align-items: flex-end;
+		justify-content: center;
+		flex: 1;
+	}
+	#header .logout_container button {
+		background: #59645C;
+		border: none;
+		border-radius: 0.4rem;		
+		width: 8rem;
+		height: 2.8rem;
+		margin: 0 0 2.3rem 0;
+		color: #fff;
+		font-size: 1.2rem;
+		font-weight: bold;
+		box-shadow: 0 0.15rem 0.15rem black;
+	}
+	#header .logout_container button:active {
+		margin-left: 0.08rem;
+		margin-right: 0.08rem;
+		margin-bottom: 2.15rem;
+		box-shadow: 0 0 0 black;
+	}
+/*===== body_container ==========================================================================================  */
+	#body_container {
+		background: #fafffa;
+		flex: 1;
+	}
+/*========side_bar==========================================================================================================  */
+	#body_container .side_bar {
+		background: rgba(194, 218, 188, 0.7);
+		border-top-right-radius: 0.5rem;
+		box-shadow: 0 -0.08rem 0.2rem #505050; 
+		flex-direction: column;
+		align-items: flex-end;
+		flex: 1.3;
+		z-index: 0;
+	}
+	.side_bar > div {
+		background: rgb(163, 184, 139);
+		justify-content: center;
+		align-items: center;
+		border-top-left-radius: 1.5rem;
+		border-bottom-left-radius: 1.5rem;
+		width: 15rem;
+		height: 3rem;
+		margin: 0.5rem 0;
+		font-size: 1.8rem;
+		color: #fff;
+		box-shadow: 0 0.1rem 0.1rem #505050;
+	}
+	.side_bar > div:hover {
+		background: #768B5E;
+		cursor: pointer;
+		box-shadow: 0 0.1rem 0.1rem #505050;
+	}
+	.side_bar > div:active {
+		background: #768B5E;
+		cursor: pointer;
+		margin: 0.6rem 0 0.4rem 0;
+		box-shadow: 0 0rem 0rem #505050;
+	}
+	.side_bar > div:first-of-type {
+		background: rgba(194, 218, 188, 0);
+		height: 6rem;
+		/* margin-right: 3rem;  */
+		font-size: 2.4rem;
+		font-weight: bold;
+		color: #000;
+		cursor: auto;
+		box-shadow: 0 0 0 #000;
+	}
+	.side_bar > div:first-of-type:active {
+		margin: 0.5rem 0 0.5rem 0;
+	}
+	
+/*========body==========================================================================================================  */
+	#body_container .body {	
+		flex-direction: column;
+		background: #fafffa;
+		box-shadow: -0.1rem 0.1rem 0.08rem #505050; 
+		border-top-left-radius: 0.6rem;
+		flex: 8.7;
+		z-index: 2;
+	}
+/*========toolbar==========================================================================================================  */
+	.body > .toolbar {
+		flex: 0.5;
+	}
+	.body > .toolbar > div {
+		background: #768B5E;
+		flex: 1;
+		border-top-right-radius: 0.6rem;
+		border-top-left-radius: 0.6rem;
+		box-shadow: 0 -0.08rem 0.2rem #000;
+		justify-content: center;
+		align-items: center;
+		font-family: 'paybooc-Bold';
+		font-size: 2rem;
+		color: #fff;
+	}
+	.body > .toolbar > div:hover {
+		background: rgb(163, 184, 139);
+		box-shadow: 0 -0.15rem 0.2rem #505050;
+		cursor: pointer;
+		color: #fff;
+		z-index: 2;
+	}
+	.body > .toolbar > div:nth-of-type(5) {
+		background: #fafffa;
+		box-shadow: 0 -0.15rem 0.15rem #505050;
+		color: #000;
+		z-index: 1;
+	}
+	.body > .toolbar > div:nth-of-type(5):hover {
+		background: #fafffa;
+		box-shadow: 0 -0.15rem 0.15rem #505050;
+		color: #000;
+		z-index: 1;
+	}
+	.body > .toolbar > div:last-of-type {
+		background: #768B5E;
+		cursor: auto;
+		flex: 5;
+	}
+	.body > .toolbar > div:last-of-type:hover {
+		background: #768B5E;
+		cursor: auto;
+		flex: 5;
+		z-index: 0;
+	}
+/*========content==========================================================================================================  */
+	.body > .content {
+		flex: 9.5;
+		flex-direction: column;
+	}
+	.content > .content_head {
+		align-items: center;
+		padding: 0rem 3rem;
+		flex: 1.4;
+	}
+	.content > .content_head > .label_name {
+		height: 4.4rem;
+		justify-content: center;
+		border-bottom: 0.2rem solid #000;
+		padding: 0 1.5rem;
+		font-size: 3.2rem;
+	}
+/*========content_body 여기부터 수정해도 갠춘==========================================================================================================  */
+	.content > .content_body {
+		padding: 0 3rem;
+		flex: 8.6;
+		align-items: flex-start;
+	}
