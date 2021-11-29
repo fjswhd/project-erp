@@ -49,9 +49,12 @@ if(pathName.includes('project/hr')) {
 		location.href = '/project/inventory/list.do?p=1';
 	};
 	label[1].onclick = function() {
-		location.href = '/project/inventory/enterList.do?p=1';
+		location.href = '/project/inventory/modifiedList.do?p=1';
 	};
 	label[2].onclick = function() {
+		location.href = '/project/inventory/enterList.do?p=1';
+	};
+	label[3].onclick = function() {
 		location.href = '/project/inventory/releaseList.do?p=1';
 	};	
 }  else if (pathName.includes('project/accounting')) {

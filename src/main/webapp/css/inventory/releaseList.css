@@ -1,4 +1,7 @@
 @charset "UTF-8";
+	.content_body > form {
+		display: flex;
+	}
 	.content_body > table {
 		border: 0.2rem solid silver;
 		border-radius: 0.8rem;
@@ -44,12 +47,6 @@
 	.content_body > table tr th {
 		border-right: 0.2rem solid #f8f7f2;
 	}
-	/* .content_body table tr > *:nth-of-type(4) {
-		flex: 3;
-	}
-	.content_body table tr > *:nth-of-type(5) {
-		flex: 3;
-	} */
 	.content_body table tr > *:last-of-type {
 		border-right: none;
 	}

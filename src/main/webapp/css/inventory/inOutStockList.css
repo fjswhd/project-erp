@@ -7,12 +7,10 @@
 	.content_body > table tr {
 		display: flex;
 		background: #f8f7f2;
-		border-bottom: 0.2rem solid silver;
+		border-bottom: 0.1rem solid silver;
 		margin-top: 0.2rem;
-		flex-direction: column;
-		flex-wrap: wrap;
-		align-content: stretch;
-		height: 6rem;
+		align-items: center;
+		height: 3rem;
 	}
 	.content_body > table tr:first-of-type {
 		background: silver;
@@ -33,34 +31,59 @@
 	}
 	.content_body > table tr td,th {
 		display: flex;
+		flex: 1;
 		justify-content: center;
 		align-items: center;
 		border-right: 0.2rem solid silver;
-		height: 2.9rem;
+		height: 2.6rem;
 		font-size: 1.6rem;
 	}
 	.content_body > table tr th {
 		border-right: 0.2rem solid #f8f7f2;
 	}
-	.content_body table tr > *:first-of-type {
-		height: 6rem;
+	.content_body table tr > *:nth-of-type(1) {
+		flex: 1;
 	}
-	.content_body table tr > th:nth-of-type(2n) {
-		border-bottom: 0.2rem solid #f8f7f2;
+	.content_body table tr > *:nth-of-type(2) {
+		flex: 1;
 	}
-	.content_body table tr > td:nth-of-type(2n) {
-		border-bottom: 0.2rem solid silver;
+	.content_body table tr > *:nth-of-type(4) {
+		flex: 1;
 	}
-	.content_body table tr > th:last-of-type {
-		height: 6rem;
+	.content_body table tr > *:nth-of-type(6) {
+		flex: 1;
+	}
+	.content_body table tr > *:nth-of-type(7) {
+		flex: 1;
+	}
+	.content_body table tr > *:last-of-type {
 		border-right: none;
-		border-bottom: none;
-	}
-	.content_body table tr > td:last-of-type {
-		height: 6rem;
-		border-right: none;
-		border-bottom: none;
 	}
 	.content_body table tr > td:hover {
+		font-weight: bold;
+	}
+	.content_body .page {
+		justify-content: center;
+		align-items: center;
+		height: 5rem;
+	}
+	.content_body .page a {
+		display: flex;
+		margin: 0 1rem;
+		width: 1.5rem;
+		justify-content: center;
+		align-items: center;
+		font-family: sans-serif;
+		font-size: 1.8rem;
+	}
+	.content_body .page a:link {
+		color: #000;
+		text-decoration: none;
+	}
+	.content_body .page a:visited {
+		color: #000;
+		text-decoration: none;
+	}
+	.content_body .page a:hover {
 		font-weight: bold;
 	}

@@ -12,12 +12,12 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/inventory/releaseList.css" rel="stylesheet" type="text/css">
+<link href="/project/css/inventory/releaseList.css?1" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
-		label[2].setAttribute('style', 'background: #186343');
+		label[3].setAttribute('style', 'background: #186343');
 
 		var tool = document.getElementsByClassName('tool');
 		tool[2].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
@@ -32,6 +32,7 @@
 		<div class="side_bar">
 			<div>재 고</div>
 			<div class="label">재고 현황</div>
+			<div class="label">재고 변동 내역</div>
 			<div class="label">입고 내역</div>
 			<div class="label">출고 내역</div>
 		</div>
@@ -49,6 +50,33 @@
 					<div class="label_name">출고 내역</div>
 				</div>
 				<div class="content_body">
+					<form method="post" name="search"
+						action="/project/st/outProductListSearch.do">
+						<div class="search">
+							<div>
+								<input type="date" name="s_date" >
+								<div> ~ </div>
+								<input type="date" name="e_date" >
+							</div>
+							<div>
+								<select name="searchField">
+									<option value="0">선택</option>
+									<option value="customer_no">업체코드</option>
+									<option value="customer_name">업체명</option>
+									<option value="product_no">상품코드</option>
+									<option value="product_name">상품명</option>
+								</select>
+							</div>
+							<div>
+								<input type="text" name="keyword" style="width: 150px;">
+							</div>
+							<div>
+								<button class="search_img" type="submit">
+									<img src="/project/images/search.jpg" width="30">
+								</button>
+							</div>
+						</div>
+					</form>
 					<table>
 						<tr>
 							<th>출고일</th>
@@ -56,46 +84,41 @@
 							<th>업체명</th>
 							<th>상품코드</th>
 							<th>상품명</th>
-							<th>판매단가</th>
-							<th>판매수량</th>
-							<th>담당자</th>
+							<th>출고단가</th>
+							<th>수량</th>
 						</tr>
-						<c:if test="${empty salesList}">
+						<c:if test="${empty outProductList }">
 							<tr>
-								<th colspan="8">출고내역이 없습니다</th>
+								<td>출고내역이 없습니다</td>
 							</tr>
 						</c:if>
-						<c:if test="${not empty salesList }">
-							<c:forEach var="sales" items="${salesList}">
+
+						<c:if test="${not empty outProductList }">
+							<c:forEach var="product" items="${outProductList}">
 								<tr>
-									<td>${sales.sales_order_date}</td>
-									<td>${sales.seller_no}</td>
-									<td>${sales.seller_name}</td>
-									<td>${sales.product_no}</td>
-									<td>${sales.product_name}</td>
-									<td>${sales.price}</td>
-									<td>${sales.sales_detail_pcount}</td>
-									<td>${sales.emp_name}</td>
+									<td>${product.sales_order_date}</td>
+									<td>${product.customer_no }</td>
+									<td>${product.customer_name }</td>
+									<td>${product.product_no }</td>
+									<td>${product.product_name }</td>
+									<td>${product.price }</td>
+									<td>${product.sales_detail_pcount }</td>
 								</tr>
 							</c:forEach>
 						</c:if>
 					</table>
+	
 					<div class="page">
-						<c:if test="${startPage > PAGE_PER_BLOCK }">
-							<a href='/project/inventory/releaseList.do?p=${startPage - 1}'>이전</a>
-						</c:if>
-						<c:forEach var="i" begin="${startPage}" end="${endPage}">
-							<c:if test="${param.p == i}">
-								<b><a href="/project/inventory/releaseList.do?p=${i}">${i}</a></b>
+						<a href="/project/inventory/releaseList.do?p=${p-5}">&lt;</a>
+						<c:forEach begin="${firstPage}" end="${lastPage}" varStatus="vs">
+							<c:if test="${p == vs.index}">
+								<b><a href="/project/inventory/releaseList.do?p=${vs.index}">${vs.index}</a></b>
 							</c:if>
-							<c:if test="${param.p != i}">
-								<a href="/project/inventory/releaseList.do?p=${i}">${i}</a>
+							<c:if test="${p != vs.index}">
+								<a href="/project/inventory/releaseList.do?p=${vs.index}">${vs.index}</a>
 							</c:if>
 						</c:forEach>
-						<!-- 	보여줄 것이 아직 남아있다 -->
-						<c:if test="${endPage < totalPage}">
-							<a href='/project/inventory/releaseList.do?p=${endPage + 1}'>다음</a>
-						</c:if>
+						<a href="/project/inventory/releaseList.do?p=${p+5}">&gt;</a>
 					</div>
 				</div>
 			</div>

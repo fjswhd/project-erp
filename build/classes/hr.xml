@@ -13,12 +13,12 @@
 		select * from emp where emp_no = #{emp_no}
 	</select>
 	<select id="selectHr" parameterType="string" resultType="Hr">
-		select * from v_hr_2 where emp_no = #{emp_no}
+		select * from v_hr where emp_no = #{emp_no}
 	</select>
 	
 	<!-- 사원 목록 조회(with 부서명) -->
 	<select id="selectHrList" parameterType="map" resultType="Hr">
-		select * from v_hr_2 where rn between #{firstRow} and #{lastRow}
+		select * from v_hr where rn between #{firstRow} and #{lastRow}
 	</select>
 	
 	<!-- 총 사원 수 -->

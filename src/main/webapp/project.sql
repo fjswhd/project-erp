@@ -97,6 +97,17 @@ create table Cash (
 	sales_order_no		references sales_order(sales_order_no)
 )
 
+create table product_modified (
+	product_modified_date	date,
+	product_no								references Product(product_no) not null,
+	emp_no									references Emp(emp_no) not null,
+	modified_stock			number,
+	modified_memo			varchar2(100),
+											primary key(product_modified_date, product_no)
+);
+
+insert into CASH values (1, 1000000, null, null);
+
 update emp set password = '1234' where emp_no = '21-00001';
 
 select * from customer where customer_no = 'C0001' and del = 'n';
@@ -109,7 +120,7 @@ as
 	from (select rownum rn, e.* from emp e) e1 
 	join dept d
 	on e1.dept_no = d.dept_no 
-	order by emp_no
+	order by emp_no, e1.dept_no
 with read only;
 
 truncate table EMP;
@@ -122,5 +133,7 @@ truncate table sales_order_detail;
 truncate table sales_order;
 truncate table customer;
 truncate table cash;
+
+
 
 insert into emp values ('21-00001', 50, '1234', '이종민', 'fjswhd93@gmail.com', '10358','고양시', '덕양구', '010-9052-1980', to_date('210502', 'YYMMDD'), 'n');

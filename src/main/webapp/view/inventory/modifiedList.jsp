@@ -12,19 +12,15 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/inventory/list.css" rel="stylesheet" type="text/css">
+<link href="/project/css/inventory/releaseList.css?1" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
-		label[0].setAttribute('style', 'background: #186343');
+		label[1].setAttribute('style', 'background: #186343');
 
 		var tool = document.getElementsByClassName('tool');
 		tool[2].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
-		
-	}
-	function openWindow(p, product_no) {
-		window.open('/project/inventory/modifyStockForm.do?p='+p+'&product_no='+product_no, '재고수정', 'width=500, height=600 left=550, top=100');
 	}
 </script>
 </head>
@@ -36,7 +32,7 @@
 		<div class="side_bar">
 			<div>재 고</div>
 			<div class="label">재고 현황</div>
-			<div class="label">재고 변동 내역</div>			
+			<div class="label">재고 변동 내역</div>
 			<div class="label">입고 내역</div>
 			<div class="label">출고 내역</div>
 		</div>
@@ -51,18 +47,27 @@
 			</div>
 			<div class="content">
 				<div class="content_head">
-					<div class="label_name">재고 현황</div>
+					<div class="label_name">재고 변동 내역</div>
 				</div>
 				<div class="content_body">
-					<form method="post" name="search" action="/project/st/productListSearch.do">
+					<form method="post" name="search"
+						action="/project/st/outProductListSearch.do">
 						<div class="search">
+							<div>
+								<input type="date" name="s_date" >
+								<div> ~ </div>
+								<input type="date" name="e_date" >
+							</div>
 							<div>
 								<select name="searchField">
 									<option value="0">선택</option>
+									<option value="customer_no">업체코드</option>
+									<option value="customer_name">업체명</option>
 									<option value="product_no">상품코드</option>
 									<option value="product_name">상품명</option>
 								</select>
 							</div>
+
 							<div>
 								<input type="text" name="keyword" style="width: 150px;">
 							</div>
@@ -71,53 +76,52 @@
 								<button class="search_img" type="submit">
 									<img src="/project/images/search.jpg" width="30">
 								</button>
+
 							</div>
 						</div>
 					</form>
 					<table>
 						<tr>
+							<th>출고일</th>
+							<th>업체코드</th>
+							<th>업체명</th>
 							<th>상품코드</th>
 							<th>상품명</th>
-							<th>입고단가</th>
 							<th>출고단가</th>
 							<th>수량</th>
 						</tr>
-						<c:if test="${empty productList}">
+						<c:if test="${empty outProductList }">
 							<tr>
-								<th colspan="5">상품재고가 없습니다</th>
+								<td>재고 변동 내역이 없습니다</td>
 							</tr>
 						</c:if>
-						<c:if test="${not empty productList}">
-							<c:forEach var="product" items="${productList}">
-								<tr class="productList">
-									<td>
-										<a onclick="openWindow(${p}, ${product.product_no})">
-											${product.product_no}
-										</a>
-									</td>
-									<td>
-										<a onclick="openWindow(${p}, ${product.product_no})">
-											${product.product_name}
-										</a>
-									</td>
-									<td>${product.cost}</td>
-									<td>${product.price}</td>
-									<td>${product.stock}</td>
+
+						<c:if test="${not empty outProductList }">
+							<c:forEach var="product" items="${outProductList}">
+								<tr>
+									<td>${product.sales_order_date}</td>
+									<td>${product.customer_no }</td>
+									<td>${product.customer_name }</td>
+									<td>${product.product_no }</td>
+									<td>${product.product_name }</td>
+									<td>${product.price }</td>
+									<td>${product.sales_detail_pcount }</td>
 								</tr>
 							</c:forEach>
 						</c:if>
 					</table>
+	
 					<div class="page">
-						<a href="/project/inventory/list.do?p=${p-5}">&lt;</a>
+						<a href="/project/inventory/modifiedList.do?p=${p-5}">&lt;</a>
 						<c:forEach begin="${firstPage}" end="${lastPage}" varStatus="vs">
 							<c:if test="${p == vs.index}">
-								<b><a href="/project/inventory/list.do?p=${vs.index}">${vs.index}</a></b>
+								<b><a href="/project/inventory/modifiedList.do?p=${vs.index}">${vs.index}</a></b>
 							</c:if>
 							<c:if test="${p != vs.index}">
-								<a href="/project/inventory/list.do?p=${vs.index}">${vs.index}</a>
+								<a href="/project/inventory/modifiedList.do?p=${vs.index}">${vs.index}</a>
 							</c:if>
 						</c:forEach>
-						<a href="/project/inventory/list.do?p=${p+5}">&gt;</a>
+						<a href="/project/inventory/modifiedList.do?p=${p+5}">&gt;</a>
 					</div>
 				</div>
 			</div>

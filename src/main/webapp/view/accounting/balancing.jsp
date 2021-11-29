@@ -12,7 +12,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/accounting/balancing.css?3" rel="stylesheet" type="text/css">
+<link href="/project/css/accounting/balancing.css?4" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {

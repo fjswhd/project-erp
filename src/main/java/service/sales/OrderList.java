@@ -36,7 +36,6 @@ public class OrderList implements Command {
 		p = p < 1 ? 1 : p;
 		p = p > endPage ? endPage : p;
 		
-		
 		//꺼내올 첫번째 열 = (현재 페이지 - 1) * 페이지 당 열 개수 + 1;
 		//꺼내올 마지막 열 = 현재 페이지 * 페이지당 열 개수
 		int firstRow	= (p-1)*ROW_PER_PAGE + 1;
@@ -45,8 +44,6 @@ public class OrderList implements Command {
 		//pageButton에 넣을 변수 만들기
 		int firstPage = PAGE_PER_BLOCK*( (p-1)/PAGE_PER_BLOCK ) + 1;  
 		int lastPage = PAGE_PER_BLOCK*( (p-1)/PAGE_PER_BLOCK + 1);
-		
-	
 		
 		firstPage = firstPage < 1 ? 1 : firstPage;
 		lastPage = lastPage > endPage ? endPage : lastPage;
