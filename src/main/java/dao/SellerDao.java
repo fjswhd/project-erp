@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import model.SearchOption;
 import model.Seller;
 
 public class SellerDao {
@@ -111,7 +112,47 @@ public class SellerDao {
 		}
 		return sellerList;
 	}
+	public List<Seller> sellerList() {
+		List<Seller> sellerList = new ArrayList<Seller>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+		
+		String sql = "select * from seller order by seller_no";
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				Seller seller = new Seller();
+				
+				seller.setSeller_no			(rs.getString("seller_no"));
+				seller.setSeller_reg_num	(rs.getString("seller_reg_num"));
+				seller.setSeller_name		(rs.getString("seller_name"));
+				seller.setSeller_tel		(rs.getString("seller_tel"));
+				seller.setSeller_addr_no	(rs.getString("seller_addr_no"));
+				seller.setSeller_addr		(rs.getString("seller_addr"));
+				seller.setSeller_addr_detail(rs.getString("seller_addr_detail"));
+				seller.setEmp_no			(rs.getString("emp_no"));
+				seller.setSeller_email		(rs.getString("seller_email"));
+				seller.setSeller_memo		(rs.getString("seller_memo"));
+				seller.setSeller_del		(rs.getString("seller_del"));
 
+				sellerList.add(seller);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)	rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {	}
+		}
+		return sellerList;
+	}
 	public Seller selectSellerWithRegNum(String reg_num) {
 		Seller seller = null;
 		
@@ -281,5 +322,44 @@ public class SellerDao {
 		return result;
 	}
 
-	
+	public List<Seller> searchSeller(SearchOption options) {
+		List<Seller> searchList = new ArrayList<Seller>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+
+		String sql = "select * from Seller "
+				+ "where "+options.getSearchField()+" like '%'||'"+options.getKeyword()+"'||'%' "
+				+ "order by seller_no";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(); 
+			while(rs.next()) {
+				Seller seller = new Seller();
+				seller.setSeller_no		(rs.getString("seller_no"));
+				seller.setSeller_name	(rs.getString("seller_name"));   
+				seller.setSeller_reg_num(rs.getString("seller_reg_num"));
+				seller.setSeller_tel	(rs.getString("seller_tel"));
+				seller.setSeller_email	(rs.getString("seller_email"));
+				seller.setSeller_addr	(rs.getString("seller_addr"));
+				seller.setEmp_no		(rs.getString("emp_no"));
+				seller.setSeller_memo	(rs.getString("seller_memo"));
+				seller.setSeller_del	(rs.getString("seller_del"));
+
+				searchList.add(seller); 
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+		}
+		
+		return searchList;
+	}	
 }

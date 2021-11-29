@@ -15,8 +15,8 @@ public class RegNumCheck implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		// 유효한 접근인지 확인
-		if (request.getHeader("referer") == null || !(request.getHeader("referer").contains("sellerInsert")
-				|| request.getHeader("referer").contains("sellerUpdate"))) {
+		if (request.getHeader("referer") == null || !(request.getHeader("referer").contains("seller/insertForm")
+				|| request.getHeader("referer").contains("seller/updateForm"))) {
 			request.getSession().invalidate();
 			return "/login/loginForm.do";
 		}

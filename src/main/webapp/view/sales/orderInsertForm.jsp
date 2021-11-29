@@ -25,12 +25,44 @@
 		tool[1].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
 		
 		document.getElementById('customerSearch').onclick = function() {
-			window.open('/project/sales/customerSearch.do', '업체검색', 'width=500, height=600, scrollbars=no, resizable=yes');
+			window.open('/project/customer/searchWindow.do', '업체검색', 'width=500, height=600, scrollbars=no, resizable=no, left=900, top=150');
 		}
-	
+		document.getElementById('productSearch').onclick = function() {
+			window.open('/project/product/searchWindow.do', '상품검색', 'width=500, height=600, scrollbars=no, resizable=no, left=900, top=150');
+		}
+		
+		
+		
+		
+		
+		frm.onsubmit = function() {
+			if (frm.customer_no.value == null || frm.customer_no.value == '') {
+				alert('업체를 입력하세요');
+				frm.customer_no.focus();
+				return false;
+			}
+			if (frm.product_no.value == null || frm.product_no.value == '') {
+				alert('상품을 입력하세요');
+				frm.product_no.focus();
+				return false;
+			}
+			
+			if (parseInt(frm.sales_detail_pcount.value) > parseInt(frm.stock.value)) {
+				alert('주문수량은 판매 가능 수량보다 많을 수 없습니다.');
+				frm.sales_detail_pcount.value = '';
+				frm.sales_detail_pcount.focus();
+				return false;
+			}
+			
+			if (parseInt(frm.sales_detail_pcount.value) <= 0) {
+				alert('적절한 주문수량을 입력해주세요.');
+				frm.sales_detail_pcount.value = '';
+				frm.sales_detail_pcount.focus();
+				return false;
+			}
+			
+		}
 	}
-	
-	
 </script>
 </head>
 <body>
@@ -59,7 +91,7 @@
 					<div class="label_name">판매 등록</div>
 				</div>
 				<div class="content_body">
-					<form action="/project/sales/orderInsert.do" method="post" name="frm" onsubmit="return submitChk()">
+					<form action="/project/sales/orderInsert.do" method="post" name="frm">
 					<table>
 		<!-- //판매주문일, 주문번호, 판매처코드, 판매처명, 상품코드, 상품명, 판매가, 매입가, 현재 재고량, 주문수량, 주문 등록 사원번호 -->			
 						<tr>
@@ -69,14 +101,14 @@
 						<tr>
 							<th>판매업체코드</th>
 							<td>
-								<input type="text" name="customer_no" required="required" />
+								<input type="text" name="customer_no" required="required" readonly="readonly" />
 								<input id="customerSearch" type="button" value="업체검색">
 							</td>
 							
 						</tr>
 						<tr>
 							<th>판매업체명</th>
-							<td><input type="text" name="customer_name" required="required" /></td>
+							<td><input type="text" name="customer_name" required="required" readonly="readonly" /></td>
 						</tr>
 						<tr>
 							<th>상품코드</th>
@@ -87,7 +119,7 @@
 						</tr>
 						<tr>
 							<th>상품명</th>
-							<td><input type="text" name="product_no" required="required" readonly="readonly" /></td>
+							<td><input type="text" name="product_name" required="required" readonly="readonly" /></td>
 						</tr>
 						<tr>
 							<th>판매단가</th>
@@ -95,7 +127,7 @@
 						</tr>
 						<tr>
 							<th>주문수량</th>
-							<td><input type="number" name="sales_order_pcount" required="required" /></td>
+							<td><input type="number" name="sales_detail_pcount" required="required" /></td>
 						</tr>
 						<tr>
 							<th>판매 가능 수량</th>
@@ -105,7 +137,7 @@
 							<th>담당자</th>
 							<td>
 								${Hr.emp_no} / ${Hr.dept_name}팀 ${Hr.emp_name}
-								<input type="hidden" name="emp_no" required="required" value="${Hr.emp_no}" /> 
+								<input type="hidden" name="emp_no" required="required" value="${Hr.emp_no}" />  
 							</td>
 						</tr>
 						<tr>

@@ -11,7 +11,7 @@ insert into dept values (50, '인사');
 
 create table emp (
 	emp_no 			varchar2(10) 		primary key,
-	dept_no 		references dept(dept_no),
+	dept_no 		references dept(dept_no) not null,
 	password		varchar2(15)		not null,
 	emp_name		varchar2(15)		not null,
 	emp_email		varchar2(50)		not null,
@@ -22,6 +22,8 @@ create table emp (
 	hiredate		date				default sysdate,
 	resign			char(1)				default 'n'
 );
+alter table emp
+modify (dept_no not null);
 
 create table Customer (
     customer_no             VARCHAR2(10) 	primary key, 
@@ -32,16 +34,16 @@ create table Customer (
     customer_addr_no        VARCHAR2(7)  	not null,
     customer_addr			VARCHAR2(200) 	not null,
     customer_addr_detail	VARCHAR2(50) 	not null,
-    emp_no					REFERENCES Emp(emp_no) ON DELETE set null,
+    emp_no					REFERENCES Emp(emp_no) ON DELETE set null not null,
     customer_memo           VARCHAR2(100),
     customer_del            CHAR(1) 		default 'n'
 ); 
 
 create table Sales_order(
     sales_order_no 		NUMBER 		primary key,
-    customer_no						REFERENCES Customer(customer_no) ON DELETE set null,
+    customer_no						REFERENCES Customer(customer_no) ON DELETE set null not null,
     sales_order_date 	DATE 		default (sysdate),
-    emp_no 							REFERENCES Emp(emp_no) ON DELETE set null
+    emp_no 							REFERENCES Emp(emp_no) ON DELETE set null not null
 );
 
 create table Product(
@@ -49,13 +51,13 @@ create table Product(
     product_name 	VARCHAR2(30) 	not null,
     price 			NUMBER 			not null,
     cost 			NUMBER 			not null,
-    stock 			NUMBER 			not null,
+    stock 			NUMBER 			not null, 
     product_memo 	VARCHAR2(100)
 );
 
 create table Sales_order_detail(
-    sales_order_no					REFERENCES Sales_order(sales_order_no) ON DELETE set null,
-    product_no 						REFERENCES Product(product_no) ON DELETE set null,
+    sales_order_no					REFERENCES Sales_order(sales_order_no) ON DELETE set null not null,
+    product_no 						REFERENCES Product(product_no) ON DELETE set null not null,
     sales_detail_pcount 	NUMBER 	not null,
     								PRIMARY KEY(sales_order_no, product_no)
 );
@@ -69,35 +71,36 @@ create table Seller (
     seller_addr_no      VARCHAR2(7)  	not null,
     seller_addr			VARCHAR2(200) 	not null,
     seller_addr_detail	VARCHAR2(50) 	not null,
-    emp_no				REFERENCES Emp(emp_no) ON DELETE set null,
+    emp_no				REFERENCES Emp(emp_no) ON DELETE set null not null,
     seller_memo         VARCHAR2(100),
     seller_del          CHAR(1) 		default 'n'
 ); 
 
 create table Purchase_order(
     purchase_order_no 		NUMBER 		primary key,
-    seller_no							REFERENCES Seller(seller_no) ON DELETE set null,
+    seller_no							REFERENCES Seller(seller_no) ON DELETE set null not null,
     purchase_order_date 	DATE 		default (sysdate),
-    emp_no 								REFERENCES Emp(emp_no) ON DELETE set null
+    emp_no 								REFERENCES Emp(emp_no) ON DELETE set null not null
 );
 
 create table Purchase_order_detail(
-    purchase_order_no				REFERENCES Purchase_order(purchase_order_no) ON DELETE set null,
-    product_no 						REFERENCES Product(product_no) ON DELETE set null,
-    pruchase_detail_pcount 	NUMBER 	not null,
+    purchase_order_no				REFERENCES Purchase_order(purchase_order_no) ON DELETE set null not null,
+    product_no 						REFERENCES Product(product_no) ON DELETE set null not null,
+    purchase_detail_pcount 	NUMBER 	not null,
     								PRIMARY KEY(purchase_order_no, product_no)
 );
 
 create table Cash (
-	
+	cash_code	NUMBER 	primary key,
+	cash		number,	
+	purchase_order_no	references purchase_order(purchase_order_no),
+	sales_order_no		references sales_order(sales_order_no)
 )
-
-
-select * from v_hr_2 where emp_no = '21-00001';
 
 update emp set password = '1234' where emp_no = '21-00001';
 
 select * from customer where customer_no = 'C0001' and del = 'n';
+select * from v_hr_2 where emp_no = '21-00001';
 
 --topN을 위한 뷰
 create or replace view v_hr
@@ -109,5 +112,15 @@ as
 	order by emp_no
 with read only;
 
+truncate table EMP;
+truncate table dept;
+truncate table seller;
+truncate table purchase_order;
+truncate table purchase_order_detail;
+truncate table product;
+truncate table sales_order_detail;
+truncate table sales_order;
+truncate table customer;
+truncate table cash;
 
 insert into emp values ('21-00001', 50, '1234', '이종민', 'fjswhd93@gmail.com', '10358','고양시', '덕양구', '010-9052-1980', to_date('210502', 'YYMMDD'), 'n');

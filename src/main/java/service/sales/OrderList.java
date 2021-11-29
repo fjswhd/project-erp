@@ -7,46 +7,56 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import model.Sales;
 import dao.SalesDao;
+import model.Sales;
 
 public class OrderList implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		final int ROW_PER_PAGE = 10;     // 한페이지에 10개씩
-		final int PAGE_PER_BLOCK = 10;   // 한블럭에 10페이지
-		String pageNum = request.getParameter("pageNum");
-		if (pageNum == null || pageNum.equals("")) pageNum = "1";
+		SalesDao sd = SalesDao.getInstance();
+		//페이지당 열 개수
+		final int ROW_PER_PAGE = 10;
 		
-		int currentPage = Integer.parseInt(pageNum);
+		//페이지 버튼 블럭당 페이지 개수
+		final int PAGE_PER_BLOCK = 5;
 		
-		SalesDao bd = SalesDao.getInstance();
-		int total = bd.getSalesTotal();  	
+		//마지막 페이지 구하기
+		int endPage = (sd.getTotalSales()-1)/ROW_PER_PAGE + 1;
 		
-		int startRow = (currentPage - 1) * ROW_PER_PAGE +1 ;
-		//시작번호	(페이지번호 - 1) * 페이지당 갯수+ 1
-		int endRow = startRow + ROW_PER_PAGE - 1; // 끝번호 	시작번호 + 페이지당개수 - 1
+		//현재 페이지(기본값은 1페이지)
+		int p = 1;
 		
-		List<Sales> salesList = bd.salesList(startRow, endRow);
+		if (request.getParameter("p") != null && !request.getParameter("p").equals("")) {
+			p = Integer.parseInt(request.getParameter("p"));
+		}
 		
-		int number = total - startRow + 1;   // 번호를 보기 좋기 정열
-		int totalPage = (int)Math.ceil((double)total/ROW_PER_PAGE);   // 총 페이지 수
-		// 시작페이지	현재페이지 - (현재페이지 - 1)%10			
-		int startPage = currentPage - (currentPage - 1)%PAGE_PER_BLOCK;
-		// 끝페이지	시작페이지 + 블록당페이지 수 - 1
-		int endPage = startPage + PAGE_PER_BLOCK - 1;
-		// 총 페이지보다 큰 endPage나올 수 없다
-		if (endPage > totalPage) endPage = totalPage;
+		//페이지 값이 1보다 작으면 페이지 값은 1
+		//페이지 값이 마지막 페이지보다 크면 페이지 값은 마지막 페이지
+		p = p < 1 ? 1 : p;
+		p = p > endPage ? endPage : p;
 		
-		// JSP에서 jstl로 사용하는 변수와 값을 전달
-		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("PAGE_PER_BLOCK", PAGE_PER_BLOCK);
-		request.setAttribute("number", number);
+		
+		//꺼내올 첫번째 열 = (현재 페이지 - 1) * 페이지 당 열 개수 + 1;
+		//꺼내올 마지막 열 = 현재 페이지 * 페이지당 열 개수
+		int firstRow	= (p-1)*ROW_PER_PAGE + 1;
+		int lastRow		= p*ROW_PER_PAGE;
+		
+		//pageButton에 넣을 변수 만들기
+		int firstPage = PAGE_PER_BLOCK*( (p-1)/PAGE_PER_BLOCK ) + 1;  
+		int lastPage = PAGE_PER_BLOCK*( (p-1)/PAGE_PER_BLOCK + 1);
+		
+	
+		
+		firstPage = firstPage < 1 ? 1 : firstPage;
+		lastPage = lastPage > endPage ? endPage : lastPage;
+		
+		List<Sales> salesList = sd.salesList(firstRow, lastRow);
+		
 		request.setAttribute("salesList", salesList);
-		request.setAttribute("startPage", startPage);
-		request.setAttribute("endPage", endPage); 
-		request.setAttribute("totalPage", totalPage); 
+		request.setAttribute("p", p);
+		request.setAttribute("firstPage", firstPage);
+		request.setAttribute("lastPage", lastPage);
 		
 		return "/view/sales/orderList.jsp";
 	}

@@ -11,7 +11,7 @@ public class OrderInsertForm implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("sales_order_no", SalesDao.getInstance().getSalesTotal() + 1);
+		request.setAttribute("sales_order_no", SalesDao.getInstance().getTotalSales() + 1);
 		
 		
 		return "/view/sales/orderInsertForm.jsp";

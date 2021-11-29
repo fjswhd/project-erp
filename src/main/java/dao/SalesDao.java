@@ -10,8 +10,11 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import model.Customer;
+import model.Cash;
+import model.Product;
 import model.Sales;
+import model.SalesOrder;
+import model.SalesOrderDetail;
 
 public class SalesDao {
 	//singleton
@@ -32,241 +35,8 @@ public class SalesDao {
 		}
 		return conn;
 	}
-	public int getTotalCustomer() {
-		int total = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		Connection conn = getConnection();
-		String sql = "select count(*) from Customer";
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				total = rs.getInt(1);
-			}
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}finally {
-			try {
-				if(rs != null) rs.close();
-				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
-			}catch (Exception e) { }
-		}
-		return total;
-	}
-	public List<Customer> customerList() {
-		List<Customer> customerList = new ArrayList<Customer>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		Connection conn = getConnection();
-		String sql = "select * from Customer order by customer_no";
 
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery(); 
-			while(rs.next()) {
-				Customer customer = new Customer();
-				customer.setCustomer_no(rs.getString("customer_no"));
-				customer.setCustomer_name(rs.getString("customer_name"));   
-				customer.setCustomer_reg_num(rs.getString("customer_reg_num"));
-				customer.setCustomer_tel(rs.getString("customer_tel"));
-				customer.setCustomer_email(rs.getString("customer_email"));
-				customer.setCustomer_addr(rs.getString("customer_addr"));
-				customer.setEmp_no(rs.getString("emp_no"));
-				customer.setCustomer_memo(rs.getString("customer_memo"));
-				customer.setCustomer_del(rs.getString("customer_del"));
-
-				customerList.add(customer); 
-			}
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}finally {
-			try {
-				if (rs != null) rs.close();
-				if (pstmt != null) pstmt.close();
-				if (conn != null)  conn.close();
-			}catch (Exception e) {		}
-
-		}
-
-		return customerList;
-	}
-
-	public int insertCustomer(Customer customer) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		Connection conn = getConnection();
-		//업체코드 업체명 사업자번호 전화번호 이메일 우편번호 주소 상세주소, 담당자 사번, 참고, 삭제  
-		String sql="insert into customer values(?,?,?,?,?,?,?,?,?,?,'n')";
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, customer.getCustomer_no());
-			pstmt.setString(2, customer.getCustomer_name());
-			pstmt.setString(3, customer.getCustomer_reg_num());
-			pstmt.setString(4, customer.getCustomer_tel());
-			pstmt.setString(5, customer.getCustomer_email());
-			pstmt.setString(6, customer.getCustomer_addr_no());
-			pstmt.setString(7, customer.getCustomer_addr());
-			pstmt.setString(8, customer.getCustomer_addr_detail());
-			pstmt.setString(9, customer.getEmp_no());
-			pstmt.setString(10, customer.getCustomer_memo());
-
-			result = pstmt.executeUpdate();			
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}finally {
-			try {
-				if (pstmt != null) pstmt.close();
-				if (conn != null)  conn.close();
-			}catch (Exception e) {		}
-		}
-		return result;
-	}
-	public Customer selectCustomer(String customer_no) {
-		Customer customer = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		Connection conn = getConnection();
-		String sql = "select * from customer where customer_no = ? and customer_del = 'n'";
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, customer_no);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				//업체코드, 업체명, 사업자번호, 전화번호, 이메일, 우편번호, 주소, 상세주소, 담당자 사번, 참고, 삭제  
-				customer = new Customer();
-				customer.setCustomer_no			(rs.getString("customer_no"));
-				customer.setCustomer_name		(rs.getString("customer_name"));
-				customer.setCustomer_reg_num	(rs.getString("customer_reg_num"));
-				customer.setCustomer_tel		(rs.getString("customer_tel"));
-				customer.setCustomer_email		(rs.getString("customer_email"));
-				customer.setCustomer_addr_no	(rs.getString("customer_addr_no"));
-				customer.setCustomer_addr		(rs.getString("customer_addr"));
-				customer.setCustomer_addr_detail(rs.getString("customer_addr_detail"));
-				customer.setEmp_no				(rs.getString("emp_no"));
-				customer.setCustomer_memo		(rs.getString("customer_memo"));
-				customer.setCustomer_del		(rs.getString("customer_del"));
-			}
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}finally {
-			try {
-				if (rs != null) rs.close();
-				if (pstmt != null) pstmt.close();
-				if (conn != null)  conn.close();
-			}catch (Exception e) {		}
-		}
-		return customer; 
-	}
-	public Customer selectCustomerWithRegNum(String reg_num) {
-		Customer customer = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		Connection conn = getConnection();
-		String sql = "select * from customer where customer_reg_num = ? and customer_del = 'n'";
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, reg_num);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				//업체코드, 업체명, 사업자번호, 전화번호, 이메일, 우편번호, 주소, 상세주소, 담당자 사번, 참고, 삭제  
-				customer = new Customer();
-				customer.setCustomer_no			(rs.getString("customer_no"));
-				customer.setCustomer_name		(rs.getString("customer_name"));
-				customer.setCustomer_reg_num	(rs.getString("customer_reg_num"));
-				customer.setCustomer_tel		(rs.getString("customer_tel"));
-				customer.setCustomer_email		(rs.getString("customer_email"));
-				customer.setCustomer_addr_no	(rs.getString("customer_addr_no"));
-				customer.setCustomer_addr		(rs.getString("customer_addr"));
-				customer.setCustomer_addr_detail(rs.getString("customer_addr_detail"));
-				customer.setEmp_no				(rs.getString("emp_no"));
-				customer.setCustomer_memo		(rs.getString("customer_memo"));
-				customer.setCustomer_del		(rs.getString("customer_del"));
-			}
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}finally {
-			try {
-				if (rs != null) rs.close();
-				if (pstmt != null) pstmt.close();
-				if (conn != null)  conn.close();
-			}catch (Exception e) {		}
-		}
-		return customer; 
-	}
-
-	public int updateCustomer(Customer customer) {
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		Connection conn = getConnection();
-		
-		//업체코드, 업체명, 사업자번호, 전화번호, 이메일, 우편번호, 주소, 상세주소, 담당자 사번, 참고, 삭제  
-		String sql="update customer "
-				+ "set "
-				+ "customer_name=?, "
-				+ "customer_reg_num=?, "
-				+ "customer_tel=?, "
-				+ "customer_email=?, "
-				+ "customer_addr_no=?, "
-				+ "customer_addr=?, "
-				+ "customer_addr_detail=?, "
-				+ "emp_no=?, "
-				+ "customer_memo=? "
-				+ "where customer_no=?";
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, customer.getCustomer_name());
-			pstmt.setString(2, customer.getCustomer_reg_num());
-			pstmt.setString(3, customer.getCustomer_tel());
-			pstmt.setString(4, customer.getCustomer_email());
-			pstmt.setString(5, customer.getCustomer_addr_no());
-			pstmt.setString(6, customer.getCustomer_addr());
-			pstmt.setString(7, customer.getCustomer_addr_detail());
-			pstmt.setString(8, customer.getEmp_no());
-			pstmt.setString(9, customer.getCustomer_memo());
-			pstmt.setString(10, customer.getCustomer_no());		
-
-			result = pstmt.executeUpdate();	
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}finally {
-			try {
-				if (pstmt != null) pstmt.close();
-				if (conn != null)  conn.close();
-			}catch (Exception e) {		}
-		}
-
-		return result;
-	}
-
-	public int delete(String customer_no) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		Connection conn = getConnection();
-		String sql="update customer set customer_del='y' where customer_no=?";
-		Customer bd = selectCustomer(customer_no);
-		if (customer_no.equals(bd.getCustomer_no())) { // 화면에서 읽은 암호와 읽은 게시글의 암호와 비교
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, customer_no);				
-				result = pstmt.executeUpdate();			
-			}catch (Exception e) {
-				System.out.println(e.getMessage());
-			}finally {
-				try {
-					if (pstmt != null) pstmt.close();
-					if (conn != null)  conn.close();
-				}catch (Exception e) {		}
-			}
-		} else result = -1;
-		return result;
-	}
-
-	//====Sales=========================================================================================
-	public int getSalesTotal() {
+	public int getTotalSales() {
 		int total = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -334,6 +104,75 @@ public class SalesDao {
 		}
 
 		return salesList;
+	}
+
+	public int insertSales(SalesOrder salesOrder, SalesOrderDetail salesOrderDetail, Cash cash, Product product) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		Connection conn = getConnection();
+		
+		
+		try {
+			conn.setAutoCommit(false);
+			
+			//판매주문번호, 판매처 번호, 판매 주문일, 주문등록 사원
+			String sql = "insert into sales_order values (?, ?, sysdate, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt	(1, salesOrder.getSales_order_no());
+			pstmt.setString	(2, salesOrder.getCustomer_no());
+			pstmt.setString	(3, salesOrder.getEmp_no());
+			
+			result += pstmt.executeUpdate(); 
+			pstmt.close();
+			
+			//판매 주문 상세 입력
+			//판매주문번호, 상품번호, 상품주문수량
+			sql = "insert into sales_order_detail values (?, ?, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, salesOrderDetail.getSales_order_no());
+			pstmt.setInt(2, salesOrderDetail.getProduct_no());
+			pstmt.setInt(3, salesOrderDetail.getSales_detail_pcount());
+			
+			result += pstmt.executeUpdate(); 
+			pstmt.close();
+			
+			//현금 변동 내역 입력
+			//현금 코드, 현금, 구매주문 번호, 판매주문 번호
+			sql = "insert into cash values (?, ?, null, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cash.getCash_code());
+			pstmt.setInt(2, cash.getCash());
+			pstmt.setInt(3, cash.getSales_order_no());
+			
+			result += pstmt.executeUpdate(); 
+			pstmt.close();
+			
+			//상품재고 업데이트
+			sql = "update product set stock=? where product_no=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt	(1, product.getStock());
+			pstmt.setInt	(2, product.getProduct_no());
+			
+			result += pstmt.executeUpdate();			
+			pstmt.close();
+			
+			conn.commit();
+			conn.setAutoCommit(true);
+		} catch (Exception e) {
+			System.out.println("판매주문 입력 오류 : " + e.getMessage());
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+		}
+		
+		return result;
 	}
 		
 }

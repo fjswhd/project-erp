@@ -18,7 +18,7 @@ public class HrListCommand implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		HrDao hd = HrDao.getInstance();
 		//페이지당 열 개수
-		final int ROW_PER_PAGE = 15;
+		final int ROW_PER_PAGE = 10;
 		
 		//페이지 버튼 블럭당 페이지 개수
 		final int PAGE_PER_BLOCK = 5;

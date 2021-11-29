@@ -125,7 +125,7 @@ public class HrInitCommand implements Command {
 			System.out.println(e.getMessage());
 		}		
 		
-		return "/hr/initPasswordResult.jsp";
+		return "/view/hr/initPasswordResult.jsp";
 	}
 
 	private String getNewPassword() {

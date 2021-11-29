@@ -84,7 +84,7 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="/project/script/header.js"></script>
-	<script type="text/javascript" src="/project/script/hrLabel.js"></script>
+	<script type="text/javascript" src="/project/script/label.js"></script>
 	<script type="text/javascript" src="/project/script/toolbar.js"></script>
 </body>
 </html>

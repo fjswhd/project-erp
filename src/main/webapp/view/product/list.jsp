@@ -80,24 +80,16 @@
 						</c:if>
 					</table>
 					<div class="page">
-						<c:if test="${startPage > PAGE_PER_BLOCK }">
-							<button onclick="location.href='/project/purchase/productList.do?pageNum=${startPage - 1}'">이전</button>
-						</c:if>
-						<c:forEach var="i" begin="${startPage}" end="${endPage}">
-							<c:if test="${param.p == i}">
-								<b><a href="/project/prodcuct/list.do?p=${i}">${i}</a></b>
+						<a href="/project/product/list.do?p=${p-5}">&lt;</a>
+						<c:forEach begin="${firstPage}" end="${lastPage}" varStatus="vs">
+							<c:if test="${p == vs.index}">
+								<b><a href="/project/product/list.do?p=${vs.index}">${vs.index}</a></b>
 							</c:if>
-							<c:if test="${param.p != i}">
-								<a href="/project/product/list.do?p=${i}">${i}</a>
+							<c:if test="${p != vs.index}">
+								<a href="/project/product/list.do?p=${vs.index}">${vs.index}</a>
 							</c:if>
 						</c:forEach>
-						<!-- 	보여줄 것이 아직 남아있다 -->
-						<c:if test="${endPage < totalPage}">
-							<button
-								onclick="location.href='/project/purchase/productList.do?pageNum=${endPage + 1}'">다음</button>
-						</c:if>
-						<!-- 해야됨!!!!!!!!!!!! 데이터에 저장된 담당자가 아니라, 현재 로그인한 세션의 아이디(emp_no)가 들어가야함.  -->
-						<!-- 각 구매처 옆에 같은 구매처, 상품만 다른 버튼 하나 추가하면 좋을듯 -->
+						<a href="/project/product/list.do?p=${p+5}">&gt;</a>
 					</div>
 				</div>
 			</div>

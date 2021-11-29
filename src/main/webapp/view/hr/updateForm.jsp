@@ -12,7 +12,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet">
-<link href="/project/css/hr/hrUpdate.css" rel="stylesheet">
+<link href="/project/css/hr/hrUpdate.css?1" rel="stylesheet">
 
 <script type="text/javascript">
 	window.history.forward();
@@ -182,7 +182,7 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="/project/script/header.js"></script>
-	<script type="text/javascript" src="/project/script/hrLabel.js"></script>
+	<script type="text/javascript" src="/project/script/label.js"></script>
 	<script type="text/javascript" src="/project/script/toolbar.js"></script>
 	<script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="/project/script/postAddress.js"></script>
