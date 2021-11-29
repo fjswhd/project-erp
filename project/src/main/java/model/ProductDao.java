@@ -37,8 +37,7 @@ public class ProductDao { // singleton
 		ResultSet rs = null;
 		Connection conn = getConnection();
 
-		String sql = "select * from (select rowNum rn, a.* from" + "(select * from product order by product_no) a)"
-				+ "where rn between ? and ?";
+		String sql = "select * from product_list where rn between ? and ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -106,10 +105,7 @@ public class ProductDao { // singleton
 		ResultSet rs = null;
 		Connection conn = getConnection();
 
-		String sql = "select * from (select s.seller_no, s.seller_name, p.product_no, p.product_name, p.cost, p.price, p.stock,emp.emp_no"
-				+ " from seller s, product p,purchase_order po, purchase_order_detail pod,emp emp"
-				+ " where s.seller_no = po.seller_no and po.purchase_order_no = pod.purchase_order_no and pod.product_no = p.product_no)"
-				+ " where product_no=?";
+		String sql = "select * from modify_stock_form where product_no=?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, product_no);
@@ -187,13 +183,7 @@ public class ProductDao { // singleton
 		ResultSet rs = null;
 		Connection conn = getConnection();
 
-		String sql = "select * from (select rowNum rn, a.* from"
-				+ "(select pm.product_modified_date, s.seller_no, s.seller_name, p.product_no, p.product_name,"
-				+ " p.stock - pm.modified_stock variance ,pm.modified_memo,emp.emp_no"
-				+ " from seller s, product p, purchase_order po, purchase_order_detail pod, product_modified pm, emp emp"
-				+ " where s.seller_no = po.seller_no and po.purchase_order_no = pod.purchase_order_no"
-				+ " and pod.product_no = p.product_no and p.product_no = pm.product_no order by pm.product_modified_date desc)a)"
-				+ " where rn between ? and ?";
+		String sql = "select * from modify_stock_list where rn between ? and ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -236,12 +226,7 @@ public class ProductDao { // singleton
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Connection conn = getConnection();
-		String sql = "select count(*) from "
-				+ "(select pm.product_modified_date, s.seller_no, s.seller_name, p.product_no, p.product_name,\r\n"
-				+ "p.stock-pm.modified_stock variance ,pm.modified_memo,emp.emp_no\r\n"
-				+ "from seller s, product p, purchase_order po, purchase_order_detail pod, product_modified pm, emp emp\r\n"
-				+ "where s.seller_no = po.seller_no and po.purchase_order_no = pod.purchase_order_no\r\n"
-				+ "and pod.product_no = p.product_no and p.product_no = pm.product_no)";
+		String sql = "select count(*) from modify_stock_list";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -270,7 +255,7 @@ public class ProductDao { // singleton
 		ResultSet rs = null;
 		Connection conn = getConnection();
 
-		String sql = "select * from (select rowNum rn, a.* from" + "(select * from product where " 
+		String sql = "select * from (select rowNum rn, a.* from (select * from product where " 
 				+ searchField.trim()+ " like '%" + keyword.trim() + "%' order by product_no)a)" 
 				+ " where rn between ? and ?";
 
@@ -345,40 +330,10 @@ public class ProductDao { // singleton
 		ResultSet rs = null;
 		Connection conn = getConnection();
 		
-		String sql = " ";
-
-		if(searchField.equals("0") || keyword.equals("")){
-			 sql = "select * from (select rowNum rn, a.* from " 
-					+ "(select pm.product_modified_date, s.seller_no, s.seller_name, p.product_no, p.product_name,"
-					+ " p.stock - pm.modified_stock variance ,pm.modified_memo,emp.emp_no"
-					+ " from seller s, product p, purchase_order po, purchase_order_detail pod, product_modified pm, emp emp"
-					+ " where s.seller_no = po.seller_no and po.purchase_order_no = pod.purchase_order_no"
-					+ " and pod.product_no = p.product_no and p.product_no = pm.product_no"
-					+ " and pm.product_modified_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1"
-					+ " order by pm.product_modified_date desc) a ) where rn between ? and ?"; 
-		
-		}else if(s_date.equals("")|| e_date.equals("")) {
-			 sql = "select * from (select rowNum rn, a.* from " 
-					+ "(select pm.product_modified_date, s.seller_no, s.seller_name, p.product_no, p.product_name,"
-					+ " p.stock - pm.modified_stock variance ,pm.modified_memo,emp.emp_no"
-					+ " from seller s, product p, purchase_order po, purchase_order_detail pod, product_modified pm, emp emp"
-					+ " where s.seller_no = po.seller_no and po.purchase_order_no = pod.purchase_order_no"
-					+ " and pod.product_no = p.product_no and p.product_no = pm.product_no"
-					+ " and "+searchField.trim()+" like '%"+keyword.trim()+"%' order by pm.product_modified_date desc )a)"
-					+ " where rn between ? and ?"; 
-			 
-		}else {
-			  sql = "select * from (select rowNum rn, a.* from " 
-					+ "(select pm.product_modified_date, s.seller_no, s.seller_name, p.product_no, p.product_name,"
-					+ " p.stock - pm.modified_stock variance ,pm.modified_memo,emp.emp_no"
-					+ " from seller s, product p, purchase_order po, purchase_order_detail pod, product_modified pm, emp emp"
-					+ " where s.seller_no = po.seller_no and po.purchase_order_no = pod.purchase_order_no"
-					+ " and pod.product_no = p.product_no and p.product_no = pm.product_no"
-					+ " and "+searchField.trim()+" like '%"+keyword.trim()+"%' "
-					+ " and pm.product_modified_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1"
-					+ " order by pm.product_modified_date desc ) a ) where rn between ? and ?"; 
-			
-		}
+		String sql = "select * from (select rowNum rn, a.* from (select * from modify_stock_search" 
+				+ " where "+searchField.trim()+" like '%"+keyword.trim()+"%' "
+				+ " and product_modified_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1 ) a )"
+				+ " where rn between ? and ?"; 
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -422,13 +377,11 @@ public class ProductDao { // singleton
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Connection conn = getConnection();
-		String sql = "select count(*) from "
-				+ "(select pm.product_modified_date, s.seller_no, s.seller_name, p.product_no, p.product_name,"
-				+ " p.stock-pm.modified_stock variance ,pm.modified_memo,emp.emp_no"
-				+ " from seller s, product p, purchase_order po, purchase_order_detail pod, product_modified pm, emp emp"
-				+ " where s.seller_no = po.seller_no and po.purchase_order_no = pod.purchase_order_no"
-				+ " and pod.product_no = p.product_no and p.product_no = pm.product_no"
-				+ " and " +searchField.trim() +" like '%"+keyword.trim()+"%')";
+		
+		String sql =  "select count(*) from (select * from modify_stock_search"
+				+ " where "+searchField.trim()+" like '%"+keyword.trim()+"%' "
+				+ " and product_modified_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1 )";
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();

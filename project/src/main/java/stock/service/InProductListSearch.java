@@ -1,6 +1,8 @@
 package stock.service;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +23,29 @@ public class InProductListSearch implements CommandProcess {
 			
 			int currentPage = Integer.parseInt(pageNum);
 			
+			//현재날짜와 1년전 날짜 
+			Calendar day = Calendar.getInstance();
+			String today = new SimpleDateFormat("yyyy-MM-dd").format(day.getTime());
+			day.add(Calendar.YEAR, -1);
+			String beforeYear = new SimpleDateFormat("yyyy-MM-dd").format(day.getTime());
+			
 			//기간설정값 가져오기
 			String s_date = request.getParameter("s_date");
 			String e_date = request.getParameter("e_date");
+			//기간을 설정하지 않고 (시작, 끝 둘다 혹은 하나만 설정시 ) 검색한 경우
+			if (s_date.equals("") && e_date.equals("")){
+				s_date = beforeYear;
+				e_date = today;
+			}else if (s_date.equals("")) {
+				s_date = beforeYear;
+			}else if (e_date.equals("")) {
+				e_date = today;
+			}
+			
 			//검색카테고리, 검색어 가져오기
 			String searchField = request.getParameter("searchField");
 			String keyword = request.getParameter("keyword");
+			
 			
 			InProductDao ipd = InProductDao.getInstance();
 			
@@ -42,7 +61,7 @@ public class InProductListSearch implements CommandProcess {
 			if (endPage > totalPage)
 				endPage = totalPage;
 			
-			String[] searchEn = {"s.seller_no", "s.seller_name", "p.product_no", "p.product_name"};
+			String[] searchEn = {"seller_no", "seller_name", "product_no", "product_name"};
 			String[] searchKr = {"업체코드", "업체명", "상품코드", "상품명"};
 			String searchFiledKr ="";
 			for (int i =0 ; i < searchEn.length;i++) {

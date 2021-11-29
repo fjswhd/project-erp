@@ -19,7 +19,7 @@ public class ProductListSearch implements CommandProcess {
 			pageNum = "1";
 		
 		int currentPage = Integer.parseInt(pageNum);
-		
+		//검색카테고리, 검색어 가져오기
 		String searchField = request.getParameter("searchField");
 		String keyword = request.getParameter("keyword");
 		

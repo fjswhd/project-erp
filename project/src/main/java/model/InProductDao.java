@@ -36,12 +36,7 @@ public class InProductDao {
 		ResultSet rs = null;
 		Connection conn = getConnection();
 
-		String sql = "select * from (select rowNum rn, a.* from " 
-				+ "(select po.purchase_order_date, s.seller_no, s.seller_name, p.product_no, p.product_name, p.cost, pod.purchase_detail_pcount"
-				+ " from purchase_order po, seller s, product p, purchase_order_detail pod"
-				+ " where s.seller_no = po.seller_no and s.emp_no = po.emp_no"
-				+ " and po.purchase_order_no = pod.purchase_order_no and pod.product_no = p.product_no )a )"
-				+ " where rn between ? and ?";
+		String sql = "select * from in_product_list where rn between ? and ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -84,13 +79,7 @@ public class InProductDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Connection conn = getConnection();
-		String sql = "select count(*) from "
-				+ "(select po.purchase_order_date, s.seller_no, s.seller_name, p.product_no, p.product_name, p.cost, pod.purchase_detail_pcount"
-				+ " from purchase_order po, seller s, product p, purchase_order_detail pod"
-				+ " where s.seller_no = po.seller_no"
-				+ " and s.emp_no = po.emp_no"
-				+ " and po.purchase_order_no = pod.purchase_order_no"
-				+ " and pod.product_no = p.product_no)";
+		String sql = "select count(*) from in_product_list";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -115,38 +104,12 @@ public class InProductDao {
 			ResultSet rs = null;
 			Connection conn = getConnection();
 			
-			String sql = " ";
-
-				if(searchField.equals("0") || keyword.equals("")){
-					 sql = "select * from (select rowNum rn, a.* from " 
-							+ "(select po.purchase_order_date, s.seller_no, s.seller_name, p.product_no, p.product_name, p.cost, pod.purchase_detail_pcount"
-							+ " from purchase_order po, seller s, product p, purchase_order_detail pod"
-							+ " where s.seller_no = po.seller_no and s.emp_no = po.emp_no"
-							+ " and po.purchase_order_no = pod.purchase_order_no and pod.product_no = p.product_no"
-							+ " and po.purchase_order_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1 ) a )"
-							+ " where rn between ? and ?"; 
-				
-				}else if(s_date.equals("")|| e_date.equals("")) {
-					sql = "select * from (select rowNum rn, a.* from " 
-							+ "(select po.purchase_order_date, s.seller_no, s.seller_name, p.product_no, p.product_name, p.cost, pod.purchase_detail_pcount"
-							+ " from purchase_order po, seller s, product p, purchase_order_detail pod"
-							+ " where s.seller_no = po.seller_no and s.emp_no = po.emp_no"
-							+ " and po.purchase_order_no = pod.purchase_order_no and pod.product_no = p.product_no"
-							+ " and "+searchField.trim()+" like '%"+keyword.trim()+"%' )a )"
-							+ " where rn between ? and ?"; 
-					 
-				}else {
-						sql = "select * from (select rowNum rn, a.* from " 
-						+ "(select po.purchase_order_date, s.seller_no, s.seller_name, p.product_no, p.product_name, p.cost, pod.purchase_detail_pcount"
-						+ " from purchase_order po, seller s, product p, purchase_order_detail pod"
-						+ " where s.seller_no = po.seller_no and s.emp_no = po.emp_no"
-						+ " and po.purchase_order_no = pod.purchase_order_no and pod.product_no = p.product_no"
-						+ " and "+searchField.trim()+" like '%"+keyword.trim()+"%' "
-						+ " and po.purchase_order_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1 ) a )"
-						+ " where rn between ? and ?"; 
-					
-				}
-				
+			String sql = "select * from (select rowNum rn, a.* from (select * from in_product_search" 
+					+ " where "+searchField.trim()+" like '%"+keyword.trim()+"%' "
+					+ " and purchase_order_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1 ) a )"
+					+ " where rn between ? and ?"; 
+			
+			System.out.println("sql =" +sql);
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, startRow);
@@ -191,33 +154,9 @@ public class InProductDao {
 			ResultSet rs = null;
 			Connection conn = getConnection();
 			
-			String sql = " ";
-			
-			if(searchField.equals("0") || keyword.equals("")){
-				sql =  "select count(*) from "
-						+ "(select po.purchase_order_date, s.seller_no, s.seller_name, p.product_no, p.product_name, p.cost, pod.purchase_detail_pcount"
-						+ " from purchase_order po, seller s, product p, purchase_order_detail pod"
-						+ " where s.seller_no = po.seller_no and s.emp_no = po.emp_no"
-						+ " and po.purchase_order_no = pod.purchase_order_no and pod.product_no = p.product_no"
-						+ " and po.purchase_order_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1 )";
-			}else if (s_date.equals("")|| e_date.equals("")){
-				sql =  "select count(*) from "
-						+ "(select po.purchase_order_date, s.seller_no, s.seller_name, p.product_no, p.product_name, p.cost, pod.purchase_detail_pcount"
-						+ " from purchase_order po, seller s, product p, purchase_order_detail pod"
-						+ " where s.seller_no = po.seller_no and s.emp_no = po.emp_no"
-						+ " and po.purchase_order_no = pod.purchase_order_no and pod.product_no = p.product_no"
-						+ " and "+searchField.trim()+" like '%"+keyword.trim()+"%' )";
-						
-			}else  {
-				sql =  "select count(*) from "
-						+ "(select po.purchase_order_date, s.seller_no, s.seller_name, p.product_no, p.product_name, p.cost, pod.purchase_detail_pcount"
-						+ " from purchase_order po, seller s, product p, purchase_order_detail pod"
-						+ " where s.seller_no = po.seller_no and s.emp_no = po.emp_no"
-						+ " and po.purchase_order_no = pod.purchase_order_no and pod.product_no = p.product_no"
-						+ " and "+searchField.trim()+" like '%"+keyword.trim()+"%' "
-						+ " and po.purchase_order_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1 )";
-						
-			}
+			String sql =  "select count(*) from (select * from in_product_search"
+					+ " where "+searchField.trim()+" like '%"+keyword.trim()+"%' "
+					+ " and purchase_order_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1 )";
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
