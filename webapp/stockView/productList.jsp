@@ -34,6 +34,9 @@
 							'style',
 							'background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #505050; z-index: 1;');
 		}
+		
+		opener.parent.location.reload();
+	      window.close();
 
 	};
 </script>
@@ -117,11 +120,11 @@
 								<tr>
 									<td><a
 										onclick="window.open('/project/st/modifyStockForm.do?pageNum=${currentPage}&product_no=${product.product_no}',
-										'재고수정','width=400, height=600 left=550, top=100');">
+										'재고수정','width=500, height=600 left=550, top=100');">
 											${product.product_no }</a></td>
 									<td><a
 										onclick="window.open('/project/st/modifyStockForm.do?pageNum=${currentPage}&product_no=${product.product_no}',
-										'재고수정','width=400, height=600 left=550, top=100');">
+										'재고수정','width=500, height=600 left=550, top=100');">
 											${product.product_name }</a></td>
 									<td>${product.cost }</td>
 									<td>${product.price }</td>

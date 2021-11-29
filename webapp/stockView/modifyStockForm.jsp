@@ -71,7 +71,7 @@
 				</tr>
 				<tr>
 					<th colspan="2"><input type="submit" value="수정"
-						onclick="return confirm('수정하시겠습니까?')"></th>
+						onclick="return confirm('수정하시겠습니까?');"></th>
 				</tr>
 			</table>
 		</div>
