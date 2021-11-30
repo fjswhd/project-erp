@@ -37,6 +37,7 @@
 		align-items: center;
 		border-right: 0.2rem solid silver;
 		height: 2.9rem;
+		width: 20%;
 		font-size: 1.6rem;
 	}
 	.content_body > table tr th {

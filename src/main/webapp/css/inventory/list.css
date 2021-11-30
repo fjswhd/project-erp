@@ -4,6 +4,9 @@
 		border-radius: 0.8rem;
 		width: 100%;
 	}
+	.content_body > table a {
+		cursor: pointer;
+	}
 	.content_body > table tr {
 		display: flex;
 		background: #f8f7f2;

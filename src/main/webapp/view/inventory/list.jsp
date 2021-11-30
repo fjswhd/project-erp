@@ -12,7 +12,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/inventory/list.css" rel="stylesheet" type="text/css">
+<link href="/project/css/inventory/list.css?1" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
@@ -24,7 +24,7 @@
 		
 	}
 	function openWindow(p, product_no) {
-		window.open('/project/inventory/modifyStockForm.do?p='+p+'&product_no='+product_no, '재고수정', 'width=500, height=600 left=550, top=100');
+		window.open('/project/inventory/modifyStockForm.do?p='+p+'&product_no='+product_no, '재고수정', 'width=500, height=350 left=550, top=100');
 	}
 </script>
 </head>

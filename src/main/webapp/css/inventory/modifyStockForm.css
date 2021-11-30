@@ -1,72 +1,142 @@
 @charset "UTF-8";
-.content > .content_head > .label_name {
-		height: 2.5rem;
-		justify-content: center;
-		border-bottom: 0.2rem solid #000;
-		padding: 0 1.5rem;
-		font-family: 'paybooc-Medium';
-		font-size: 2rem;
+	*  {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 10px;
+		vertical-align: baseline;
+		font-family: 'Nanum Gothic', sans-serif;
 	}
-.content_body>table {
-	border: 0.2rem solid silver;
-	border-radius: 0.8rem;
-	width: 100%;
-}
-
-.content_body>table tr {
-	display: flex;
-	background: #f8f7f2;
-	border-bottom: 0.1rem solid silver;
-	margin-top: 0.2rem;
-	align-items: center;
-	height: 3rem;
-}
-
-.content_body>table th:first-of-type {
-	background: silver;
-	border-radius: 0.5rem;
-	margin-top: 0rem;
-}
-
-.content_body>table tr:hover:not(:first-of-type) {
-	background: rgba(192, 192, 192, 0.3);
-}
-
-.content_body>table tr:nth-of-type(2) {
-	border-top-left-radius: 0.5rem;
-	border-top-right-radius: 0.5rem;
-}
-
-.content_body table tr:last-of-type {
-	border-bottom-left-radius: 0.5rem;
-	border-bottom-right-radius: 0.5rem;
-	border-bottom: none;
-}
-
-.content_body>table tr td, th {
-	display: flex;
-	flex: 1;
-	justify-content: center;
-	align-items: center;
-	border-right: 0.2rem solid silver;
-	height: 2.6rem;
-	font-size: 1rem;
-}
-
-.content_body>table tr th {
-	border-right: 0.2rem solid #f8f7f2;
-}
-
-.content_body table tr>*:last-of-type {
-	border-right: none;
-}
-
-.content_body table tr>td:hover {
-	font-weight: bold;
-}
-
-.content_body .page {
-	justify-content: center;
-	align-items: center;
-	height: 5rem;
-}
+	body {
+		display: flex;
+		width: 100vw;
+		height: 100vh;
+		flex-direction: column;
+		background: #f8f7f2;
+		overflow: hidden;
+	}
+	form {
+		display: flex;
+		flex: 1;
+		margin: 0.5rem;
+	}
+	div.titleBox {
+		display: flex;
+		align-items: center;
+		padding: 0.5rem 0 0.3rem 2rem;	
+	}
+	.title {
+		display: flex;
+		border-bottom: 0.2rem solid #000;
+		font-size: 2.8rem;
+		padding: 0 1rem;
+		padding-bottom: 0.2rem;
+	}
+	@font-face {
+		font-family: 'paybooc-Medium';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Medium.woff') format('woff');
+    	font-weight: normal;
+    	font-style: normal;
+	}
+	@font-face {
+    	font-family: 'paybooc-Bold';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/paybooc-Bold.woff') format('woff');
+    	font-weight: normal;
+    	font-style: normal;
+	}
+	@font-face {
+    	font-family: 'GmarketSansBold';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    	font-weight: normal;
+    	font-style: normal;
+	}
+	@font-face {
+    	font-family: 'GmarketSansMedium';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    	font-weight: normal;
+    	font-style: normal;
+	}
+	input,textarea {
+		width: 100%;
+		height: 2rem;
+		box-shadow: 0 0 0.1rem #505050;
+		padding: 0.2rem 0.3rem;
+		font-size: 1.6rem;
+		z-index: 10;
+	}
+	textarea {
+		height: 4rem;
+		resize: none;
+	}
+	input[type=submit] {
+		background: #59645C;
+		border: none;
+		border-radius: 0.8rem;		
+		width: 6rem;
+		height: 2.8rem;
+		margin: 0.2rem 0.3rem 0.4rem 0.5rem;
+		padding: 0.3rem;
+		color: #fff;
+		font-size: 1.2rem;
+		font-weight: bold;
+		box-shadow: 0 0.15rem 0.15rem #505050;
+		cursor: pointer;
+	}
+	input[type=submit]:active {
+		margin: 0.4rem 0.3rem 0.2rem 0.5rem;
+		box-shadow: 0 0 0.1rem black;
+	}
+	input[type=submit]:focus {
+		outline: none;
+	}
+	table {
+		border: 0.2rem solid silver;
+		border-radius: 0.8rem;
+		flex: 1;
+	}
+	table tr {
+		display: flex;
+		background: #f8f7f2;
+		border-bottom: 0.1rem solid silver;
+		align-items: center;
+		height: 3.4rem;
+	}
+	table tr.addrRow {
+		height: 10rem;
+	}
+	table tr.last {
+		height: 5.4rem;
+	}
+	table tr:last-of-type {
+		border-bottom: none;
+	}
+	table tr th,td {
+		display: flex;
+		height: 3.5rem;
+		font-size: 1.6rem;
+	}
+	table tr th {
+		background: rgba(192,192,192,0.5);
+		flex: 1.5;
+		justify-content: center;
+		align-items: center;
+		border-right: 0.2rem solid silver;
+	}
+	table tr td {
+		flex: 3;
+		padding-left: 1.2rem;
+		padding-right: 1.2rem;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	table tr.last > * {
+		height: 5.5rem;
+	}
+	table tr:first-of-type > th{
+		border-top-left-radius: 0.5rem;
+		height: 3.4rem;
+	}
+	table tr:last-of-type td{
+		justify-content: center;
+		padding-top: 1rem;
+	}

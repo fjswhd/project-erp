@@ -50,8 +50,7 @@
 					<div class="label_name">출고 내역</div>
 				</div>
 				<div class="content_body">
-					<form method="post" name="search"
-						action="/project/st/outProductListSearch.do">
+					<form method="post" name="search" action="/project/inventory/releaseListSearch.do">
 						<div class="search">
 							<div>
 								<input type="date" name="s_date" >
@@ -86,23 +85,25 @@
 							<th>상품명</th>
 							<th>출고단가</th>
 							<th>수량</th>
+							<th>담당자</th>
 						</tr>
-						<c:if test="${empty outProductList }">
+						<c:if test="${empty salesList }">
 							<tr>
 								<td>출고내역이 없습니다</td>
 							</tr>
 						</c:if>
 
-						<c:if test="${not empty outProductList }">
-							<c:forEach var="product" items="${outProductList}">
+						<c:if test="${not empty salesList }">
+							<c:forEach var="sales" items="${salesList}">
 								<tr>
-									<td>${product.sales_order_date}</td>
-									<td>${product.customer_no }</td>
-									<td>${product.customer_name }</td>
-									<td>${product.product_no }</td>
-									<td>${product.product_name }</td>
-									<td>${product.price }</td>
-									<td>${product.sales_detail_pcount }</td>
+									<td>${sales.sales_order_date}</td>
+									<td>${sales.customer_no }</td>
+									<td>${sales.customer_name }</td>
+									<td>${sales.product_no }</td>
+									<td>${sales.product_name }</td>
+									<td>${sales.price }</td>
+									<td>${sales.sales_detail_pcount }</td>
+									<td>${sales.emp_name }</td>
 								</tr>
 							</c:forEach>
 						</c:if>

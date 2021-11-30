@@ -12,7 +12,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/accounting/balancing.css?4" rel="stylesheet" type="text/css">
+<link href="/project/css/accounting/balancing.css?5" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
@@ -60,26 +60,25 @@
 							<th>매출총액</th>
 							<th>손익</th>
 						</tr>
-						<tr>
-							<td>상품명</td>
-							<td>매입단가</td>
-							<td>판매단가</td>
-							<td>매입수량</td>
-							<td>판매수량</td>
-							<td>매입총액</td>
-							<td>매출총액</td>
-							<td>손익</td>
-						</tr>
-						<tr>
-							<td>상품명</td>
-							<td>매입단가</td>
-							<td>판매단가</td>
-							<td>매입수량</td>
-							<td>판매수량</td>
-							<td>매입총액</td>
-							<td>매출총액</td>
-							<td>손익</td>
-						</tr>
+						<c:if test="${empty balanceList}">
+							<tr>
+								<td>등록된 매입 내역이 없습니다</td>
+							</tr>
+						</c:if>
+						<c:if test="${not empty balanceList}">
+							<c:forEach var="balance" items="${balanceList}">
+								<tr>
+									<td>${balance.purchase.product_name}</td>
+									<td>${balance.purchase.cost}</td>
+									<td>${balance.sales.price}</td>
+									<td>${balance.purchase.purchase_detail_pcount}</td>
+									<td>${balance.sales.sales_detail_pcount}</td>
+									<td>${balance.purchase.cost * balance.purchase.purchase_detail_pcount}</td>
+									<td>${balance.sales.price * balance.sales.sales_detail_pcount}</td>
+									<td>${balance.sales.price * balance.sales.sales_detail_pcount - balance.purchase.cost * balance.purchase.purchase_detail_pcount}</td>
+								</tr>
+							</c:forEach>
+						</c:if>
 					</table>
 				</div>
 			</div>

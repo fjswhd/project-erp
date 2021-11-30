@@ -134,6 +134,13 @@ truncate table sales_order;
 truncate table customer;
 truncate table cash;
 
+select * from purchase;
 
+select product_no, product_name, cost, price, sum(purchase_detail_pcount) 
+from purchase 
+where purchase_order_date < sysdate 
+and purchase_order_date > trunc(sysdate, 'mm')
+group by product_no, product_name, cost, price
+order by product_no;
 
 insert into emp values ('21-00001', 50, '1234', '이종민', 'fjswhd93@gmail.com', '10358','고양시', '덕양구', '010-9052-1980', to_date('210502', 'YYMMDD'), 'n');
