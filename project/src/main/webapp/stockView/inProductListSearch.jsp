@@ -137,7 +137,7 @@
 						<c:forEach var="i" begin="${startPage}" end="${endPage}">
 							<c:if test="${pageNum == i}">
 								<b><a href="/project/st/inProductListSearch.do?pageNum=${i}
-								&searchField=${searchField}&keyword=${keyword}&s_date=${s_date}&e_date=${e_date}'">${i}</a></b>
+								&searchField=${searchField}&keyword=${keyword}&s_date=${s_date}&e_date=${e_date}">${i}</a></b>
 							</c:if>
 							<c:if test="${pageNum != i}">							
 								<a href="/project/st/inProductListSearch.do?pageNum=${i}

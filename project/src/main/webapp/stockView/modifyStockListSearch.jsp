@@ -76,8 +76,6 @@
 							<div>
 								<select name="searchField">
 									<option value="${searchField}">${searchFiledKr}</option>
-									<option value="seller_no">업체코드</option>
-									<option value="seller_name">업체명</option>
 									<option value="product_no">상품코드</option>
 									<option value="product_name">상품명</option>
 									<option value="modified_memo">사유</option>
@@ -100,8 +98,6 @@
 					<table>
 						<tr>
 							<th>변경일</th>
-							<th>업체코드</th>
-							<th>업체명</th>
 							<th>상품코드</th>
 							<th>상품명</th>
 							<th>변동수량</th>
@@ -119,8 +115,6 @@
 							<c:forEach var="product" items="${getSearch2}">
 								<tr>
 									<td>${product.product_modified_date}</td>
-									<td>${product.seller_no }</td>
-									<td>${product.seller_name }</td>
 									<td>${product.product_no }</td>
 									<td>${product.product_name }</td>
 									<td>${product.variance }</td>

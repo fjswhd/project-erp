@@ -27,18 +27,11 @@
 			type="hidden" name="emp_no" value="${product.emp_no}">
 	<div class="content">
 			<div class="content_head">
-					<div class="label_name">상세정보</div>
+					<div class="label_name">재고 수정</div>
 			</div>
 		<div class="content_body">
 			<table>
-				<tr>
-					<th>업체코드</th>
-					<td>${product.seller_no}</td>
-				</tr>
-				<tr>
-					<th>업체명</th>
-					<td>${product.seller_name }</td>
-				</tr>
+				
 				<tr>
 					<th>상품코드</th>
 					<td>${product.product_no }</td>
@@ -62,7 +55,7 @@
 				</tr>
 				<tr>
 					<th>담당자</th>
-					<td>${product.emp_no }</td>
+					<td>${sessionScope.Hr.emp_no}</td>
 				</tr>
 				<tr>
 					<th>사유</th>

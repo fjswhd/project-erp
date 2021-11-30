@@ -61,8 +61,8 @@ public class ModifyStockListSearch implements CommandProcess {
 			if (endPage > totalPage)
 				endPage = totalPage;
 			
-			String[] searchEn = {"seller_no", "seller_name", "product_no", "product_name", "modified_memo"};
-			String[] searchKr = {"업체코드", "업체명", "상품코드", "상품명", "사유"};
+			String[] searchEn = {"product_no", "product_name", "modified_memo"};
+			String[] searchKr = {"상품코드", "상품명", "사유"};
 			String searchFiledKr ="";
 			for (int i =0 ; i < searchEn.length;i++) {
 				if (searchField.equals(searchEn[i])) {

@@ -109,7 +109,6 @@ public class InProductDao {
 					+ " and purchase_order_date between to_date('"+s_date+"', 'yyyy-mm-dd') and to_date('"+e_date+"', 'yyyy-mm-dd')+1 ) a )"
 					+ " where rn between ? and ?"; 
 			
-			System.out.println("sql =" +sql);
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, startRow);

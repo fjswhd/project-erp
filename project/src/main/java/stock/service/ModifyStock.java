@@ -18,8 +18,6 @@ public class ModifyStock implements CommandProcess {
 		Product product = new Product();
 
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-		String seller_no = request.getParameter("seller_no");
-		String seller_name = request.getParameter("seller_name");
 		int product_no = Integer.parseInt(request.getParameter("product_no"));
 		String product_name = request.getParameter("product_name");
 		int stock = Integer.parseInt(request.getParameter("stock"));
@@ -27,8 +25,6 @@ public class ModifyStock implements CommandProcess {
 		String modified_memo = request.getParameter("modified_memo");
 		String emp_no = request.getParameter("emp_no");
 
-		product.setSeller_no(seller_no);
-		product.setSeller_name(seller_name);
 		product.setProduct_no(product_no);
 		product.setProduct_name(product_name);
 		product.setStock(stock);

@@ -105,20 +105,17 @@ public class ProductDao { // singleton
 		ResultSet rs = null;
 		Connection conn = getConnection();
 
-		String sql = "select * from modify_stock_form where product_no=?";
+		String sql = "select * from product where product_no = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, product_no);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				product.setSeller_no(rs.getString("seller_no"));
-				product.setSeller_name(rs.getString("seller_name"));
 				product.setProduct_no(rs.getInt("product_no"));
 				product.setProduct_name(rs.getString("product_name"));
 				product.setCost(rs.getInt("cost"));
 				product.setPrice(rs.getInt("price"));
 				product.setStock(rs.getInt("stock"));
-				product.setEmp_no(rs.getString("emp_no"));
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -195,8 +192,6 @@ public class ProductDao { // singleton
 				Product product = new Product();
 
 				product.setProduct_modified_date(rs.getDate("product_modified_date"));
-				product.setSeller_no(rs.getString("seller_no"));
-				product.setSeller_name(rs.getString("seller_name"));
 				product.setProduct_no(rs.getInt("product_no"));
 				product.setProduct_name(rs.getString("product_name"));
 				product.setVariance(rs.getInt("variance"));
