@@ -50,8 +50,7 @@
 					<div class="label_name">재고 변동 내역</div>
 				</div>
 				<div class="content_body">
-					<form method="post" name="search"
-						action="/project/st/outProductListSearch.do">
+					<form method="post" name="search" action="/project/st/outProductListSearch.do">
 						<div class="search">
 							<div>
 								<input type="date" name="s_date" >
@@ -67,11 +66,9 @@
 									<option value="product_name">상품명</option>
 								</select>
 							</div>
-
 							<div>
 								<input type="text" name="keyword" style="width: 150px;">
 							</div>
-
 							<div>
 								<button class="search_img" type="submit">
 									<img src="/project/images/search.jpg" width="30">
@@ -82,35 +79,32 @@
 					</form>
 					<table>
 						<tr>
-							<th>출고일</th>
-							<th>업체코드</th>
-							<th>업체명</th>
+							<th>수정일</th>
 							<th>상품코드</th>
 							<th>상품명</th>
-							<th>출고단가</th>
 							<th>수량</th>
+							<th>사유</th>
+							<th>담당자</th>
 						</tr>
-						<c:if test="${empty outProductList }">
+						<c:if test="${empty modifiedStockList }">
 							<tr>
 								<td>재고 변동 내역이 없습니다</td>
 							</tr>
 						</c:if>
 
-						<c:if test="${not empty outProductList }">
-							<c:forEach var="product" items="${outProductList}">
+						<c:if test="${not empty modifiedStockList }">
+							<c:forEach var="modifiedStock" items="${modifiedStockList}">
 								<tr>
-									<td>${product.sales_order_date}</td>
-									<td>${product.customer_no }</td>
-									<td>${product.customer_name }</td>
-									<td>${product.product_no }</td>
-									<td>${product.product_name }</td>
-									<td>${product.price }</td>
-									<td>${product.sales_detail_pcount }</td>
+									<td>${modifiedStock.product_modified_date}</td>
+									<td>${modifiedStock.product_no}</td>
+									<td>${modifiedStock.product_name}</td>
+									<td>${modifiedStock.modified_stock}</td>
+									<td>${modifiedStock.modified_memo}</td>
+									<td>${modifiedStock.emp_no}</td>
 								</tr>
 							</c:forEach>
 						</c:if>
 					</table>
-	
 					<div class="page">
 						<a href="/project/inventory/modifiedList.do?p=${p-5}">&lt;</a>
 						<c:forEach begin="${firstPage}" end="${lastPage}" varStatus="vs">

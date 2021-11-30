@@ -102,7 +102,7 @@
 									<td>${purchase.product_name}</td>
 									<td>${purchase.cost}</td>
 									<td>${purchase.purchase_detail_pcount}</td>
-									<td>${purchase.emp_name}</td>
+									<td>${purchase.emp_no}</td>
 								</tr>
 							</c:forEach>
 						</c:if>

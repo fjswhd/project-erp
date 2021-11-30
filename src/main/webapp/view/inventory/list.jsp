@@ -21,7 +21,6 @@
 
 		var tool = document.getElementsByClassName('tool');
 		tool[2].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
-		
 	}
 	function openWindow(p, product_no) {
 		window.open('/project/inventory/modifyStockForm.do?p='+p+'&product_no='+product_no, '재고수정', 'width=500, height=350 left=550, top=100');

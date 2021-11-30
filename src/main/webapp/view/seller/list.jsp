@@ -73,7 +73,9 @@
 									<td>
 										<a href="/project/seller/updateForm.do?seller_no=${seller.seller_no}"> ${seller.seller_no}</a>
 									</td>
-									<td>${seller.seller_name }</td>
+									<td>
+										<a href="/project/seller/updateForm.do?seller_no=${seller.seller_no}"> ${seller.seller_name}</a>
+									</td>
 									<td>${seller.seller_tel }</td>
 									<td>${seller.seller_email}</td>
 									<td>${seller.emp_no}</td>

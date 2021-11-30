@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link href="/project/css/common/loginForm.css?1" rel="stylesheet">
+<link href="/project/css/common/loginForm.css?2" rel="stylesheet">
 
 </head>
 <body>

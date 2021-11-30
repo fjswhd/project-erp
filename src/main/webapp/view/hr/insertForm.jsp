@@ -13,7 +13,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet">
-<link href="/project/css/hr/hrInsert.css?1" rel="stylesheet">
+<link href="/project/css/hr/hrInsert.css?2" rel="stylesheet">
 
 <script type="text/javascript">
 	window.history.forward();

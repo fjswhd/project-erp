@@ -97,13 +97,13 @@
 							<c:forEach var="sales" items="${salesList}">
 								<tr>
 									<td>${sales.sales_order_date}</td>
-									<td>${sales.customer_no }</td>
-									<td>${sales.customer_name }</td>
-									<td>${sales.product_no }</td>
-									<td>${sales.product_name }</td>
-									<td>${sales.price }</td>
-									<td>${sales.sales_detail_pcount }</td>
-									<td>${sales.emp_name }</td>
+									<td>${sales.customer_no}</td>
+									<td>${sales.customer_name}</td>
+									<td>${sales.product_no}</td>
+									<td>${sales.product_name}</td>
+									<td>${sales.price}</td>
+									<td>${sales.sales_detail_pcount}</td>
+									<td>${sales.emp_no}</td>
 								</tr>
 							</c:forEach>
 						</c:if>

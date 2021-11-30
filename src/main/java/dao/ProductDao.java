@@ -10,7 +10,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import model.ModifiedStock;
 import model.Product;
+import model.ProductModified;
 import model.SearchOption;
 public class ProductDao {
 	// singleton
@@ -259,5 +261,110 @@ public class ProductDao {
 			}catch (Exception e) {		}
 		}
 		return searchList;
+	}
+	public int modifyProductStock(Product product, ProductModified productModified) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		Connection conn = getConnection();
+		
+		try {
+			conn.setAutoCommit(false);
+			
+			//상품 재고 수정
+			String sql = "update product set stock=? where product_no=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, product.getStock());
+			pstmt.setInt(2, product.getProduct_no());
+			
+			result += pstmt.executeUpdate();
+			pstmt.close();
+			
+			//상품 변동 내역 입력
+			sql = "insert into product_modified values (sysdate, ?, ?, ?, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt	(1, productModified.getProduct_no());
+			pstmt.setString	(2, productModified.getEmp_no());
+			pstmt.setInt	(3, productModified.getModified_stock());
+			pstmt.setString	(4, productModified.getModified_memo());
+			
+			result += pstmt.executeUpdate();
+			pstmt.close();
+			
+			conn.commit();
+			conn.setAutoCommit(true);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			} catch (Exception e) {		}
+		}
+		return result;
+	}
+	public List<ModifiedStock> modifiedStockList(int startRow, int endRow) {
+		List<ModifiedStock> modifiedStockList = new ArrayList<ModifiedStock>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+		
+		String sql = "select * from (select rownum rn, ms.* from modified_stock ms) where rn between ? and ?"; 						
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ModifiedStock modifiedStock = new ModifiedStock();
+				modifiedStock.setProduct_modified_date	(rs.getDate("product_modified_date"));
+				modifiedStock.setProduct_no				(rs.getInt("product_no"));
+				modifiedStock.setProduct_name			(rs.getString("product_name"));
+				modifiedStock.setModified_stock			(rs.getInt("modified_stock"));
+				modifiedStock.setModified_memo			(rs.getString("modified_memo"));
+				modifiedStock.setEmp_no					(rs.getString("emp_no"));
+				modifiedStock.setEmp_name				(rs.getString("emp_name"));
+				
+				modifiedStockList.add(modifiedStock);
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+		}
+		
+		return modifiedStockList;
+	}
+	public int getTotalModifiedStock() {
+		int total = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+		String sql = "select count(*) from modified_stock";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				total = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+		}
+		return total;
 	}
 }

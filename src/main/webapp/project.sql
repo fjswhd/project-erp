@@ -123,6 +123,17 @@ as
 	order by emp_no, e1.dept_no
 with read only;
 
+create or replace view modified_stock
+as
+	select pm.product_modified_date, p.product_no, p.product_name, pm.modified_stock, pm.modified_memo, e.emp_no, e.emp_name 
+	from product p, PRODUCT_MODIFIED pm, EMP e
+	where p.product_no = pm.product_no and pm.emp_no = e.emp_no
+	order by pm.product_modified_date desc, p.product_no desc
+with read only;
+
+truncate table PRODUCT_MODIFIED;
+
+select * from modified_stock;
 truncate table EMP;
 truncate table dept;
 truncate table seller;

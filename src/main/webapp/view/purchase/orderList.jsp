@@ -71,14 +71,14 @@
 						<c:if test="${not empty purchaseList }">
 							<c:forEach var="purchase" items="${purchaseList }">
 								<tr>
-									<td>${purchase.purchase_order_date }</td>
-									<td>${purchase.seller_no }</td>
-									<td>${purchase.seller_name }</td>
+									<td>${purchase.purchase_order_date}</td>
+									<td>${purchase.seller_no}</td>
+									<td>${purchase.seller_name}</td>
 									<td>${purchase.product_no}</td>
 									<td>${purchase.product_name}</td>
 									<td>${purchase.price}</td>
 									<td>${purchase.purchase_detail_pcount}</td>
-									<td>${purchase.emp_name}</td>
+									<td>${purchase.emp_no}</td>
 								</tr>
 							</c:forEach>
 						</c:if>

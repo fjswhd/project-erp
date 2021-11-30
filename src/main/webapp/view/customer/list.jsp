@@ -71,7 +71,9 @@
 									<td>
 										<a href="/project/customer/updateForm.do?customer_no=${customer.customer_no}"> ${customer.customer_no}</a>
 									</td>
-									<td>${customer.customer_name }</td>
+									<td>
+										<a href="/project/customer/updateForm.do?customer_no=${customer.customer_no}"> ${customer.customer_name}</a>
+									</td>
 									<td>${customer.customer_tel }</td>
 									<td>${customer.customer_email}</td>
 									<td>${customer.emp_no}</td>

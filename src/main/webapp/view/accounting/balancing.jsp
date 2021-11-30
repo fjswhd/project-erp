@@ -12,7 +12,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/accounting/balancing.css?5" rel="stylesheet" type="text/css">
+<link href="/project/css/accounting/balancing.css?6" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
@@ -62,7 +62,7 @@
 						</tr>
 						<c:if test="${empty balanceList}">
 							<tr>
-								<td>등록된 매입 내역이 없습니다</td>
+								<td>이번 달 매입/매출 내역이 존재하지 않습니다.</td>
 							</tr>
 						</c:if>
 						<c:if test="${not empty balanceList}">

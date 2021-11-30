@@ -12,7 +12,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet">
-<link href="/project/css/hr/hrUpdate.css?1" rel="stylesheet">
+<link href="/project/css/hr/hrUpdate.css?2" rel="stylesheet">
 
 <script type="text/javascript">
 	window.history.forward();
@@ -44,8 +44,17 @@
 		    	msg[0].style.color = 'blue';
 				msg[0].innerHTML = '유효한 비밀번호 입니다. ';
 		    }
+			
+			if (frm.passwordChk.value != null && frm.passwordChk.value !== '') {
+				if (frm.password.value != frm.passwordChk.value) {
+					msg[1].style.color = 'red';
+					msg[1].innerHTML = '비밀번호가 일치하지 않습니다.';
+				} else if (frm.password.value == frm.passwordChk.value) {
+					msg[1].style.color = 'blue';
+					msg[1].innerHTML = '비밀번호가 일치합니다.';
+				}
+			}
 		}
-		
 	}
 	
 	function lastChk() {

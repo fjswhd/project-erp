@@ -19,6 +19,7 @@
 		display: flex;
 		flex: 1;
 		margin: 0.5rem;
+		align-items: flex-start;
 	}
 	div.titleBox {
 		display: flex;
@@ -68,7 +69,7 @@
 		height: 4rem;
 		resize: none;
 	}
-	input[type=submit] {
+	input[type=button] {
 		background: #59645C;
 		border: none;
 		border-radius: 0.8rem;		
@@ -82,11 +83,11 @@
 		box-shadow: 0 0.15rem 0.15rem #505050;
 		cursor: pointer;
 	}
-	input[type=submit]:active {
+	input[type=button]:active {
 		margin: 0.4rem 0.3rem 0.2rem 0.5rem;
 		box-shadow: 0 0 0.1rem black;
 	}
-	input[type=submit]:focus {
+	input[type=button]:focus {
 		outline: none;
 	}
 	table {
@@ -100,9 +101,6 @@
 		border-bottom: 0.1rem solid silver;
 		align-items: center;
 		height: 3.4rem;
-	}
-	table tr.addrRow {
-		height: 10rem;
 	}
 	table tr.last {
 		height: 5.4rem;
@@ -138,5 +136,5 @@
 	}
 	table tr:last-of-type td{
 		justify-content: center;
-		padding-top: 1rem;
+		align-items: center;
 	}

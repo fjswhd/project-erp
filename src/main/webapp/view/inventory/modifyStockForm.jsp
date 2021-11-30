@@ -10,7 +10,7 @@
 <title>재고 수정</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link href="/project/css/inventory/modifyStockForm.css?5" rel="stylesheet" type="text/css">
+<link href="/project/css/inventory/modifyStockForm.css?7" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div class="titleBox">
@@ -53,9 +53,20 @@
 				<td><textarea rows="3" cols="20" name="modified_memo" required="required"></textarea></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="수정" onclick="return confirm('수정하시겠습니까?')"></td>
+				<td><input type="button" name="button" value="수정"></td>
 			</tr>
 		</table>
 	</form>
+	<script type="text/javascript">
+		window.history.forward();
+		frm.button.onclick = function() {
+			if( confirm('수정하시겠습니까?') ) {
+				opener.name = 'parent';
+				frm.target = 'parent';
+				frm.submit();
+				window.close();
+			}
+		} 
+	</script>
 </body>
 </html>

@@ -57,7 +57,7 @@ if(pathName.includes('project/hr')) {
 	label[3].onclick = function() {
 		location.href = '/project/inventory/releaseList.do?p=1';
 	};	
-}  else if (pathName.includes('project/accounting')) {
+} else if (pathName.includes('project/accounting')) {
 	label[0].onclick = function() {
 		location.href = '/project/accounting/purchaseList.do?p=1';
 	};

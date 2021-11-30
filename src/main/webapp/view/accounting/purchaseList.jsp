@@ -77,7 +77,7 @@
 									<td>${purchase.price}</td>
 									<td>${purchase.purchase_detail_pcount}</td>
 									<td>${purchase.purchase_detail_pcount * purchase.price}</td>
-									<td>${purchase.emp_name}</td>
+									<td>${purchase.emp_no}</td>
 								</tr>
 							</c:forEach>
 						</c:if>

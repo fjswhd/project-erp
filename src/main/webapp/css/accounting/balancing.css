@@ -65,3 +65,6 @@
 	.content_body table tr > td:hover {
 		font-weight: bold;
 	}
+	.content_body table tr:last-of-type > td{
+		width: 100%;
+	}
