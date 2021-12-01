@@ -18,9 +18,6 @@
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[2].setAttribute('style', 'background: #186343');
-
-		var tool = document.getElementsByClassName('tool');
-		tool[1].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
 	}
 </script>
 </head>
@@ -50,6 +47,25 @@
 					<div class="label_name">판매 내역</div>
 				</div>
 				<div class="content_body">
+					<form method="post" name="search" action="/project/sales/orderSearchList.do">
+						<div class="searchBox">
+							<input type="date" name="from">&nbsp;부터
+							<input type="date" name="to">&nbsp;까지 
+							<select name="searchField">
+								<option value="0">선택</option>
+								<option value="customer_no">업체코드</option>
+								<option value="customer_name">업체명</option>
+								<option value="product_no">상품코드</option>
+								<option value="product_name">상품명</option>
+								<option value="emp_no">담당자(사번)</option>
+								<option value="emp_name">담당자(이름)</option>
+							</select> 
+							<div class="inputBox">
+								<input type="text" name="keyword" placeholder="검색어를 입력하세요.">
+								<button type="submit"></button>							
+							</div>
+						</div>
+					</form>
 					<table>
 						<tr>
 							<th>판매일</th>
@@ -98,7 +114,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<script type="text/javascript" src="/project/script/header.js"></script>
 	<script type="text/javascript" src="/project/script/label.js"></script>
 	<script type="text/javascript" src="/project/script/toolbar.js"></script>

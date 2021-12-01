@@ -61,7 +61,7 @@ public class CustomerDao {
 		ResultSet rs = null;
 		Connection conn = getConnection();
 		String sql = "select * from (select rowNum rn,a.* from "
-				+ "(select * from customer order by customer_no) a)"				
+				+ "(select * from customer order by customer_no desc) a)"				
 				+ "where rn between ? and ?";
 
 		try {
@@ -101,7 +101,7 @@ public class CustomerDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Connection conn = getConnection();
-		String sql = "select * from Customer order by customer_no";
+		String sql = "select * from Customer order by customer_no desc";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -314,7 +314,7 @@ public class CustomerDao {
 		
 		String sql = "select * from Customer "
 				+ "where "+options.getSearchField()+" like '%'||'"+options.getKeyword()+"'||'%' "
-				+ "order by customer_no";
+				+ "order by customer_no desc";
 
 		try {
 			pstmt = conn.prepareStatement(sql);

@@ -20,9 +20,6 @@
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[1].setAttribute('style', 'background: #186343');
-
-		var tool = document.getElementsByClassName('tool');
-		tool[1].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
 		
 		frm.customer_reg_num.onchange = function() {
 			var msg = document.getElementsByClassName('msg')[0];
@@ -45,10 +42,7 @@
 				}
 			};
 		};
-	
 	}
-	
-	
 </script>
 </head>
 <body>

@@ -107,9 +107,5 @@ public class HrDao {
 		
 		session.close();
 		return result;
-		
 	}
-	
-	
-	
 }

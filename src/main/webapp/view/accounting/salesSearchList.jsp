@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>매입 내역</title>
+<title>매출 내역</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
-		label[0].setAttribute('style', 'background: #186343');
+		label[1].setAttribute('style', 'background: #186343');
 	}
 </script>
 </head>
@@ -43,17 +43,17 @@
 			</div>
 			<div class="content">
 				<div class="content_head">
-					<div class="label_name">매입 내역</div>
+					<div class="label_name">매출 내역</div>
 				</div>
 				<div class="content_body">
-					<form method="post" name="search" action="/project/accounting/purchaseSearchList.do">
+					<form method="post" name="search" action="/project/accounting/salesSearchList.do">
 						<div class="searchBox">
 							<input type="date" name="from">&nbsp;부터
 							<input type="date" name="to">&nbsp;까지 
 							<select name="searchField">
 								<option value="0">선택</option>
-								<option value="seller_no">업체코드</option>
-								<option value="seller_name">업체명</option>
+								<option value="customer_no">업체코드</option>
+								<option value="customer_name">업체명</option>
 								<option value="product_no">상품코드</option>
 								<option value="product_name">상품명</option>
 								<option value="emp_no">담당자(사번)</option>
@@ -67,48 +67,54 @@
 					</form>
 					<table>
 						<tr>
-							<th>구매일</th>
+							<th>판매일</th>
 							<th>업체코드</th>
 							<th>업체명</th>
 							<th>상품코드</th>
 							<th>상품명</th>
-							<th>매입단가</th>
+							<th>판매단가</th>
 							<th>수량</th>
-							<th>매입 총액</th>
+							<th>매출 총액</th>
 							<th>담당자</th>
 						</tr>
-						<c:if test="${empty purchaseList}">
+						<c:if test="${empty salesList}">
 							<tr>
-								<th colspan="9">등록된 매입 내역이 없습니다</th>
+								<th colspan="9">검색 조건과 일치하는 매출 내역이 없습니다</th>
 							</tr>
 						</c:if>
-						<c:if test="${not empty purchaseList }">
-							<c:forEach var="purchase" items="${purchaseList }">
+						<c:if test="${not empty salesList }">
+							<c:forEach var="sales" items="${salesList }">
 								<tr>
-									<td>${purchase.purchase_order_date }</td>
-									<td>${purchase.seller_no }</td>
-									<td>${purchase.seller_name }</td>
-									<td>${purchase.product_no}</td>
-									<td>${purchase.product_name}</td>
-									<td>${purchase.price}</td>
-									<td>${purchase.purchase_detail_pcount}</td>
-									<td>${purchase.purchase_detail_pcount * purchase.price}</td>
-									<td>${purchase.emp_no}</td>
+									<td>${sales.sales_order_date}</td>
+									<td>${sales.customer_no}</td>
+									<td>${sales.customer_name}</td>
+									<td>${sales.product_no}</td>
+									<td>${sales.product_name}</td>
+									<td>${sales.price}</td>
+									<td>${sales.sales_detail_pcount}</td>
+									<td>${sales.sales_detail_pcount * sales.price}</td>
+									<td>${sales.emp_no}</td>
 								</tr>
 							</c:forEach>
 						</c:if>
 					</table>
+					<c:url value="/accounting/salesSearchList.do" var="url">
+						<c:param name="searchField" value="${param.searchField}"/>
+						<c:param name="keyword" value="${param.keyword}"/>
+						<c:param name="from" value="${param.from}"/>
+						<c:param name="to" value="${param.to}"/>
+					</c:url>
 					<div class="page">
-						<a href="/project/accounting/purchaseList.do?p=${p-5}">&lt;</a>
+						<a href="${url}&p=${p-5}">&lt;</a>
 						<c:forEach begin="${firstPage}" end="${lastPage}" varStatus="vs">
 							<c:if test="${p == vs.index}">
-								<b><a href="/project/accounting/purchaseList.do?p=${vs.index}">${vs.index}</a></b>
+								<b><a href="${url}&p=${vs.index}">${vs.index}</a></b>
 							</c:if>
 							<c:if test="${p != vs.index}">
-								<a href="/project/accounting/purchaseList.do?p=${vs.index}">${vs.index}</a>
+								<a href="${url}&p=${vs.index}">${vs.index}</a>
 							</c:if>
 						</c:forEach>
-						<a href="/project/accounting/purchaseList.do?p=${p+5}">&gt;</a>
+						<a href="${url}&p=${p+5}">&gt;</a>
 					</div>
 				</div>
 			</div>

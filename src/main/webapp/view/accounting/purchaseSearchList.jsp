@@ -79,7 +79,7 @@
 						</tr>
 						<c:if test="${empty purchaseList}">
 							<tr>
-								<th colspan="9">등록된 매입 내역이 없습니다</th>
+								<th colspan="9">검색 조건과 일치하는 매입 내역이 없습니다</th>
 							</tr>
 						</c:if>
 						<c:if test="${not empty purchaseList }">
@@ -98,17 +98,23 @@
 							</c:forEach>
 						</c:if>
 					</table>
+					<c:url value="/accounting/purchaseSearchList.do" var="url">
+						<c:param name="searchField" value="${param.searchField}"/>
+						<c:param name="keyword" value="${param.keyword}"/>
+						<c:param name="from" value="${param.from}"/>
+						<c:param name="to" value="${param.to}"/>
+					</c:url>
 					<div class="page">
-						<a href="/project/accounting/purchaseList.do?p=${p-5}">&lt;</a>
+						<a href="${url}&p=${p-5}">&lt;</a>
 						<c:forEach begin="${firstPage}" end="${lastPage}" varStatus="vs">
 							<c:if test="${p == vs.index}">
-								<b><a href="/project/accounting/purchaseList.do?p=${vs.index}">${vs.index}</a></b>
+								<b><a href="${url}&p=${vs.index}">${vs.index}</a></b>
 							</c:if>
 							<c:if test="${p != vs.index}">
-								<a href="/project/accounting/purchaseList.do?p=${vs.index}">${vs.index}</a>
+								<a href="${url}&p=${vs.index}">${vs.index}</a>
 							</c:if>
 						</c:forEach>
-						<a href="/project/accounting/purchaseList.do?p=${p+5}">&gt;</a>
+						<a href="${url}&p=${p+5}">&gt;</a>
 					</div>
 				</div>
 			</div>

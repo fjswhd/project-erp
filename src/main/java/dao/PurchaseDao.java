@@ -1,4 +1,5 @@
 package dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,8 @@ import model.Product;
 import model.Purchase;
 import model.PurchaseOrder;
 import model.PurchaseOrderDetail;
-import model.Seller;
+import model.SearchOption;
+
 public class PurchaseDao {
 	// singleton
 	private static PurchaseDao instance = new PurchaseDao();
@@ -236,5 +238,99 @@ public class PurchaseDao {
 			}catch (Exception e) {		}
 		}
 		return purchaseList;
+	}
+	
+	public List<Purchase> purchaseSearchList(int firstRow, int lastRow, SearchOption options) {
+		List<Purchase> purchaseList = new ArrayList<Purchase>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+
+		String sql = "select * "
+				+ "from ("
+				+ "		select rownum rn, s.* "
+				+ "		from purchase s "
+				+ "		where "+options.getSearchField()+" like '%'||?||'%' "
+				+ "		and purchase_order_date > to_date(?, 'yyyy-mm-dd') "
+				+ "		and purchase_order_date < to_date(?, 'yyyy-mm-dd')+1 "
+				+ ") "
+				+ "where rn between ? and ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, options.getKeyword());
+			pstmt.setString(2, options.getFrom());
+			pstmt.setString(3, options.getTo());
+			pstmt.setInt(4, firstRow);
+			pstmt.setInt(5, lastRow);
+			rs = pstmt.executeQuery(); 
+			while(rs.next()) {
+				Purchase purchase = new Purchase();
+				//판매주문일, 주문번호, 판매처코드, 판매처명, 상품코드, 상품명, 판매가, 매입가, 현재 재고량, 주문수량, 주문 등록 사원번호, 사원명
+				purchase.setPurchase_order_date		(rs.getDate("purchase_order_date"));
+				purchase.setPurchase_order_no		(rs.getInt("purchase_order_no"));
+				purchase.setSeller_no				(rs.getString("seller_no"));
+				purchase.setSeller_name				(rs.getString("seller_name"));
+				purchase.setProduct_no				(rs.getInt("product_no"));
+				purchase.setProduct_name			(rs.getString("product_name"));
+				purchase.setPrice					(rs.getInt("price"));
+				purchase.setCost					(rs.getInt("cost"));
+				purchase.setStock					(rs.getInt("stock"));
+				purchase.setPurchase_detail_pcount	(rs.getInt("purchase_detail_pcount"));
+				purchase.setEmp_no					(rs.getString("emp_no"));
+				purchase.setEmp_name				(rs.getString("emp_name"));
+
+				purchaseList.add(purchase); 
+			} 
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+
+		}
+
+		return purchaseList;
+	}
+	
+	public int getTotalPurchaseSearch( SearchOption options) {
+		int total = 0;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+
+		String sql = "select count(*) "
+				+ "from purchase "
+				+ "where "+options.getSearchField()+" like '%'||?||'%' "
+				+ "and purchase_order_date > to_date(?, 'yyyy-mm-dd') "
+				+ "and purchase_order_date < to_date(?, 'yyyy-mm-dd')+1 ";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, options.getKeyword());
+			pstmt.setString(2, options.getFrom());
+			pstmt.setString(3, options.getTo());
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()) {
+				total = rs.getInt(1);
+			} 
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+
+		}
+
+		return total;
 	}
 }

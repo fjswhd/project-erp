@@ -1,4 +1,4 @@
-package service.sales;
+package service.inventory;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,13 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.Command;
 
 import dao.ProductDao;
-import dao.SalesDao;
 import model.ModifiedStock;
-import model.Sales;
+import model.Product;
 import model.SearchOption;
 
-public class SearchList implements Command {
-
+public class ModifiedSearch implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		// 유효한 접근인지 확인
@@ -25,7 +23,7 @@ public class SearchList implements Command {
 			return "/login/loginForm.do";
 		}
 
-		SalesDao sd = SalesDao.getInstance();
+		ProductDao pd = ProductDao.getInstance();
 		// 페이지당 열 개수
 		final int ROW_PER_PAGE = 10;
 
@@ -34,38 +32,38 @@ public class SearchList implements Command {
 
 		// 검색옵션 만들기
 		SearchOption options = new SearchOption();
-		// from 선택 안했으면 현재 날짜로부터 1년 전
+		//from 선택 안했으면 현재 날짜로부터 1년 전
 		if (request.getParameter("from") == null || request.getParameter("from").equals("")) {
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.YEAR, -1);
-
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+			
 			options.setFrom(sdf.format(cal.getTime()));
 		} else {
 			options.setFrom(request.getParameter("from"));
 		}
-		// to 선택 안했으면 현재 날짜
+		//to 선택 안했으면 현재 날짜
 		if (request.getParameter("to") == null || request.getParameter("to").equals("")) {
 			Calendar cal = Calendar.getInstance();
-
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+			
 			options.setTo(sdf.format(cal.getTime()));
 		} else {
 			options.setTo(request.getParameter("to"));
 		}
-		// 검색 필드 설정했으면 무작위 검색
+		//검색 필드 설정했으면 무작위 검색
 		if (request.getParameter("searchField").equals("0")) {
-			options.setSearchField("sales_order_no");
-			options.setKeyword("");
+			options.setSearchField("product_name");
+			options.setKeyword("");						
 		} else {
 			options.setSearchField(request.getParameter("searchField"));
-			options.setKeyword(request.getParameter("keyword"));
+			options.setKeyword(request.getParameter("keyword"));			
 		}
 
 		// 마지막 페이지 구하기
-		int endPage = (sd.getTotalSalesSearch(options) - 1) / ROW_PER_PAGE + 1;
+		int endPage = (pd.getTotalSearchModified(options) - 1) / ROW_PER_PAGE + 1;
 
 		// 현재 페이지(기본값은 1페이지)
 		int p = 1;
@@ -91,12 +89,13 @@ public class SearchList implements Command {
 		firstPage = firstPage < 1 ? 1 : firstPage;
 		lastPage = lastPage > endPage ? endPage : lastPage;
 
-		List<Sales> searchList = sd.salesSearchList(firstRow, lastRow, options);
+		List<ModifiedStock> searchList = ProductDao.getInstance().searchModifiedList(firstRow, lastRow, options);
 
 		request.setAttribute("p", p);
 		request.setAttribute("firstPage", firstPage);
 		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("searchList", searchList);
-		return null;
+
+		return "/view/inventory/modifiedSearchList.jsp";
 	}
 }

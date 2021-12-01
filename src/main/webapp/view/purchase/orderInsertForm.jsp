@@ -21,9 +21,6 @@
 		var label = document.getElementsByClassName('label');
 		label[5].setAttribute('style', 'background: #186343');
 
-		var tool = document.getElementsByClassName('tool');
-		tool[0].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
-		
 		document.getElementById('sellerSearch').onclick = function() {
 			window.open('/project/seller/searchWindow.do', '업체검색', 'width=500, height=600, scrollbars=no, resizable=no, left=900, top=150');
 		}
@@ -53,8 +50,7 @@
 				frm.purchase_detail_pcount.value = '';
 				frm.purchase_detail_pcount.focus();
 				return false;
-			}
-			
+			}	
 		}
 	}
 </script>

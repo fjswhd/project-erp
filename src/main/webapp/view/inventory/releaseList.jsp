@@ -8,19 +8,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>재고 현황</title>
+<title>출고 내역</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/inventory/releaseList.css?1" rel="stylesheet" type="text/css">
+<link href="/project/css/inventory/list.css?2" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[3].setAttribute('style', 'background: #186343');
-
-		var tool = document.getElementsByClassName('tool');
-		tool[2].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
 	}
 </script>
 </head>
@@ -50,29 +47,22 @@
 					<div class="label_name">출고 내역</div>
 				</div>
 				<div class="content_body">
-					<form method="post" name="search" action="/project/inventory/releaseListSearch.do">
-						<div class="search">
-							<div>
-								<input type="date" name="s_date" >
-								<div> ~ </div>
-								<input type="date" name="e_date" >
-							</div>
-							<div>
-								<select name="searchField">
-									<option value="0">선택</option>
-									<option value="customer_no">업체코드</option>
-									<option value="customer_name">업체명</option>
-									<option value="product_no">상품코드</option>
-									<option value="product_name">상품명</option>
-								</select>
-							</div>
-							<div>
-								<input type="text" name="keyword" style="width: 150px;">
-							</div>
-							<div>
-								<button class="search_img" type="submit">
-									<img src="/project/images/search.jpg" width="30">
-								</button>
+					<form method="post" name="search" action="/project/inventory/releaseSearchList.do">
+						<div class="searchBox">
+							<input type="date" name="s_date">&nbsp;부터
+							<input type="date" name="e_date">&nbsp;까지 
+							<select name="searchField">
+								<option value="0">선택</option>
+								<option value="customer_no">업체코드</option>
+								<option value="customer_name">업체명</option>
+								<option value="product_no">상품코드</option>
+								<option value="product_name">상품명</option>
+								<option value="emp_no">담당자(사번)</option>
+								<option value="emp_name">담당자(이름)</option>
+							</select> 
+							<div class="inputBox">
+								<input type="text" name="keyword" placeholder="검색어를 입력하세요.">
+								<button type="submit"></button>							
 							</div>
 						</div>
 					</form>
@@ -108,7 +98,6 @@
 							</c:forEach>
 						</c:if>
 					</table>
-	
 					<div class="page">
 						<a href="/project/inventory/releaseList.do?p=${p-5}">&lt;</a>
 						<c:forEach begin="${firstPage}" end="${lastPage}" varStatus="vs">

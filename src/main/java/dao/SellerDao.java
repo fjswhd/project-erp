@@ -74,7 +74,7 @@ public class SellerDao {
 		ResultSet rs = null;
 		Connection conn = getConnection();
 		
-		String sql = "select * from (select rowNum rn,a.* from " + "(select * from seller order by seller_no) a)"
+		String sql = "select * from (select rowNum rn,a.* from " + "(select * from seller order by seller_no desc) a)"
 				+ "where rn between ? and ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -119,7 +119,7 @@ public class SellerDao {
 		ResultSet rs = null;
 		Connection conn = getConnection();
 		
-		String sql = "select * from seller order by seller_no";
+		String sql = "select * from seller order by seller_no desc";
 		try {
 			
 			pstmt = conn.prepareStatement(sql);
@@ -331,7 +331,7 @@ public class SellerDao {
 
 		String sql = "select * from Seller "
 				+ "where "+options.getSearchField()+" like '%'||'"+options.getKeyword()+"'||'%' "
-				+ "order by seller_no";
+				+ "order by seller_no desc";
 
 		try {
 			pstmt = conn.prepareStatement(sql);

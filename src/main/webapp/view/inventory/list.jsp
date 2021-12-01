@@ -12,15 +12,12 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/inventory/list.css?1" rel="stylesheet" type="text/css">
+<link href="/project/css/inventory/list.css?13" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[0].setAttribute('style', 'background: #186343');
-
-		var tool = document.getElementsByClassName('tool');
-		tool[2].setAttribute('style','background: #f8f7f2; color: #000; box-shadow: 0 -0.15rem 0.15rem #808080; z-index: 1;');
 	}
 	function openWindow(p, product_no) {
 		window.open('/project/inventory/modifyStockForm.do?p='+p+'&product_no='+product_no, '재고수정', 'width=500, height=350 left=550, top=100');
@@ -53,23 +50,17 @@
 					<div class="label_name">재고 현황</div>
 				</div>
 				<div class="content_body">
-					<form method="post" name="search" action="/project/st/productListSearch.do">
-						<div class="search">
-							<div>
-								<select name="searchField">
-									<option value="0">선택</option>
-									<option value="product_no">상품코드</option>
-									<option value="product_name">상품명</option>
-								</select>
-							</div>
-							<div>
-								<input type="text" name="keyword" style="width: 150px;">
-							</div>
-
-							<div>
-								<button class="search_img" type="submit">
-									<img src="/project/images/search.jpg" width="30">
-								</button>
+					<form method="post" name="search" action="/project/inventory/search.do">
+						<div class="searchBox">
+							<select name="searchField">
+								<option value="0">선택</option>
+								<option value="product_no">상품코드</option>
+								<option value="product_name">상품명</option>
+								<option value="product_memo">참고사항</option>
+							</select>
+							<div class="inputBox">
+								<input type="text" name="keyword" placeholder="검색어를 입력하세요.">
+								<button type="submit"></button>													
 							</div>
 						</div>
 					</form>
@@ -80,10 +71,11 @@
 							<th>입고단가</th>
 							<th>출고단가</th>
 							<th>수량</th>
+							<th>참고사항</th>
 						</tr>
 						<c:if test="${empty productList}">
 							<tr>
-								<th colspan="5">상품재고가 없습니다</th>
+								<th>상품재고가 없습니다</th>
 							</tr>
 						</c:if>
 						<c:if test="${not empty productList}">
@@ -102,6 +94,7 @@
 									<td>${product.cost}</td>
 									<td>${product.price}</td>
 									<td>${product.stock}</td>
+									<td>${product.product_memo}</td>
 								</tr>
 							</c:forEach>
 						</c:if>

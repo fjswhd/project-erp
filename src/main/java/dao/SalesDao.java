@@ -15,6 +15,7 @@ import model.Product;
 import model.Sales;
 import model.SalesOrder;
 import model.SalesOrderDetail;
+import model.SearchOption;
 
 public class SalesDao {
 	//singleton
@@ -216,5 +217,98 @@ public class SalesDao {
 		
 		return result;
 	}
+	
+	public List<Sales> salesSearchList(int firstRow, int lastRow, SearchOption options) {
+		List<Sales> salesList = new ArrayList<Sales>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+
+		String sql = "select * "
+				+ "from ("
+				+ "		select rownum rn, s.* "
+				+ "		from sales s "
+				+ "		where "+options.getSearchField()+" like '%'||?||'%' "
+				+ "		and sales_order_date > to_date(?, 'yyyy-mm-dd') "
+				+ "		and sales_order_date < to_date(?, 'yyyy-mm-dd')+1 "
+				+ ") "
+				+ "where rn between ? and ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, options.getKeyword());
+			pstmt.setString(2, options.getFrom());
+			pstmt.setString(3, options.getTo());
+			pstmt.setInt(4, firstRow);
+			pstmt.setInt(5, lastRow);
+			rs = pstmt.executeQuery(); 
+			while(rs.next()) {
+				Sales sales = new Sales();
+				//판매주문일, 주문번호, 판매처코드, 판매처명, 상품코드, 상품명, 판매가, 매입가, 현재 재고량, 주문수량, 주문 등록 사원번호, 사원명
+				sales.setSales_order_date	(rs.getDate("sales_order_date"));
+				sales.setSales_order_no		(rs.getInt("sales_order_no"));
+				sales.setCustomer_no		(rs.getString("customer_no"));
+				sales.setCustomer_name		(rs.getString("customer_name"));
+				sales.setProduct_no			(rs.getInt("product_no"));
+				sales.setProduct_name		(rs.getString("product_name"));
+				sales.setPrice				(rs.getInt("price"));
+				sales.setCost				(rs.getInt("cost"));
+				sales.setStock				(rs.getInt("stock"));
+				sales.setSales_detail_pcount(rs.getInt("sales_detail_pcount"));
+				sales.setEmp_no				(rs.getString("emp_no"));
+				sales.setEmp_name			(rs.getString("emp_name"));
+
+				salesList.add(sales); 
+			} 
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+
+		}
+
+		return salesList;
+	}
+	
+	public int getTotalSalesSearch( SearchOption options) {
+		int total = 0;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+
+		String sql = "select count(*) "
+				+ "from sales "
+				+ "where "+options.getSearchField()+" like '%'||?||'%' "
+				+ "and sales_order_date > to_date(?, 'yyyy-mm-dd') "
+				+ "and sales_order_date < to_date(?, 'yyyy-mm-dd')+1 ";
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, options.getKeyword());
+			pstmt.setString(2, options.getFrom());
+			pstmt.setString(3, options.getTo());
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()) {
+				total = rs.getInt(1);
+			} 
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+
+		}
+
+		return total;
+	}
 }

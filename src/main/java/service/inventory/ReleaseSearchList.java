@@ -1,4 +1,4 @@
-package service.sales;
+package service.inventory;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,13 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import dao.ProductDao;
 import dao.SalesDao;
-import model.ModifiedStock;
 import model.Sales;
 import model.SearchOption;
 
-public class SearchList implements Command {
+public class ReleaseSearchList implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -97,6 +95,8 @@ public class SearchList implements Command {
 		request.setAttribute("firstPage", firstPage);
 		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("searchList", searchList);
-		return null;
+		
+		return "/view/inventory/releaseSearchList.jsp";
 	}
+
 }

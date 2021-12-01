@@ -154,4 +154,22 @@ and purchase_order_date > trunc(sysdate, 'mm')
 group by product_no, product_name, cost, price
 order by product_no;
 
+create or replace view sales
+as
+    select so.sales_order_date, so.sales_order_no, c.customer_no, c.customer_name, p.product_no, p.product_name, p.price, p.cost, p.stock, sod.sales_detail_pcount, e.emp_no, e.emp_name 
+    from Sales_order so, Customer c, Product p, Sales_order_detail sod, Emp e 
+    where e.emp_no=so.emp_no and c.customer_no=so.customer_no and so.sales_order_no=sod.sales_order_no and p.product_no=sod.product_no 
+    order by so.sales_order_date desc, so.sales_order_no desc
+with read only;
+
+create or replace view purchase
+as
+    select po.purchase_order_date, po.purchase_order_no, s.seller_no, s.seller_name, p.product_no, p.product_name, p.price, p.cost, p.stock, pod.purchase_DETAIL_PCOUNT, e.emp_no, e.emp_name 
+    from purchase_order po, seller s, Product p, purchase_order_detail pod, Emp e 
+    where e.emp_no=po.emp_no and s.seller_no=po.seller_no and po.purchase_order_no=pod.purchase_order_no and p.product_no=pod.product_no 
+    order by po.purchase_order_date desc, po.purchase_order_no desc
+with read only;
+
+
 insert into emp values ('21-00001', 50, '1234', '이종민', 'fjswhd93@gmail.com', '10358','고양시', '덕양구', '010-9052-1980', to_date('210502', 'YYMMDD'), 'n');
+

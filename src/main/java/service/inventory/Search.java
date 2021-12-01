@@ -8,12 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 import com.Command;
 
 import dao.ProductDao;
-import model.ModifiedStock;
+import model.Product;
+import model.SearchOption;
 
-public class ModifiedList implements Command {
-
+public class Search implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		// 유효한 접근인지 확인
+		if (request.getHeader("referer") == null) {
+			request.getSession().invalidate();
+			return "/login/loginForm.do";
+		}
+		
 		ProductDao pd = ProductDao.getInstance();
 		//페이지당 열 개수
 		final int ROW_PER_PAGE = 10;
@@ -21,8 +27,13 @@ public class ModifiedList implements Command {
 		//페이지 버튼 블럭당 페이지 개수
 		final int PAGE_PER_BLOCK = 5;
 		
+		//검색옵션 만들기
+		SearchOption options = new SearchOption();
+		options.setSearchField(request.getParameter("searchField"));
+		options.setKeyword(request.getParameter("keyword"));
+
 		//마지막 페이지 구하기
-		int endPage = (pd.getTotalModifiedStock()-1)/ROW_PER_PAGE + 1;
+		int endPage = (pd.getTotalSearchProduct(options)-1)/ROW_PER_PAGE + 1;
 		
 		//현재 페이지(기본값은 1페이지)
 		int p = 1;
@@ -46,19 +57,16 @@ public class ModifiedList implements Command {
 		int firstPage = PAGE_PER_BLOCK*( (p-1)/PAGE_PER_BLOCK ) + 1;  
 		int lastPage = PAGE_PER_BLOCK*( (p-1)/PAGE_PER_BLOCK + 1);
 		
-	
-		
 		firstPage = firstPage < 1 ? 1 : firstPage;
 		lastPage = lastPage > endPage ? endPage : lastPage;
 		
-		List<ModifiedStock> modifiedStockList = pd.modifiedStockList(firstRow, lastRow);
+		List<Product> searchList = ProductDao.getInstance().searchProductList(firstRow, lastRow, options);
 		
-		request.setAttribute("modifiedStockList", modifiedStockList);
 		request.setAttribute("p", p);
 		request.setAttribute("firstPage", firstPage);
 		request.setAttribute("lastPage", lastPage);
+		request.setAttribute("searchList", searchList);
 		
-		return "/view/inventory/modifiedList.jsp";
+		return "/view/inventory/searchList.jsp";
 	}
-
 }

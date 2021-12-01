@@ -1,4 +1,4 @@
-package service.sales;
+package service.accounting;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,13 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.Command;
 
-import dao.ProductDao;
-import dao.SalesDao;
-import model.ModifiedStock;
-import model.Sales;
+import dao.PurchaseDao;
+import model.Purchase;
 import model.SearchOption;
 
-public class SearchList implements Command {
+public class PurchaseSearchList implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -25,7 +23,7 @@ public class SearchList implements Command {
 			return "/login/loginForm.do";
 		}
 
-		SalesDao sd = SalesDao.getInstance();
+		PurchaseDao pd = PurchaseDao.getInstance();
 		// 페이지당 열 개수
 		final int ROW_PER_PAGE = 10;
 
@@ -57,7 +55,7 @@ public class SearchList implements Command {
 		}
 		// 검색 필드 설정했으면 무작위 검색
 		if (request.getParameter("searchField").equals("0")) {
-			options.setSearchField("sales_order_no");
+			options.setSearchField("purchase_order_no");
 			options.setKeyword("");
 		} else {
 			options.setSearchField(request.getParameter("searchField"));
@@ -65,7 +63,7 @@ public class SearchList implements Command {
 		}
 
 		// 마지막 페이지 구하기
-		int endPage = (sd.getTotalSalesSearch(options) - 1) / ROW_PER_PAGE + 1;
+		int endPage = (pd.getTotalPurchaseSearch(options) - 1) / ROW_PER_PAGE + 1;
 
 		// 현재 페이지(기본값은 1페이지)
 		int p = 1;
@@ -91,12 +89,14 @@ public class SearchList implements Command {
 		firstPage = firstPage < 1 ? 1 : firstPage;
 		lastPage = lastPage > endPage ? endPage : lastPage;
 
-		List<Sales> searchList = sd.salesSearchList(firstRow, lastRow, options);
+		List<Purchase> purchaseList = pd.purchaseSearchList(firstRow, lastRow, options);
 
 		request.setAttribute("p", p);
 		request.setAttribute("firstPage", firstPage);
 		request.setAttribute("lastPage", lastPage);
-		request.setAttribute("searchList", searchList);
-		return null;
+		request.setAttribute("purchaseList", purchaseList);
+		
+		return "/view/accounting/purchaseSearchList.jsp";
 	}
+
 }
