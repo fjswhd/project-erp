@@ -8,11 +8,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매처 목록</title>
+<title>구매처 목록</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/customer/list.css" rel="stylesheet" type="text/css">
+<link href="/project/css/seller/list.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
@@ -27,11 +27,13 @@
 	</div>
 	<div id="body_container">
 		<div class="side_bar">
-			<div>판 매</div>
-			<div class="label">판매처 목록</div>
-			<div class="label">판매처 등록</div>
-			<div class="label">판매 내역</div>
-			<div class="label">판매 등록</div>
+			<div>구 매</div>
+			<div class="label">구매처 목록</div>
+			<div class="label">구매처 등록</div>
+			<div class="label">상품 목록</div>
+			<div class="label">상품 등록</div>			
+			<div class="label">구매 내역</div>
+			<div class="label">구매 등록</div>
 		</div>
 		<div class="body">
 			<div class="toolbar">
@@ -44,16 +46,16 @@
 			</div>
 			<div class="content">
 				<div class="content_head">
-					<div class="label_name">판매처 목록</div>
+					<div class="label_name">구매처 목록</div>
 				</div>
 				<div class="content_body">
-					<form method="post" name="search" action="/project/customer/searchList.do">
+					<form method="post" name="search" action="/project/seller/searchList.do">
 						<div class="searchBox">
 							<select name="searchField">
 								<option value="0">선택</option>
-								<option value="customer_no">업체코드</option>
-								<option value="customer_name">업체명</option>
-								<option value="customer_memo">참고사항</option>
+								<option value="seller_no">업체코드</option>
+								<option value="seller_name">업체명</option>
+								<option value="seller_memo">참고사항</option>
 							</select>
 							<div class="inputBox">
 								<input type="text" name="keyword" placeholder="검색어를 입력하세요.">
@@ -70,45 +72,53 @@
 							<th>담당자</th>
 							<th>참고사항</th>
 						</tr>
-						<c:if test="${empty customerList}">
+						<c:if test="${empty sellerList}">
 							<tr>
-								<th>등록된 판매처가 없습니다</th>
+								<th>검색 조건과 일치하는 구매처가 없습니다</th>
 							</tr>
 						</c:if>
-						<c:if test="${not empty customerList }">
-							<c:forEach var="customer" items="${customerList }">
+
+						<c:if test="${not empty sellerList }">
+							<c:forEach var="seller" items="${sellerList }">
 								<tr>
 									<!-- 		 기존에 있는 정보를 가지고 등록 페이지로 이동 			--> 
 									<td>
-										<a href="/project/customer/updateForm.do?customer_no=${customer.customer_no}"> ${customer.customer_no}</a>
+										<a href="/project/seller/updateForm.do?seller_no=${seller.seller_no}"> ${seller.seller_no}</a>
 									</td>
 									<td>
-										<a href="/project/customer/updateForm.do?customer_no=${customer.customer_no}"> ${customer.customer_name}</a>
+										<a href="/project/seller/updateForm.do?seller_no=${seller.seller_no}"> ${seller.seller_name}</a>
 									</td>
-									<td>${customer.customer_tel }</td>
-									<td>${customer.customer_email}</td>
-									<td>${customer.emp_no}</td>
-									<td>${customer.customer_memo}</td>
+									<td>${seller.seller_tel }</td>
+									<td>${seller.seller_email}</td>
+									<td>${seller.emp_no}</td>
+									<td>${seller.seller_memo}</td>
 								</tr>
 							</c:forEach>
 						</c:if>
 					</table>
+					<c:url value="/seller/searchList.do" var="url">
+						<c:param name="searchField" value="${param.searchField}"/>
+						<c:param name="keyword" value="${param.keyword}"/>
+						<c:param name="from" value="${param.from}"/>
+						<c:param name="to" value="${param.to}"/>
+					</c:url>
 					<div class="page">
-						<a href="/project/customer/list.do?p=${p-5}">&lt;</a>
+						<a href="${url}&p=${p-5}">&lt;</a>
 						<c:forEach begin="${firstPage}" end="${lastPage}" varStatus="vs">
 							<c:if test="${p == vs.index}">
-								<b><a href="/project/customer/list.do?p=${vs.index}">${vs.index}</a></b>
+								<b><a href="${url}&p=${vs.index}">${vs.index}</a></b>
 							</c:if>
 							<c:if test="${p != vs.index}">
-								<a href="/project/customer/list.do?p=${vs.index}">${vs.index}</a>
+								<a href="${url}&p=${vs.index}">${vs.index}</a>
 							</c:if>
 						</c:forEach>
-						<a href="/project/customer/list.do?p=${p+5}">&gt;</a>
+						<a href="${url}&p=${p+5}">&gt;</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<script type="text/javascript" src="/project/script/header.js"></script>
 	<script type="text/javascript" src="/project/script/label.js"></script>
 	<script type="text/javascript" src="/project/script/toolbar.js"></script>

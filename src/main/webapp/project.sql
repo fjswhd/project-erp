@@ -22,8 +22,6 @@ create table emp (
 	hiredate		date				default sysdate,
 	resign			char(1)				default 'n'
 );
-alter table emp
-modify (dept_no not null);
 
 create table Customer (
     customer_no             VARCHAR2(10) 	primary key, 
@@ -106,14 +104,6 @@ create table product_modified (
 											primary key(product_modified_date, product_no)
 );
 
-insert into CASH values (1, 1000000, null, null);
-
-update emp set password = '1234' where emp_no = '21-00001';
-
-select * from customer where customer_no = 'C0001' and del = 'n';
-select * from v_hr_2 where emp_no = '21-00001';
-
---topN을 위한 뷰
 create or replace view v_hr
 as
 	select e1.rn, e1.emp_no, e1.emp_name, d.dept_name, e1.emp_tel, e1.emp_email 
@@ -131,28 +121,13 @@ as
 	order by pm.product_modified_date desc, p.product_no desc
 with read only;
 
-truncate table PRODUCT_MODIFIED;
-
-select * from modified_stock;
-truncate table EMP;
-truncate table dept;
-truncate table seller;
-truncate table purchase_order;
-truncate table purchase_order_detail;
-truncate table product;
-truncate table sales_order_detail;
-truncate table sales_order;
-truncate table customer;
-truncate table cash;
-
-select * from purchase;
-
-select product_no, product_name, cost, price, sum(purchase_detail_pcount) 
-from purchase 
-where purchase_order_date < sysdate 
-and purchase_order_date > trunc(sysdate, 'mm')
-group by product_no, product_name, cost, price
-order by product_no;
+create or replace view purchase
+as
+    select po.purchase_order_date, po.purchase_order_no, s.seller_no, s.seller_name, p.product_no, p.product_name, p.price, p.cost, p.stock, pod.purchase_DETAIL_PCOUNT, e.emp_no, e.emp_name 
+    from purchase_order po, seller s, Product p, purchase_order_detail pod, Emp e 
+    where e.emp_no=po.emp_no and s.seller_no=po.seller_no and po.purchase_order_no=pod.purchase_order_no and p.product_no=pod.product_no 
+    order by po.purchase_order_date desc, po.purchase_order_no desc
+with read only;
 
 create or replace view sales
 as
@@ -162,13 +137,20 @@ as
     order by so.sales_order_date desc, so.sales_order_no desc
 with read only;
 
-create or replace view purchase
-as
-    select po.purchase_order_date, po.purchase_order_no, s.seller_no, s.seller_name, p.product_no, p.product_name, p.price, p.cost, p.stock, pod.purchase_DETAIL_PCOUNT, e.emp_no, e.emp_name 
-    from purchase_order po, seller s, Product p, purchase_order_detail pod, Emp e 
-    where e.emp_no=po.emp_no and s.seller_no=po.seller_no and po.purchase_order_no=pod.purchase_order_no and p.product_no=pod.product_no 
-    order by po.purchase_order_date desc, po.purchase_order_no desc
-with read only;
+
+
+insert into CASH values (1, 1000000, null, null);
+
+update emp set password = '1234' where emp_no = '21-00001';
+
+
+select product_no, product_name, cost, price, sum(purchase_detail_pcount) 
+from purchase 
+where purchase_order_date like '___'||'11'||'%'
+group by product_no, product_name, cost, price
+order by product_no;
+
+
 
 
 insert into emp values ('21-00001', 50, '1234', '이종민', 'fjswhd93@gmail.com', '10358','고양시', '덕양구', '010-9052-1980', to_date('210502', 'YYMMDD'), 'n');

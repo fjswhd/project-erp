@@ -12,7 +12,7 @@ import model.Emp;
 import model.Hr;
 import dao.HrDao;
 
-public class HrUpdateFormCommand implements Command {
+public class UpdateForm implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {

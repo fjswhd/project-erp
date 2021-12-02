@@ -80,7 +80,7 @@
 						</tr>
 						<c:if test="${empty purchaseList}">
 							<tr>
-								<th colspan="8">입고내역이 없습니다</th>
+								<th>등록된 입고 내역이 없습니다</th>
 							</tr>
 						</c:if>
 						<c:if test="${not empty purchaseList }">

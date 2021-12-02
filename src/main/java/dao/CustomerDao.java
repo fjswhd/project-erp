@@ -347,6 +347,85 @@ public class CustomerDao {
 		return searchList;
 	}
 
+	//판매처 검색 리스트
+	public List<Customer> searchCustomerList(int firstRow, int lastRow, SearchOption options) {
+		List<Customer> searchList = new ArrayList<Customer>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+		
+		String sql = 
+				"select * "
+				+ "from ("
+				+ "		select rowNum rn, a.* "
+				+ "		from ("
+				+ "			select * "
+				+ "			from customer "
+				+ "			where "+options.getSearchField()+" like '%'||'"+options.getKeyword()+"'||'%' "
+				+ " 		order by customer_no desc"
+				+ "		) a)"				
+				+ "where rn between ? and ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, firstRow);
+			pstmt.setInt(2, lastRow);
+			rs = pstmt.executeQuery(); 
+			while(rs.next()) {
+				Customer customer = new Customer();
+				customer.setCustomer_no		(rs.getString("customer_no"));
+				customer.setCustomer_name	(rs.getString("customer_name"));   
+				customer.setCustomer_reg_num(rs.getString("customer_reg_num"));
+				customer.setCustomer_tel	(rs.getString("customer_tel"));
+				customer.setCustomer_email	(rs.getString("customer_email"));
+				customer.setCustomer_addr	(rs.getString("customer_addr"));
+				customer.setEmp_no			(rs.getString("emp_no"));
+				customer.setCustomer_memo	(rs.getString("customer_memo"));
+				customer.setCustomer_del	(rs.getString("customer_del"));
+
+				searchList.add(customer); 
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+		}
+		
+		return searchList;
+	}
 	
+	//판매처 검색 내역 개수
+	public int getTotalSearchCustomer(SearchOption options) {
+		int total = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+		
+		String sql = "select count(*) "
+				+ "from customer "
+				+ "where "+options.getSearchField()+" like '%'||'"+options.getKeyword()+"'||'%' ";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				total = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+		}
+		return total;
+	}
 		
 }

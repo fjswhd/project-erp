@@ -75,7 +75,7 @@
 						</tr>
 						<c:if test="${empty productList}">
 							<tr>
-								<th>상품재고가 없습니다</th>
+								<th>등록된 상품 재고가 없습니다</th>
 							</tr>
 						</c:if>
 						<c:if test="${not empty productList}">

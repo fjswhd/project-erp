@@ -10,7 +10,7 @@ import com.Command;
 import model.Emp;
 import dao.HrDao;
 
-public class HrInsertCommand implements Command {
+public class Insert implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {

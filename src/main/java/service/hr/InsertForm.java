@@ -11,7 +11,7 @@ import com.Command;
 import model.Dept;
 import dao.HrDao;
 
-public class HrInsertFormCommand implements Command {
+public class InsertForm implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {

@@ -12,7 +12,7 @@ import com.Command;
 import model.Hr;
 import dao.HrDao;
 
-public class HrListCommand implements Command {
+public class ListForm implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {

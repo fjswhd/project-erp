@@ -79,7 +79,7 @@
 						</tr>
 						<c:if test="${empty salesList}">
 							<tr>
-								<th colspan="8">검색 조건과 일치하는 판매 내역이 없습니다</th>
+								<th>검색 조건과 일치하는 판매 내역이 없습니다</th>
 							</tr>
 						</c:if>
 

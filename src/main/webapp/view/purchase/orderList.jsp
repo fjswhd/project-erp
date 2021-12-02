@@ -12,7 +12,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/purchase/list.css" rel="stylesheet" type="text/css">
+<link href="/project/css/purchase/list.css?3" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
@@ -81,7 +81,7 @@
 						</tr>
 						<c:if test="${empty purchaseList}">
 							<tr>
-								<th colspan="8">등록된 구매내역이 없습니다</th>
+								<th>등록된 구매 내역이 없습니다</th>
 							</tr>
 						</c:if>
 						<c:if test="${not empty purchaseList }">

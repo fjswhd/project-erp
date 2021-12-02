@@ -49,6 +49,20 @@
 					<div class="label_name">구매처 목록</div>
 				</div>
 				<div class="content_body">
+					<form method="post" name="search" action="/project/seller/searchList.do">
+						<div class="searchBox">
+							<select name="searchField">
+								<option value="0">선택</option>
+								<option value="seller_no">업체코드</option>
+								<option value="seller_name">업체명</option>
+								<option value="seller_memo">참고사항</option>
+							</select>
+							<div class="inputBox">
+								<input type="text" name="keyword" placeholder="검색어를 입력하세요.">
+								<button type="submit"></button>													
+							</div>
+						</div>
+					</form>
 					<table>
 						<tr>
 							<th>업체코드</th>
@@ -56,10 +70,11 @@
 							<th>전화</th>
 							<th>이메일</th>
 							<th>담당자</th>
+							<th>참고사항</th>
 						</tr>
 						<c:if test="${empty sellerList}">
 							<tr>
-								<th colspan="8">등록된 구매처가 없습니다</th>
+								<th>등록된 구매처가 없습니다</th>
 							</tr>
 						</c:if>
 
@@ -76,6 +91,7 @@
 									<td>${seller.seller_tel }</td>
 									<td>${seller.seller_email}</td>
 									<td>${seller.emp_no}</td>
+									<td>${seller.seller_memo}</td>
 								</tr>
 							</c:forEach>
 						</c:if>

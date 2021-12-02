@@ -30,6 +30,7 @@
 	.searchBox .inputBox {
 		margin-left: 0.5rem;
 		border-radius: 0.3rem;
+		align-items: center;
 	}
 	.searchBox input {
 		width: 18rem;
@@ -54,10 +55,10 @@
 		box-shadow: 0 0 0.2rem #505050;
 	}
 	input[type="date"]::-webkit-calendar-picker-indicator {
-		cursor: pointer;
+    	cursor: pointer;
 	}
 	.searchBox button {
-		background: #ffffff;
+		background: #59645C;
 		background-image: url('/project/images/search.jpg');
 		background-position:center;
 		background-repeat: no-repeat;

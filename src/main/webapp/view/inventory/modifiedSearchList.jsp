@@ -76,7 +76,7 @@
 						</tr>
 						<c:if test="${empty searchList }">
 							<tr>
-								<td>검색조건과 일치하는 재고 변동 내역이 없습니다</td>
+								<th>검색 조건과 일치하는 재고 변동 내역이 없습니다</th>
 							</tr>
 						</c:if>
 

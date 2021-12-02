@@ -361,5 +361,87 @@ public class SellerDao {
 		}
 		
 		return searchList;
-	}	
+	}
+	
+	//구매처 검색 리스트
+	public List<Seller> searchSellerList(int firstRow, int lastRow, SearchOption options) {
+		List<Seller> searchList = new ArrayList<Seller>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+		
+		
+		String sql = 
+				"select * "
+				+ "from ("
+				+ "		select rowNum rn, a.* "
+				+ "		from ("
+				+ "			select * "
+				+ "			from seller "
+				+ "			where "+options.getSearchField()+" like '%'||'"+options.getKeyword()+"'||'%' "
+				+ " 		order by seller_no desc"
+				+ "		) a)"				
+				+ "where rn between ? and ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, firstRow);
+			pstmt.setInt(2, lastRow);
+			rs = pstmt.executeQuery(); 
+			while(rs.next()) {
+				Seller seller = new Seller();
+				seller.setSeller_no		(rs.getString("seller_no"));
+				seller.setSeller_name	(rs.getString("seller_name"));   
+				seller.setSeller_reg_num(rs.getString("seller_reg_num"));
+				seller.setSeller_tel	(rs.getString("seller_tel"));
+				seller.setSeller_email	(rs.getString("seller_email"));
+				seller.setSeller_addr	(rs.getString("seller_addr"));
+				seller.setEmp_no		(rs.getString("emp_no"));
+				seller.setSeller_memo	(rs.getString("seller_memo"));
+				seller.setSeller_del	(rs.getString("seller_del"));
+
+				searchList.add(seller); 
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+		}
+		
+		return searchList;
+	}
+	
+	//구매처 검색 내역 개수
+	public int getTotalSearchSeller(SearchOption options) {
+		int total = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+		
+		String sql = "select count(*) "
+				+ "from seller "
+				+ "where "+options.getSearchField()+" like '%'||'"+options.getKeyword()+"'||'%' ";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				total = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+		}
+		return total;
+	}
 }

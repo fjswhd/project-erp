@@ -75,7 +75,7 @@
 						</tr>
 						<c:if test="${empty modifiedStockList }">
 							<tr>
-								<td>재고 변동 내역이 없습니다</td>
+								<th>재고 변동 내역이 없습니다</th>
 							</tr>
 						</c:if>
 

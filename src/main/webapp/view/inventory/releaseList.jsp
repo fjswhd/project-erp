@@ -79,7 +79,7 @@
 						</tr>
 						<c:if test="${empty salesList }">
 							<tr>
-								<td>출고내역이 없습니다</td>
+								<th>등록된 출고 내역이 없습니다</th>
 							</tr>
 						</c:if>
 

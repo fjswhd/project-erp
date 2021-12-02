@@ -30,7 +30,7 @@
 			</tr>
 			<c:if test="${empty searchList}">
 				<tr>
-					<td>검색결과가 존재하지 않습니다.</td>
+					<th>검색 조건과 일치하는 구매처가 존재하지 않습니다.</th>
 				</tr>
 			</c:if>
 			<c:if test="${not empty searchList}">

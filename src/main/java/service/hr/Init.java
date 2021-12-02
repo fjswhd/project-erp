@@ -19,7 +19,7 @@ import com.Command;
 import model.Emp;
 import dao.HrDao;
 
-public class HrInitCommand implements Command {
+public class Init implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {

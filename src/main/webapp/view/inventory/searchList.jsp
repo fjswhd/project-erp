@@ -73,7 +73,7 @@
 						</tr>
 						<c:if test="${empty searchList}">
 							<tr>
-								<th colspan="5">검색조건에 맞는 상품이 없습니다</th>
+								<th>검색 조건과 일치하는 재고가 없습니다</th>
 							</tr>
 						</c:if>
 						<c:if test="${not empty searchList}">
