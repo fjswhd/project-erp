@@ -15,9 +15,11 @@ logoutButton.addEventListener('click', function(event) {
 });
 
 //
-document.querySelector('input[name=keyword]').onfocus = function() {
-	document.querySelector('div.inputBox').style['box-shadow'] = '0 0 0.2rem #505050';
-}
-document.querySelector('input[name=keyword]').onblur = function() {
-	document.querySelector('div.inputBox').style['box-shadow'] = 'none';
+if (document.querySelector('input[name=keyword]') != null) {
+	document.querySelector('input[name=keyword]').onfocus = function() {
+		document.querySelector('div.inputBox').style['box-shadow'] = '0 0 0.2rem #505050';
+	}
+	document.querySelector('input[name=keyword]').onblur = function() {
+		document.querySelector('div.inputBox').style['box-shadow'] = 'none';
+	}
 }

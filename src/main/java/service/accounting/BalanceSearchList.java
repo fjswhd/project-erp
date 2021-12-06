@@ -1,8 +1,6 @@
 package service.accounting;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +14,14 @@ import model.Balance;
 import model.Purchase;
 import model.Sales;
 
-public class Balancing implements Command {
+public class BalanceSearchList implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		Calendar cal = Calendar.getInstance();
+		String month = request.getParameter("month").substring(2).replace("-", "/");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-		
-		String month = sdf.format(cal.getTime());
-		
-		List<Purchase> 	purchaseList = PurchaseDao.getInstance().purchaseList();
-		List<Sales>		salesList	 = SalesDao.getInstance().salesList();
+		List<Purchase> 	purchaseList = PurchaseDao.getInstance().purchaseList(month);
+		List<Sales>		salesList	 = SalesDao.getInstance().salesList(month);
 		
 		List<Balance> 	balanceList  = new ArrayList<Balance>();
 		
@@ -60,12 +54,12 @@ public class Balancing implements Command {
 			balanceList.add(balance);
 		}
 		
-		request.setAttribute("month", month);
+		request.setAttribute("month", request.getParameter("month"));
 		request.setAttribute("totalPurchase", totalPurchase);
 		request.setAttribute("totalSales", totalSales);
 		request.setAttribute("balanceList", balanceList);
 		
-		return "/view/accounting/balancing.jsp";
+		return "/view/accounting/balanceSearchList.jsp";
 	}
 
 }

@@ -42,6 +42,15 @@
 				}
 			};
 		};
+		
+		frm.onsubmit = function() {
+			var msg = document.getElementsByClassName('msg')[0];
+			if (msg.innerHTML == '이미 등록된 업체입니다.') {
+				alert('업체 등록 여부를 확인해주세요.');
+				frm.customer_reg_num.focus();
+				return false
+			}
+		}
 	}
 </script>
 </head>
@@ -71,7 +80,7 @@
 					<div class="label_name">판매처 등록</div>
 				</div>
 				<div class="content_body">
-					<form action="/project/customer/insert.do" method="post" name="frm" onsubmit="return submitChk()">
+					<form action="/project/customer/insert.do" method="post" name="frm">
 					<table>
 						<tr>
 							<th>업체번호</th>
@@ -79,22 +88,22 @@
 						</tr>
 						<tr>
 							<th>업체명</th>
-							<td><input type="text" name="customer_name" required="required" /></td>
+							<td><input type="text" name="customer_name" required="required" placeholder="업체명" /></td>
 						</tr>
 						<tr>
 							<th>사업자 번호</th>
 							<td>
-								<input type="text" name="customer_reg_num" required="required" />
+								<input type="text" name="customer_reg_num" required="required" placeholder="사업자 번호" />
 								<div class="msg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>전화번호</th>
-							<td><input type="tel" name="customer_tel" required="required" /></td>
+							<td><input type="tel" name="customer_tel" required="required" placeholder="전화번호" /></td>
 						</tr>
 						<tr>
 							<th>이메일</th>
-							<td><input type="email" name="customer_email" required="required" /></td>
+							<td><input type="email" name="customer_email" required="required" placeholder="이메일" /></td>
 						</tr>
 						<tr class="addrRow">
 							<th>주소</th>

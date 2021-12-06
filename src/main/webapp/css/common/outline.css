@@ -211,5 +211,5 @@
 		justify-content: flex-start;
 		align-items: stretch;
 		padding: 0 3rem 1rem 3rem;
-		overflow: auto;
+		overflow: hidden;
 	}

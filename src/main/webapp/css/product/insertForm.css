@@ -79,6 +79,7 @@
 		font-size: 1.2rem;
 		font-weight: bold;
 		box-shadow: 0 0.15rem 0.15rem #505050;
+		cursor:pointer;
 	}
 	input[type=submit]:active {
 		margin: 0.45rem 0.3rem 0.15rem 0.5rem;

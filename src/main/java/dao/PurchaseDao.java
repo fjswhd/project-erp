@@ -207,12 +207,54 @@ public class PurchaseDao {
 		Connection conn = getConnection();
 		
 		//이번 달 구매내역 구하기
-		String sql = "select product_no, product_name, cost, price, sum(purchase_detail_pcount) "
+		String sql = 
+				"select product_no, product_name, cost, price, sum(purchase_detail_pcount) "
 				+ "from purchase "
 				+ "where purchase_order_date < sysdate "
 				+ "and purchase_order_date > trunc(sysdate, 'mm') "
 				+ "group by product_no, product_name, cost, price "
-				+ "order by product_no";
+				+ "order by product_no desc";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Purchase purchase = new Purchase();
+				// 판매주문일, 주문번호, 판매처코드, 판매처명, 상품코드, 상품명, 판매가, 매입가, 현재 재고량, 주문수량, 주문 등록 사원번호
+				purchase.setProduct_no				(rs.getInt("product_no"));
+				purchase.setProduct_name			(rs.getString("product_name"));
+				purchase.setCost					(rs.getInt("cost"));
+				purchase.setPrice					(rs.getInt("price"));
+				purchase.setPurchase_detail_pcount	(rs.getInt(5));
+				
+				purchaseList.add(purchase);
+			}
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+		}
+		return purchaseList;
+	}
+	
+	public List<Purchase> purchaseList(String month) {
+		List<Purchase> purchaseList = new ArrayList<Purchase>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+		
+		//이번 달 구매내역 구하기
+		String sql = 
+				"select product_no, product_name, cost, price, sum(purchase_detail_pcount) "
+				+ "from purchase "
+				+ "where purchase_order_date like '"+month+"%' "
+				+ "group by product_no, product_name, cost, price "
+				+ "order by product_no desc";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -297,7 +339,7 @@ public class PurchaseDao {
 		return purchaseList;
 	}
 	
-	public int getTotalPurchaseSearch( SearchOption options) {
+	public int getTotalPurchaseSearch(SearchOption options) {
 		int total = 0;
 
 		PreparedStatement pstmt = null;
@@ -333,4 +375,7 @@ public class PurchaseDao {
 
 		return total;
 	}
+
+	
+
 }

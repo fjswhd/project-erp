@@ -119,7 +119,48 @@ public class SalesDao {
 				+ "where sales_order_date < sysdate "
 				+ "and sales_order_date > trunc(sysdate, 'mm') "
 				+ "group by product_no, product_name, price "
-				+ "order by product_no";
+				+ "order by product_no desc";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery(); 
+			
+			while(rs.next()) {
+				Sales sales = new Sales();
+				//판매주문일, 주문번호, 판매처코드, 판매처명, 상품코드, 상품명, 판매가, 매입가, 현재 재고량, 주문수량, 주문 등록 사원번호, 사원명
+				sales.setProduct_no			(rs.getInt("product_no"));
+				sales.setProduct_name		(rs.getString("product_name"));
+				sales.setPrice				(rs.getInt("price"));
+				sales.setSales_detail_pcount(rs.getInt(4));
+
+				salesList.add(sales); 
+			} 
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null)  conn.close();
+			}catch (Exception e) {		}
+
+		}
+
+		return salesList;
+	}
+	
+	public List<Sales> salesList(String month) {
+		List<Sales> salesList = new ArrayList<Sales>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+
+		String sql = "select product_no, product_name, price, sum(sales_detail_pcount) "
+				+ "from sales "
+				+ "where sales_order_date like '"+month+"%' "
+				+ "group by product_no, product_name, price "
+				+ "order by product_no desc";
 
 		try {
 			pstmt = conn.prepareStatement(sql);

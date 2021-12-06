@@ -20,7 +20,19 @@
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[3].setAttribute('style', 'background: #186343');
+		
+		frm.onsubmit = function() {
+			if (frm.cost.value > frm.price.value) {
+				alert('적절하지 못한 구매가/판매가 입니다.');
+				frm.price.focus();
+				return false;
+			} else {
+				return true;
+			}	
+		};
+		
 	}
+	
 </script>
 </head>
 <body>
@@ -51,7 +63,7 @@
 					<div class="label_name">상품 등록</div>
 				</div>
 				<div class="content_body">
-					<form action="/project/product/insert.do" method="post" name="frm" onsubmit="return submitChk()">
+					<form action="/project/product/insert.do" method="post" name="frm">
 					<table>
 						<tr>
 							<th>상품코드</th>
@@ -59,15 +71,15 @@
 						</tr>
 						<tr>
 							<th>상품명</th>
-							<td><input type="text" name="product_name" required="required" maxlength="10"/></td>
+							<td><input type="text" name="product_name" required="required" maxlength="10" placeholder="상품명" /></td>
 						</tr>
 						<tr>
 							<th>판매단가</th>
-							<td><input type="number" name="price" required="required" /></td>
+							<td><input type="number" name="price" required="required" placeholder="판매단가" /></td>
 						</tr>
 						<tr>
 							<th>매입단가</th>
-							<td><input type="number" name="cost" required="required" /></td>
+							<td><input type="number" name="cost" required="required" placeholder="매입단가" /></td>
 						</tr>
 						<tr class="last">
 							<th>참고사항</th>
@@ -75,7 +87,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="submit" value="등록">
+								<input type="submit" value="등록" >
 							</td>
 						</tr>
 					</table>

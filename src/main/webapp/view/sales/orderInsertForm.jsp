@@ -124,11 +124,11 @@
 						</tr>
 						<tr>
 							<th>주문수량</th>
-							<td><input type="number" name="sales_detail_pcount" required="required" /></td>
+							<td><input type="number" name="sales_detail_pcount" required="required" placeholder="주문수량" /></td>
 						</tr>
 						<tr>
 							<th>판매 가능 수량</th>
-							<td><input type="number" name="stock" required="required" readonly="readonly" value="0" /></td>
+							<td><input type="number" name="stock" required="required" readonly="readonly" /></td>
 						</tr>
 						<tr>
 							<th>담당자</th>
