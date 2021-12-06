@@ -108,4 +108,21 @@ public class HrDao {
 		session.close();
 		return result;
 	}
+	
+	public List<Hr> selectHrSearchList(Map<String, String> param) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		List<Hr> hrList = session.selectList("hrNS.selectHrSearchList", param);
+		
+		session.close();
+		
+		return hrList;
+	}
+	public int countHrSearchList(Map<String, String> param) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int empCount = (int) session.selectOne("hrNS.countHrSearchList", param);
+		
+		session.close();
+		
+		return empCount;
+	}
 }

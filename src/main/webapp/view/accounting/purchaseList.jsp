@@ -90,7 +90,7 @@
 									<td>${purchase.seller_name }</td>
 									<td>${purchase.product_no}</td>
 									<td>${purchase.product_name}</td>
-									<td>${purchase.price}</td>
+									<td>${purchase.cost}</td>
 									<td>${purchase.purchase_detail_pcount}</td>
 									<td>${purchase.purchase_detail_pcount * purchase.price}</td>
 									<td>${purchase.emp_no}</td>

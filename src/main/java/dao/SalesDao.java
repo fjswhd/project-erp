@@ -114,11 +114,11 @@ public class SalesDao {
 		ResultSet rs = null;
 		Connection conn = getConnection();
 
-		String sql = "select product_no, product_name, price, sum(sales_detail_pcount) "
+		String sql = "select product_no, product_name, cost, price, sum(sales_detail_pcount) "
 				+ "from sales "
 				+ "where sales_order_date < sysdate "
 				+ "and sales_order_date > trunc(sysdate, 'mm') "
-				+ "group by product_no, product_name, price "
+				+ "group by product_no, product_name, price, cost "
 				+ "order by product_no desc";
 
 		try {
@@ -131,7 +131,8 @@ public class SalesDao {
 				sales.setProduct_no			(rs.getInt("product_no"));
 				sales.setProduct_name		(rs.getString("product_name"));
 				sales.setPrice				(rs.getInt("price"));
-				sales.setSales_detail_pcount(rs.getInt(4));
+				sales.setCost				(rs.getInt("cost"));
+				sales.setSales_detail_pcount(rs.getInt(5));
 
 				salesList.add(sales); 
 			} 
@@ -156,10 +157,10 @@ public class SalesDao {
 		ResultSet rs = null;
 		Connection conn = getConnection();
 
-		String sql = "select product_no, product_name, price, sum(sales_detail_pcount) "
+		String sql = "select product_no, product_name, cost, price, sum(sales_detail_pcount) "
 				+ "from sales "
-				+ "where sales_order_date like '"+month+"%' "
-				+ "group by product_no, product_name, price "
+				+ "where sales_order_date between to_date('"+month+"', 'yy/mm') and add_months(to_date('"+month+"', 'yy/mm'), 1) "
+				+ "group by product_no, product_name, cost, price "
 				+ "order by product_no desc";
 
 		try {
@@ -172,7 +173,9 @@ public class SalesDao {
 				sales.setProduct_no			(rs.getInt("product_no"));
 				sales.setProduct_name		(rs.getString("product_name"));
 				sales.setPrice				(rs.getInt("price"));
-				sales.setSales_detail_pcount(rs.getInt(4));
+				sales.setCost				(rs.getInt("cost"));
+
+				sales.setSales_detail_pcount(rs.getInt(5));
 
 				salesList.add(sales); 
 			} 

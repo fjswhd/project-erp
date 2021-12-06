@@ -93,8 +93,6 @@
 					<c:url value="/product/searchList.do" var="url">
 						<c:param name="searchField" value="${param.searchField}"/>
 						<c:param name="keyword" value="${param.keyword}"/>
-						<c:param name="from" value="${param.from}"/>
-						<c:param name="to" value="${param.to}"/>
 					</c:url>
 					<div class="page">
 						<a href="${url}&p=${p-5}">&lt;</a>

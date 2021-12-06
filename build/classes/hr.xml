@@ -21,9 +21,31 @@
 		select * from v_hr where rn between #{firstRow} and #{lastRow}
 	</select>
 	
+	
 	<!-- 총 사원 수 -->
 	<select id="selectEmpCount" resultType="int">
 		select count(emp_no) from emp
+	</select>
+	
+	<!-- 검색 조건에 맞는 사원 검색 -->
+	<select id="selectHrSearchList" parameterType="map" resultType="Hr">
+		select *
+		from (
+			select rownum rn, h.* 
+			from hr h 
+			where ${searchField} like '%'||#{keyword}||'%'
+		) 
+		where rn between #{firstRow} and #{lastRow}
+	</select>
+	
+	<!-- 검색 조건에 맞는 사원 수 -->
+	<select id="countHrSearchList" parameterType="map" resultType="int">
+		select count(*)
+		from (
+			select rownum rn, h.* 
+			from hr h 
+			where ${searchField} like '%'||#{keyword}||'%'
+		) 
 	</select>
 	
 	<!-- 부서리스트 조회 -->

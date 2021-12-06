@@ -105,7 +105,7 @@ public class Init implements Command {
 					+ "		</tr>\r\n"
 					+ "		<tr>\r\n"
 					+ "			<td style=\"padding-left: 20px; padding-bottom: 10px; font-size: 16px\">\r\n"
-					+ "				<a href=\"http://localhost:8080/project/loginForm.do\">로그인 페이지 바로가기</a>\r\n"
+					+ "				<a href=\"http://localhost:"+request.getLocalPort()+"/project/loginForm.do\">로그인 페이지 바로가기</a>\r\n"
 					+ "			</td>\r\n"
 					+ "		</tr>\r\n"
 					+ "	</table>\r\n"

@@ -113,6 +113,18 @@ as
 	order by emp_no, e1.dept_no
 with read only;
 
+create or replace view hr
+as
+	select e.emp_no, e.emp_name, d.dept_name, e.emp_tel, e.emp_email
+	from emp e, dept d
+	where e.dept_no = d.dept_no
+	order by e.dept_no, emp_no desc
+with read only;
+	
+select * from hr;
+
+select * from v_hr where rn between '1' and '10';
+
 create or replace view modified_stock
 as
 	select pm.product_modified_date, p.product_no, p.product_name, pm.modified_stock, pm.modified_memo, e.emp_no, e.emp_name 
@@ -167,6 +179,13 @@ select * from P_BALANCE;
 
 delete from product where product_no = 6;
 
+select * from purchase;
 
 insert into emp values ('21-00001', 50, '1234', '이종민', 'fjswhd93@gmail.com', '10358','고양시', '덕양구', '010-9052-1980', to_date('210502', 'YYMMDD'), 'n');
 
+select product_no, product_name, cost, price, sum(purchase_detail_pcount) 
+from purchase
+where purchase_order_date < sysdate
+and purchase_order_date > trunc(sysdate, 'mm')
+group by product_no, product_name, cost, price
+order by product_no desc;

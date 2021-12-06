@@ -8,16 +8,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>매입 내역</title>
+<title>사원 목록</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/accounting/list.css" rel="stylesheet" type="text/css">
+<link href="/project/css/hr/hrList.css?1" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[0].setAttribute('style', 'background: #186343');
+		
+		document.querySelectorAll('option').forEach(function(element) {
+			if( element.value == '${param.searchField}' )
+				element.setAttribute('selected', 'selected');
+		});
+		
+		var keyword = '${param.keyword}';
+		if (keyword != null && keyword != '') {
+			search.keyword.value = keyword;
+		}
 	}
 </script>
 </head>
@@ -27,10 +37,10 @@
 	</div>
 	<div id="body_container">
 		<div class="side_bar">
-			<div>회 계</div>
-			<div class="label">매입 내역</div>
-			<div class="label">매출 내역</div>
-			<div class="label">월별 결산</div>
+			<div>인 사</div>
+			<div class="label">사원 목록</div>
+			<div class="label">정보 수정</div>
+			<div class="label">사원 등록</div>
 		</div>
 		<div class="body">
 			<div class="toolbar">
@@ -43,66 +53,46 @@
 			</div>
 			<div class="content">
 				<div class="content_head">
-					<div class="label_name">매입 내역</div>
+					<div class="label_name">사원 목록</div>
 				</div>
 				<div class="content_body">
-					<form method="post" name="search" action="/project/accounting/purchaseSearchList.do">
+					<form method="post" name="search" action="/project/hr/searchList.do">
 						<div class="searchBox">
-							<input type="date" name="from">&nbsp;부터
-							<input type="date" name="to">&nbsp;까지 
 							<select name="searchField">
 								<option value="0">선택</option>
-								<option value="seller_no">업체코드</option>
-								<option value="seller_name">업체명</option>
-								<option value="product_no">상품코드</option>
-								<option value="product_name">상품명</option>
-								<option value="emp_no">담당자(사번)</option>
-								<option value="emp_name">담당자(이름)</option>
-							</select> 
+								<option value="emp_no">사번</option>
+								<option value="emp_name">사원명</option>
+								<option value="dept_name">부서명</option>
+								<option value="emp_tel">전화번호</option>
+								<option value="emp_email">이메일</option>
+							</select>
 							<div class="inputBox">
 								<input type="text" name="keyword" placeholder="검색어를 입력하세요.">
-								<button type="submit"></button>							
+								<button type="submit"></button>													
 							</div>
 						</div>
 					</form>
 					<table>
 						<tr>
-							<th>구매일</th>
-							<th>업체코드</th>
-							<th>업체명</th>
-							<th>상품코드</th>
-							<th>상품명</th>
-							<th>매입단가</th>
-							<th>수량</th>
-							<th>매입 총액</th>
-							<th>담당자</th>
+							<th>사번</th>
+							<th>사원명</th>
+							<th>부서명</th>
+							<th>전화번호</th>
+							<th>이메일</th>
 						</tr>
-						<c:if test="${empty purchaseList}">
+						<c:forEach var="hr" items="${hrList}">
 							<tr>
-								<th>검색 조건과 일치하는 매입 내역이 없습니다</th>
+								<td>${hr.emp_no}</td>
+								<td>${hr.emp_name}</td>
+								<td>${hr.dept_name}</td>
+								<td>${hr.emp_tel}</td>
+								<td>${hr.emp_email}</td>
 							</tr>
-						</c:if>
-						<c:if test="${not empty purchaseList }">
-							<c:forEach var="purchase" items="${purchaseList }">
-								<tr>
-									<td>${purchase.purchase_order_date }</td>
-									<td>${purchase.seller_no }</td>
-									<td>${purchase.seller_name }</td>
-									<td>${purchase.product_no}</td>
-									<td>${purchase.product_name}</td>
-									<td>${purchase.cost}</td>
-									<td>${purchase.purchase_detail_pcount}</td>
-									<td>${purchase.purchase_detail_pcount * purchase.price}</td>
-									<td>${purchase.emp_no}</td>
-								</tr>
-							</c:forEach>
-						</c:if>
+						</c:forEach>
 					</table>
-					<c:url value="/accounting/purchaseSearchList.do" var="url">
+					<c:url value="/hr/searchList.do" var="url">
 						<c:param name="searchField" value="${param.searchField}"/>
 						<c:param name="keyword" value="${param.keyword}"/>
-						<c:param name="from" value="${param.from}"/>
-						<c:param name="to" value="${param.to}"/>
 					</c:url>
 					<div class="page">
 						<a href="${url}&p=${p-5}">&lt;</a>

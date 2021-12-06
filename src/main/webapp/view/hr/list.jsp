@@ -12,7 +12,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <link href="/project/css/common/outline.css" rel="stylesheet" type="text/css">
-<link href="/project/css/hr/hrList.css" rel="stylesheet" type="text/css">
+<link href="/project/css/hr/hrList.css?1" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 	window.onload = function() {
@@ -46,6 +46,22 @@
 					<div class="label_name">사원 목록</div>
 				</div>
 				<div class="content_body">
+					<form method="post" name="search" action="/project/hr/searchList.do">
+						<div class="searchBox">
+							<select name="searchField">
+								<option value="0">선택</option>
+								<option value="emp_no">사번</option>
+								<option value="emp_name">사원명</option>
+								<option value="dept_name">부서명</option>
+								<option value="emp_tel">전화번호</option>
+								<option value="emp_email">이메일</option>
+							</select>
+							<div class="inputBox">
+								<input type="text" name="keyword" placeholder="검색어를 입력하세요.">
+								<button type="submit"></button>													
+							</div>
+						</div>
+					</form>
 					<table>
 						<tr>
 							<th>사번</th>

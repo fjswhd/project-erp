@@ -252,7 +252,7 @@ public class PurchaseDao {
 		String sql = 
 				"select product_no, product_name, cost, price, sum(purchase_detail_pcount) "
 				+ "from purchase "
-				+ "where purchase_order_date like '"+month+"%' "
+				+ "where purchase_order_date between to_date('"+month+"', 'yy/mm') and add_months(to_date('"+month+"', 'yy/mm'), 1) "
 				+ "group by product_no, product_name, cost, price "
 				+ "order by product_no desc";
 		try {
