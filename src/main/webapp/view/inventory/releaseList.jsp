@@ -49,8 +49,8 @@
 				<div class="content_body">
 					<form method="post" name="search" action="/project/inventory/releaseSearchList.do">
 						<div class="searchBox">
-							<input type="date" name="s_date">&nbsp;부터
-							<input type="date" name="e_date">&nbsp;까지 
+							<input type="date" name="from">&nbsp;부터
+							<input type="date" name="to">&nbsp;까지 
 							<select name="searchField">
 								<option value="0">선택</option>
 								<option value="customer_no">업체코드</option>

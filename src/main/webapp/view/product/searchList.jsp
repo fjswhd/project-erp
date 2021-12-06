@@ -18,6 +18,16 @@
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[2].setAttribute('style', 'background: #186343');
+		
+		document.querySelectorAll('option').forEach(function(element) {
+			if( element.value == '${param.searchField}' )
+				element.setAttribute('selected', 'selected');
+		});
+		
+		var keyword = '${param.keyword}';
+		if (keyword != null && keyword != '') {
+			search.keyword.value = keyword;
+		}
 	}
 </script>
 </head>

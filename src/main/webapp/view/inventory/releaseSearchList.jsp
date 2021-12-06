@@ -18,6 +18,24 @@
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[3].setAttribute('style', 'background: #186343');
+		
+		document.querySelectorAll('option').forEach(function(element) {
+			if( element.value == '${param.searchField}' )
+				element.setAttribute('selected', 'selected');
+		});
+		
+		var keyword = '${param.keyword}';
+		var from = '${param.from}';
+		var to = '${param.to}';
+		if (keyword != null && keyword != '') {
+			search.keyword.value = keyword;
+		}
+		if (from != null && from != '') {
+			search.from.value = from;
+		}
+		if (to != null && to != '') {
+			search.to.value = to;
+		}
 	}
 </script>
 </head>
@@ -49,8 +67,8 @@
 				<div class="content_body">
 					<form method="post" name="search" action="/project/inventory/releaseSearchList.do">
 						<div class="searchBox">
-							<input type="date" name="s_date">&nbsp;부터
-							<input type="date" name="e_date">&nbsp;까지 
+							<input type="date" name="from">&nbsp;부터
+							<input type="date" name="to">&nbsp;까지 
 							<select name="searchField">
 								<option value="0">선택</option>
 								<option value="customer_no">업체코드</option>

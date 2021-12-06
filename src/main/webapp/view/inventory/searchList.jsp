@@ -18,6 +18,16 @@
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[0].setAttribute('style', 'background: #186343');
+		
+		document.querySelectorAll('option').forEach(function(element) {
+			if( element.value == '${param.searchField}' )
+				element.setAttribute('selected', 'selected');
+		});
+		
+		var keyword = '${param.keyword}';
+		if (keyword != null && keyword != '') {
+			search.keyword.value = keyword;
+		}
 	}
 	function openWindow(p, product_no) {
 		window.open('/project/inventory/modifyStockForm.do?p='+p+'&product_no='+product_no, '재고수정', 'width=500, height=350 left=550, top=100');

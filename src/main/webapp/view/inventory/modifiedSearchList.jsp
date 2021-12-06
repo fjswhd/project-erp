@@ -18,6 +18,24 @@
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[1].setAttribute('style', 'background: #186343');
+		
+		document.querySelectorAll('option').forEach(function(element) {
+			if( element.value == '${param.searchField}' )
+				element.setAttribute('selected', 'selected');
+		});
+		
+		var keyword = '${param.keyword}';
+		var from = '${param.from}';
+		var to = '${param.to}';
+		if (keyword != null && keyword != '') {
+			search.keyword.value = keyword;
+		}
+		if (from != null && from != '') {
+			search.from.value = from;
+		}
+		if (to != null && to != '') {
+			search.to.value = to;
+		}
 	}
 	
 </script>

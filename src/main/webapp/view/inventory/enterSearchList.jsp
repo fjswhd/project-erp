@@ -18,6 +18,19 @@
 	window.onload = function() {
 		var label = document.getElementsByClassName('label');
 		label[2].setAttribute('style', 'background: #186343');
+		
+		var keyword = '${param.keyword}';
+		var from = '${param.from}';
+		var to = '${param.to}';
+		if (keyword != null && keyword != '') {
+			search.keyword.value = keyword;
+		}
+		if (from != null && from != '') {
+			search.from.value = from;
+		}
+		if (to != null && to != '') {
+			search.to.value = to;
+		}
 	}
 </script>
 </head>

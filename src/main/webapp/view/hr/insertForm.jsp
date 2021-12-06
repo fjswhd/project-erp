@@ -68,7 +68,7 @@
 						</tr>
 						<tr>
 							<th>이름</th>
-							<td><input type="text" name="emp_name" required="required" maxlength="5" /></td>
+							<td><input type="text" name="emp_name" required="required" maxlength="5" placeholder="이름" /></td>
 						</tr>
 						<tr>
 							<th>부서</th>
@@ -94,11 +94,11 @@
 						</tr>
 						<tr>
 							<th>전화번호</th>
-							<td><input type="tel" name="emp_tel" required="required" /></td>
+							<td><input type="tel" name="emp_tel" required="required" placeholder="전화번호" /></td>
 						</tr>
 						<tr>
 							<th>이메일</th>
-							<td><input type="text" name="emp_email" required="required" /></td>
+							<td><input type="text" name="emp_email" required="required" placeholder="이메일" /></td>
 						</tr>
 						<tr>
 							<th>입사일</th>
