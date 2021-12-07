@@ -43,13 +43,13 @@
 			};
 		};
 		
-		frm.onsubmit = function() {
-			var msg = document.getElementsByClassName('msg')[0];
-			if (msg.innerHTML == '이미 등록된 업체입니다.') {
-				alert('업체 등록 여부를 확인해주세요.');
-				frm.customer_reg_num.focus();
-				return false
-			}
+	}
+	function chk() {
+		var msg = document.getElementsByClassName('msg')[0];
+		if (msg.innerHTML == '이미 등록된 업체입니다.') {
+			alert('업체 등록 여부를 확인해주세요.');
+			frm.seller_reg_num.focus();
+			return false;
 		}
 	}
 </script>
@@ -82,7 +82,7 @@
 					<div class="label_name">구매처 등록</div>
 				</div>
 				<div class="content_body">
-					<form action="/project/seller/insert.do" method="post" name="frm" >
+					<form action="/project/seller/insert.do" method="post" name="frm" onsubmit="return chk()">
 					<table>
 						<tr>
 							<th>업체번호</th>

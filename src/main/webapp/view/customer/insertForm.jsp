@@ -48,7 +48,7 @@
 			if (msg.innerHTML == '이미 등록된 업체입니다.') {
 				alert('업체 등록 여부를 확인해주세요.');
 				frm.customer_reg_num.focus();
-				return false
+				return false;
 			}
 		}
 	}

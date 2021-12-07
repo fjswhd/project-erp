@@ -19,6 +19,11 @@
 		var label = document.getElementsByClassName('label');
 		label[2].setAttribute('style', 'background: #186343');
 		
+		document.querySelectorAll('option').forEach(function(element) {
+			if( element.value == '${param.searchField}' )
+				element.setAttribute('selected', 'selected');
+		});
+		
 		var keyword = '${param.keyword}';
 		var from = '${param.from}';
 		var to = '${param.to}';
@@ -81,7 +86,7 @@
 					</form>
 					<table>
 						<tr>
-							<th>출고일</th>
+							<th>입고일</th>
 							<th>업체코드</th>
 							<th>업체명</th>
 							<th>상품코드</th>

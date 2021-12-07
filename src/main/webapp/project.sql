@@ -178,7 +178,7 @@ with read only;
 select * from P_BALANCE;
 
 delete from product where product_no = 6;
-
+delete from seller where seller_no = 'S0004';
 select * from purchase;
 
 insert into emp values ('21-00001', 50, '1234', '이종민', 'fjswhd93@gmail.com', '10358','고양시', '덕양구', '010-9052-1980', to_date('210502', 'YYMMDD'), 'n');
